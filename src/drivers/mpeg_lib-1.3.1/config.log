@@ -1,0 +1,28 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:564: checking for a BSD compatible install
+configure:637: checking host system type
+configure:661: checking whether byte ordering is bigendian
+configure:778: checking for gcc
+configure:891: checking whether the C compiler (gcc -O2  ) works
+configure:907: gcc -o conftest -O2     conftest.c  1>&5
+configure:933: checking whether the C compiler (gcc -O2  ) is a cross-compiler
+configure:938: checking whether we are using GNU C
+configure:966: checking whether gcc accepts -g
+configure:999: checking that "gcc -O2" is fairly ANSI-compliant
+configure:1094: checking for ranlib
+configure:1124: checking for ar
+configure:1187: checking how to run the C preprocessor
+configure:1267: checking for ANSI C header files
+configure:1374: checking for sys/time.h
+configure:1374: checking for unistd.h
+configure:1374: checking for netinet/in.h
+configure:1413: checking whether time.h and sys/time.h may both be included
+configure:1450: checking for vprintf
+configure:1557: checking for strtod
+configure:1557: checking for strtol
+configure:1557: checking for random
+configure:1557: checking for rand
+configure:1557: checking for lrand48
+configure:1610: checking for getrusage

@@ -135,14 +135,14 @@ void XVRemoteWindowX<T>::CopyImage( int which, u_short flip ) {
 
 template<class T>
 void XVRemoteWindowX<T>::ClearWindow(void) {
-  Drawing d( Drawing::ClearWindow, DEFAULT_COLOR );
+  Drawing d( Drawing::ClearWindow, (char*)DEFAULT_COLOR );
   next->drawings.push_front( d );  
   signal_worker();
 }
 
 template<class T>
 void XVRemoteWindowX<T>::CopySubImage( const XVImageRGB<T>& image, bool flip ) {
-  Drawing d( Drawing::DrawImage, DEFAULT_COLOR );
+  Drawing d( Drawing::DrawImage, (char*)DEFAULT_COLOR );
   d.x1 = flip ;
   next->drawings.push_front( d );  
   resample( factorX, factorY, image, next->image );
@@ -151,7 +151,7 @@ void XVRemoteWindowX<T>::CopySubImage( const XVImageRGB<T>& image, bool flip ) {
 
 template<class T>
 void XVRemoteWindowX<T>::swap_buffers(void) {
-  Drawing d( Drawing::SwapBuffer, DEFAULT_COLOR );
+  Drawing d( Drawing::SwapBuffer, (char*)DEFAULT_COLOR );
   next->drawings.push_front( d );  
 }
 

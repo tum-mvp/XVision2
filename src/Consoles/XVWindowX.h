@@ -429,7 +429,7 @@ class XVWindowX: virtual public XVWindow<T> {
 
 class CannotAllocColorException : public XVException { 
  public:
-  CannotAllocColorException() : XVException("CannotAllocColorException: Could Not Allocate the specified color") {}
+  CannotAllocColorException() : XVException((char*)"CannotAllocColorException: Could Not Allocate the specified color") {}
   CannotAllocColorException(char * err) : XVException(err){}
 };
 

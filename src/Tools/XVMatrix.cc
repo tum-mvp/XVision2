@@ -37,7 +37,7 @@ XVMatrix::resize(int nrows, int ncols)
   rowNum = nrows; colNum = ncols;
   
   if (dataShared())
-    _panic("Cannot resize a matrix which has an outstanding submatrix");
+    _panic((char*)"Cannot resize a matrix which has an outstanding submatrix");
   
   // Check data room
   if ( (nrows*ncols > csize) || (csize == 0) ) {
@@ -115,7 +115,7 @@ XVMatrix::operator*(const XVMatrix &mat) const
   p = 0;
   
   if (colNum != mat.rowNum)
-    _panic("XVMatrix mismatch in matrix matrix multiply");
+    _panic((char*)"XVMatrix mismatch in matrix matrix multiply");
   
   for (int i=0;i<rowNum;i++)
     for (int j=0;j<mat.colNum;j++)
@@ -129,7 +129,7 @@ XVMatrix::operator*(XVColVector &mat) const
 {
   XVColVector p(rowNum);
   if (colNum != mat.rowNum)
-    _panic("XVMatrix mismatch in matrix/vector multiply\n");
+    _panic((char*)"XVMatrix mismatch in matrix/vector multiply\n");
 
   p = 0.0;
   for (int j=0;j<colNum;j++) {
@@ -149,7 +149,7 @@ XVMatrix::operator*(XVRowVector &mat) const
   float pp;
 
   if (rowNum != mat.colNum)
-    _panic("XVMatrix mismatch in matrix/vector multiply\n");
+    _panic((char*)"XVMatrix mismatch in matrix/vector multiply\n");
 
   p = 0.0;
   for (int i=0;i<rowNum;i++) {
@@ -176,7 +176,7 @@ XVMatrix::operator/(FrReal x) const
 XVMatrix
 XVMatrix::operator+(const XVMatrix &mat) const
 {
-  CHECKSIZE(mat,"Incompatible size in +");
+  CHECKSIZE(mat,(char*)"Incompatible size in +");
   XVMatrix v(rowNum,colNum);
   int i;int j;
   for (i=0;i<rowNum;i++)
@@ -189,7 +189,7 @@ XVMatrix::operator+(const XVMatrix &mat) const
 XVColVector
 XVColVector::operator+(const XVColVector &mat) const
 {
-  CHECKSIZE(mat,"Incompatible size in +");
+  CHECKSIZE(mat,(char*)"Incompatible size in +");
   XVColVector v(rowNum);
   for (int i=0;i<rowNum;i++)
       v[i] = (*this)[i] + mat[i];
@@ -199,7 +199,7 @@ XVColVector::operator+(const XVColVector &mat) const
 XVMatrix
 XVMatrix::operator-(const XVMatrix &mat) const 
 {
-  CHECKSIZE(mat,"Incompatible size in -");
+  CHECKSIZE(mat,(char*)"Incompatible size in -");
   XVMatrix v(rowNum,colNum);
   int i;int j;
   for (i=0;i<rowNum;i++)
@@ -211,7 +211,7 @@ XVMatrix::operator-(const XVMatrix &mat) const
 XVColVector
 XVColVector::operator-(const XVColVector &mat) const
 {
-  CHECKSIZE(mat,"Incompatible size in +");
+  CHECKSIZE(mat,(char*)"Incompatible size in +");
   XVColVector v(rowNum);
   for (int i=0;i<rowNum;i++)
       v[i] = (*this)[i] - mat[i];
@@ -251,7 +251,7 @@ XVMatrix::operator+=(FrReal x){
 XVMatrix&
 XVMatrix::operator+=(const XVMatrix &mat)
 {
-  CHECKSIZE(mat,"Incompatible size in +=");
+  CHECKSIZE(mat,(char*)"Incompatible size in +=");
   int i;int j;
   for (i=0;i<rowNum;i++)
     for(j=0;j<colNum;j++)
@@ -270,7 +270,7 @@ XVMatrix::operator-=(FrReal x){
 
 XVMatrix&
 XVMatrix::operator-=(const XVMatrix &mat) {
-  CHECKSIZE(mat,"Incompatible size in -=");
+  CHECKSIZE(mat,(char*)"Incompatible size in -=");
   int i;int j;
   for (i=0;i<rowNum;i++)
     for(j=0;j<colNum;j++)
@@ -395,7 +395,7 @@ XVRowVector::operator=(const XVRowVector &v)
 XVRowVector&
 XVRowVector::operator=(const XVMatrix &m) 
 {
-  CHECKSIZE(m,"Incompatible size in =");
+  CHECKSIZE(m,(char*)"Incompatible size in =");
 
   if (colNum==0) {resize(m.colNum);}
   for (int i=0; i<rowNum; i++) {
@@ -472,7 +472,7 @@ XVMatrix::init(XVMatrix &m,int startr, int startc, int nrows, int ncols)
 #ifndef NO_BOUNDS_CHECK
   if ((startr < 0) || (startc < 0) || (nrows < 0) || (ncols < 0) ||
       (nrows > m.rowNum) || (ncols > m.colNum))
-    _panic("Submatrix requested out of bounds");
+    _panic((char*)"Submatrix requested out of bounds");
 #endif
   
     // Set up the XVMatrix parameters
@@ -612,7 +612,7 @@ XVMatrix::LUDcmp(int *perm, int& d)
     big=0.0;
     for (j=0;j<n;j++)
       if ((temp=fabs(rowPtrs[i][j])) > big) big=temp;
-    if (big == 0.0) _panic("Singular matrix in  LUDcmp");
+    if (big == 0.0) _panic((char*)"Singular matrix in  LUDcmp");
     vv[i]=1.0/big;
   }
   for (j=0;j<n;j++) {
@@ -680,7 +680,7 @@ void
 XVMatrix::solveByLUD(const XVColVector &B, XVColVector& X)
 {
   if (colNum != rowNum)
-    _panic("Solution for nonsquare matrix");
+    _panic((char*)"Solution for nonsquare matrix");
 
   XVMatrix A(rowNum, rowNum);
   A = *this;
@@ -820,7 +820,7 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
     v[i] = V.rowPtrs[i-1]-1;
   }
   
-  if (m < n) _panic("SVDcmp: You must augment A with extra zero rows");
+  if (m < n) _panic((char*)"SVDcmp: You must augment A with extra zero rows");
   FrReal* rv1=new FrReal[n+1]; 
 
   for (i=1;i<=n;i++) {
@@ -914,11 +914,11 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
       flag=1;
       for (l=k;l>=1;l--) {
 	nm=l-1;
-	if (fabs(rv1[l])<1e-9) {
+	if (fabs(rv1[l])<1e-18) {
 	  flag=0;
 	  break;
 	}
-	if (fabs(w[nm][0])<1e-9) break;
+	if (fabs(w[nm][0])<1e-18) break;
       }
       if (flag) {
 	c=0.0;
@@ -949,7 +949,7 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
 	}
 	break;
       }
-      if (its == 30) _panic("SVDcmp:no convergence in 30 iterations");
+      if (its == 30) _panic((char*)"SVDcmp:no convergence in 30 iterations");
       x=w[l][0];
       nm=k-1;
       y=w[nm][0];
@@ -1080,7 +1080,7 @@ XVMatrix::i() const
   int i,j;
 
   if ( rowNum != colNum)
-    _panic("Cannot invert a non-square matrix");
+    _panic((char*)"Cannot invert a non-square matrix");
 
   XVMatrix B(rowNum, rowNum), X(rowNum, rowNum);
   XVMatrix V(rowNum, rowNum);
@@ -1245,7 +1245,7 @@ XVMatrix
 operator*(const XVDiagonalMatrix &x, const XVMatrix &y)
 {
   if (x.n_of_cols() != y.n_of_rows())
-    _panic("XVMatrix mismatch in matrix/vector multiply\n");
+    _panic((char*)"XVMatrix mismatch in matrix/vector multiply\n");
 
   XVMatrix temp(y);
 
@@ -1262,7 +1262,7 @@ XVRowVector
 operator*(const XVDiagonalMatrix &x, const XVRowVector &y)
 {
   if (x.n_of_cols() != y.n_of_cols())
-    _panic("XVMatrix mismatch in matrix/vector multiply\n");
+    _panic((char*)"XVMatrix mismatch in matrix/vector multiply\n");
 
   XVRowVector temp(y);
 
@@ -1277,7 +1277,7 @@ XVMatrix
 operator*(const XVMatrix &x, const XVDiagonalMatrix &y)
 {
   if (x.n_of_cols() != y.n_of_rows())
-    _panic("XVMatrix mismatch in matrix/vector multiply\n");
+    _panic((char*)"XVMatrix mismatch in matrix/vector multiply\n");
 
   XVMatrix temp(x);
 
@@ -1294,7 +1294,7 @@ XVDiagonalMatrix
 operator*(const XVDiagonalMatrix &x, const XVDiagonalMatrix &y)
 {
   if (x.n_of_rows() != y.n_of_rows())
-    _panic("Matrix mismatch in diagonal matrix multiply\n");
+    _panic((char*)"Matrix mismatch in diagonal matrix multiply\n");
 
   XVColVector temp(x.t);
 

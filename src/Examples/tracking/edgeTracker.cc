@@ -1,5 +1,5 @@
 #include <config.h>
-#include <XVImageSeq.h>
+#include <XVMpeg.h>
 #include <XVVideo.h>
 //#include <XVDig1394.h>
 #include <XVEdgeFeature.h>
@@ -12,12 +12,12 @@ static u_short range = 2;
 int main(int argc, char * argv[]){
 
   typedef XVVideo<XVImageRGB<XV_RGB> > VID;
-  typedef XVImageSeq<XVImageRGB<XV_RGB> >  MPG;
+  typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
   typedef XVInteractWindowX<XV_RGB>    WIN;
 
   typedef XVEdgeFeature<int, XVEdge<int> > EDGE;
 
-  VID * vid = new MPG(argv[1],100);
+  VID * vid = new MPG(argv[1]);
 
   WIN win(vid->frame(0), 0, 400);
   win.map();

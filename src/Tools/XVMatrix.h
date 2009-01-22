@@ -78,14 +78,14 @@ public:
   FrReal&
   operator[] (int n) {
     if ((n < 0) || (n >= colNum))
-      _panic("XVMatrix second argument out of range");
+      _panic((char*)"XVMatrix second argument out of range");
     return data[n];
   }
 
   const FrReal&
   operator[] (int n) const {
     if ((n < 0) || (n >= colNum))
-      _panic("XVMatrix second argument out of range");
+      _panic((char*)"XVMatrix second argument out of range");
     return data[n];
   }
 

@@ -24,7 +24,7 @@
 
 #include <iostream>
 #include <math.h>
-#include <string>
+#include <string.h>
 
 #include <XVMacros.h>
 #include <XVGeometry.h>

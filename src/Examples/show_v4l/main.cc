@@ -10,7 +10,7 @@ int main(int argc, char **argv)
   struct timeval time1, time2;
  
 
-  XVV4L2<XVImageRGB<XV_RGB> > camera(DEVICE_NAME,"B2N1I2");
+  XVV4L2<XVImageRGB<XV_RGB> > camera(DEVICE_NAME,"B2N1I1");
   XVRemoteWindowX<XV_RGB> win(camera.frame(0).Width(),camera.frame(0).Height());
   win.map();
   camera.initiate_acquire(index);

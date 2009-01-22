@@ -2065,10 +2065,10 @@ inline void
 XVThreadedWindowX<T, I>::selectPoint(XVPosition & p, 
 				  XVDrawColor c,bool draw_flag ){
 
-  if(!draw_flag) XVThreadedWindowException("Not implemented");
+  if(!draw_flag) XVThreadedWindowException((char*)"Not implemented");
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
   
   static XVDrawColor selectPointThreadFuncColor = c;
@@ -2098,7 +2098,7 @@ XVThreadedWindowX<T, I>::selectLine(XVPosition & p1,
   
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
   
   static XVDrawColor selectLineThreadFuncColor = c;
@@ -2129,7 +2129,7 @@ XVThreadedWindowX<T, I>::selectRectangle(XVImageGeneric & g,
 
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
 
   static XVDrawColor selectRectangleThreadFuncColor = c;
@@ -2159,7 +2159,7 @@ XVThreadedWindowX<T, I>::selectEllipse(XVImageGeneric & g,
   
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
 
   static XVDrawColor selectEllipseThreadFuncColor = c;
@@ -2189,7 +2189,7 @@ XVThreadedWindowX<T, I>::selectSizedRect(XVImageGeneric & g, const XVSize & s,
   
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
   
   static XVDrawColor selectSizedRectThreadFuncColor = c;
@@ -2222,7 +2222,7 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRect(XVPosition & ulcPos, XVSize & si
   
   hasBeenSelected = false;
   if(currentlySelecting)
-    throw XVThreadedWindowException("Already Selecting");
+    throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
 
   static XVDrawColor selectAngledRectThreadFuncColor = c;

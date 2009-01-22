@@ -172,17 +172,17 @@ int main (int argc, char **argv) {
     }
   } //end rudimentary parsing
 
-#ifdef HAVE_BTTV
   if (!grabber) {
-    grabber = new XVV4L2<XVImageRGB<XV_RGB> >(XVSize(640,480));
-    grabber -> set_params ("I2N0B2");
+    grabber = new XVV4L2<XVImageRGB<XV_RGB> >(XVSize(640,480),"/dev/video0","I0N0B2");
+    //grabber -> set_params ("I1N0B2");
   }
-#endif
   if (!grabber) {
     cerr<<"Error: no framegrabber found!"<<endl;
     exit(1);
   }
   n_buffers=grabber->buffer_count();
+  int cam=0;
+  grabber->initiate_acquire(cam);
 
   //Set up the window
   if (output == 1 || output == 3) {
@@ -194,23 +194,25 @@ int main (int argc, char **argv) {
     gettimeofday (&time1, NULL);
     for (i=0; i<rate; i++) {
 
-      new_color_im = grabber->next_frame_continuous();
+      grabber->initiate_acquire(cam^1);
+      grabber->wait_for_completion(cam);
 
       if (output>1) {
-        XVWritePPM(new_color_im, "image.ppm");
-        RGBtoScalar(new_color_im, new_gray_im, in_color);
+        XVWritePPM(grabber->frame(cam), "image.ppm");
+        RGBtoScalar(grabber->frame(cam), new_gray_im, in_color);
         XVWritePGM(new_gray_im, "image.pgm");
       }
  
 
       if (output == 1 || output ==3) 
-        window -> CopySubImage(new_color_im);     
+        window -> CopySubImage(grabber->frame(cam));     
  
       //Swap and flush
       if (output == 1 || output ==3) {
         window -> swap_buffers();
         window -> flush();
       }
+      cam^=1;
     }
     //Produce timing results
     gettimeofday (&time2, NULL);

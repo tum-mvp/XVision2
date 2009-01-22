@@ -132,12 +132,12 @@ class XVDrawable {
  public:
 
   inline int drawPoint(XVPosition p, 
-		       XVDrawColor c = DEFAULT_COLOR){ 
+		       XVDrawColor c = (char*)DEFAULT_COLOR){ 
     return this->drawPoint(p.PosX(), p.PosY()); 
   };
   
   virtual int drawPoint(int x, int y, 
-			XVDrawColor c = DEFAULT_COLOR) = 0;
+			XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
 
   inline int drawLine(XVPosition p1, XVPosition p2, 
 	       XVDrawColor c = DEFAULT_COLOR){
@@ -146,7 +146,7 @@ class XVDrawable {
   
   virtual int drawLine(int x1, int y1, 
 		       int x2, int y2, 
-		       XVDrawColor c = DEFAULT_COLOR) = 0;
+		       XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   inline int drawRectangle(XVImageGeneric rect, 
 			   XVDrawColor c = DEFAULT_COLOR){
@@ -154,64 +154,64 @@ class XVDrawable {
   };
 
   inline int drawRectangle(XVPosition p, XVSize s, 
-			   XVDrawColor c = DEFAULT_COLOR){
+			   XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->drawRectangle(p.PosX(), p.PosY(), s.Width(), s.Height(), c);
   };
 
   virtual int drawRectangle(int x, int y, 
 			    int w, int h, 
-			    XVDrawColor c = DEFAULT_COLOR) = 0;
+			    XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   inline int fillRectangle(XVImageGeneric rect, 
-			   XVDrawColor c = DEFAULT_COLOR){
+			   XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->fillRectangle(rect.PosX(), rect.PosY(), rect.Width(), rect.Height(), c);
   };
 
   inline int fillRectangle(XVPosition p, XVSize s, 
-			   XVDrawColor c = DEFAULT_COLOR){
+			   XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->fillRectangle(p.PosX(), p.PosY(), s.Width(), s.Height(), c);
   };
   
   virtual int fillRectangle(int x, int y, 
 			    int w, int h, 
-			    XVDrawColor c = DEFAULT_COLOR) = 0;
+			    XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   inline int drawEllipse(XVImageGeneric rect, 
-			 XVDrawColor c = DEFAULT_COLOR){
+			 XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->drawEllipse(rect.PosX(), rect.PosY(), rect.Width(), rect.Height(), c);
   };
 
   inline int drawEllipse(XVPosition p, XVSize s, 
-			 XVDrawColor c = DEFAULT_COLOR){
+			 XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->drawEllipse(p.PosX(), p.PosY(), s.Width(), s.Height(), c);
   };
   
   virtual int drawEllipse(int x, int y, 
 			  int w, int h, 
-			  XVDrawColor c = DEFAULT_COLOR) = 0;
+			  XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   inline int fillEllipse(XVImageGeneric rect, 
-			 XVDrawColor c = DEFAULT_COLOR){
+			 XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->fillEllipse(rect.PosX(), rect.PosY(), rect.Width(), rect.Height(), c);
   };
   
   inline int fillEllipse(XVPosition p, XVSize s, 
-			 XVDrawColor c = DEFAULT_COLOR){
+			 XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->fillEllipse(p.PosX(), p.PosY(), s.Width(), s.Height(), c);
   };
   
   virtual int fillEllipse(int x, int y, 
 			  int w, int h, 
-			  XVDrawColor c = DEFAULT_COLOR) = 0;
+			  XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   inline int drawString(XVPosition p, char * string, 
-			int length, XVDrawColor c = DEFAULT_COLOR){
+			int length, XVDrawColor c = (char*)DEFAULT_COLOR){
     return this->drawString(p.PosX(), p.PosY(), string, length, c);
   };
   
   virtual int drawString(int x, int y, 
 			 char * string, int length, 
-			 XVDrawColor c = DEFAULT_COLOR) = 0;
+			 XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
   
   virtual void addColor(XVDrawColor) = 0;
 

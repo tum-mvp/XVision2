@@ -226,7 +226,8 @@ int XVPv<IMTYPE>::wait_for_completion(int i_frame)
 {
   if(i_frame>=0 && i_frame<n_buffers)
   {
-    PvCaptureWaitForFrameDone(Handle,&(pv_buffers[i_frame]),PVINFINITE);
+    PvCaptureWaitForFrameDone(CameraStruct.Handle,
+                &(CameraStruct.pv_buffers[i_frame]),PVINFINITE);
   }
   else
     throw 33;
@@ -238,7 +239,14 @@ int XVPv<IMTYPE>::initiate_acquire(int i_frame)
 {
   if(i_frame>=0 && i_frame<n_buffers)
   {
-    PvCaptureQueueFrame(Handle,&(pv_buffers[i_frame]),NULL);
+    CameraStruct.pv_buffers[i_frame].Context[0]=&CameraStruct;
+    CameraStruct.pv_buffers[i_frame].Context[0]=(void*)i_frame;
+    CameraStruct.pv_buffers[i_frame].ImageBuffer=frame(i_frame).lock();
+    frame(i_frame).unlock();
+    CameraStruct.pv_buffers[i_frame].ImageBufferSize=frame_size;
+    if(PvCaptureQueueFrame(CameraStruct.Handle,
+                           &(CameraStruct.pv_buffers[i_frame]),NULL)!=ePvErrSuccess)
+      throw 34;
   }
   else
     throw 33;
@@ -258,11 +266,13 @@ int XVPv<IMTYPE>::set_params(char *paramstring)
     case 'r':
       sprintf(string,"%5.2f",parse_result.val/10.0);
       if(verbose) cerr << "framerate " << string << "[Hz]" << endl;
-      if(AttrWrite(Handle,"FrameRate",string))
+      if(AttrWrite(CameraStruct.Handle,"FrameRate",string))
       {
          cerr << "invalid rate " << string << "[Hz] defaulting to 30Hz" 
 	      << endl;
       }
+      if(PvAttrEnumSet(CameraStruct.Handle,"FrameStartTriggerMode",
+                   "FixedRate")) throw 21;
       break;
     default:
       cerr << parse_result.c << "=" << parse_result.val
@@ -278,26 +288,27 @@ XVPv<IMTYPE>::XVPv(unsigned long u_id,char*param,bool in_verbose):
                                 XVVideo<IMTYPE>("","")
 {
    tPvCameraInfo camera_list[XVPV_MAX_CAMERAS];
-   unsigned long          num_cameras,frame_size;
+   unsigned long          num_cameras;
    bool			  found=false;
-   static bool            initialized=false;
    int i,found_i;
    XVSize		  size(640,480);
+   static bool		   system_initialized=false;
 
 
-   buffer_index=0;pv_buffers=NULL;verbose=in_verbose;
+   buffer_index=0;CameraStruct.pv_buffers=NULL;verbose=in_verbose;
    if(verbose)
    {
       unsigned long major,minor;
       PvVersion(&major, &minor);
       cout << "Version " << major << "." << minor<<endl;
    }
-   if(!initialized && PvInitialize()!=ePvErrSuccess)
-   {
-     cerr << "Could not initialize Pv-System" << endl;
+   if(!system_initialized)
+    if(PvInitialize()!=ePvErrSuccess)
+    {
+     cerr << "Could not initialize PvCamera" << endl;
      throw 11;
-   }
-   initialized=true;
+    }
+   system_initialized=true;
    while(!PvCameraCount()) Sleep(250);
    num_cameras=PvCameraList(camera_list,XVPV_MAX_CAMERAS,NULL);
    if(verbose) cout << num_cameras << " cameras found" << endl;
@@ -319,50 +330,50 @@ XVPv<IMTYPE>::XVPv(unsigned long u_id,char*param,bool in_verbose):
 	     << endl;
         cout << "DisplayName " << camera_list[found_i].DisplayName << endl;
    }
-   if(PvCameraOpen(camera_list[found_i].UniqueId,ePvAccessMaster,&Handle))
+   CameraStruct.UID= camera_list[found_i].UniqueId;
+   if(PvCameraOpen(camera_list[found_i].UniqueId,ePvAccessMaster,
+                   &CameraStruct.Handle))
    {
       cerr << "Couldn't open camera" << endl;
       throw 13;
    }
-   //if(verbose) AttrList(Handle);
+   //if(verbose) AttrList(CameraStruct.Handle);
    tPvUint32 nBytesMax;
    // get the last packet size set on the camera
-   //if(PvAttrUint32Get( Handle, "PacketSize", &nBytesMax )) throw 19;
-   //nBytesMax=1518;
-   //if(PvCaptureAdjustPacketSize( Handle, nBytesMax ))        throw 19;
-   if(AttrWrite(Handle,"PixelFormat","Bgra32")) throw 21;
-   if(AttrWrite(Handle,"FrameRate","30")) throw 21;
-   if(PvAttrUint32Set(Handle,"Width",size.Width())) throw 20;
-   if(PvAttrUint32Set(Handle,"Height",size.Height())) throw 20;
-   if(PvAttrUint32Set(Handle,"Height",size.Height())) throw 20;
+   if(PvAttrUint32Get( CameraStruct.Handle, "PacketSize", &nBytesMax )) throw 19;
+   cerr << "PacketSize " << nBytesMax  <<endl;
+   if(PvCaptureAdjustPacketSize( CameraStruct.Handle, 1518 ))        throw 19;
+   if(AttrWrite(CameraStruct.Handle,"PixelFormat","Bgra32")) throw 21;
+   //if(AttrWrite(CameraStruct.Handle,"FrameRate","30")) throw 21;
+   if(PvAttrEnumSet(CameraStruct.Handle,"FrameStartTriggerMode","Freerun")) throw 21;
+   if(PvAttrUint32Set(CameraStruct.Handle,"Width",size.Width())) throw 20;
+   if(PvAttrUint32Set(CameraStruct.Handle,"Height",size.Height())) throw 20;
+   if(PvAttrUint32Set(CameraStruct.Handle,"Height",size.Height())) throw 20;
 
    init_map(size,2);
-   PvCaptureStart(Handle);
-   if(AttrWrite(Handle,"FrameRate","30")) throw 21;
+   PvCaptureStart(CameraStruct.Handle);
    set_params(param);
-   if(PvAttrEnumSet(Handle,"FrameStartTriggerMode","FixedRate"))
-   					  throw 21;
-   PvCommandRun(Handle,"AcquisitionStart");;
-   pv_buffers=new tPvFrame[n_buffers];
-   PvAttrUint32Get(Handle,"TotalBytesPerFrame",&frame_size);
+   PvCommandRun(CameraStruct.Handle,"AcquisitionStart");;
+   CameraStruct.pv_buffers=new tPvFrame[n_buffers];
+   PvAttrUint32Get(CameraStruct.Handle,"TotalBytesPerFrame",&frame_size);
    for(i=0;i<n_buffers;i++)
    {
-    pv_buffers[i].Context[0]=Handle;
-    pv_buffers[i].ImageBuffer=frame(i).lock();
+    CameraStruct.pv_buffers[i].Context[0]=&CameraStruct;
+    CameraStruct.pv_buffers[i].ImageBuffer=frame(i).lock();
     frame(i).unlock();
-    pv_buffers[i].ImageBufferSize=frame_size;
+    CameraStruct.pv_buffers[i].ImageBufferSize=frame_size;
    }
 }
 
 template <class IMTYPE>
 XVPv<IMTYPE>::~XVPv()
 {
-  PvCommandRun(Handle,"AcquisitionStop");
-  PvCaptureEnd(Handle);
-  PvCaptureQueueClear(Handle);
-  PvCameraClose(Handle);
+  PvCommandRun(CameraStruct.Handle,"AcquisitionStop");
+  PvCaptureEnd(CameraStruct.Handle);
+  PvCaptureQueueClear(CameraStruct.Handle);
+  PvCameraClose(CameraStruct.Handle);
   PvUnInitialize();
-  if(pv_buffers) delete [] pv_buffers;
+  if(CameraStruct.pv_buffers) delete [] CameraStruct.pv_buffers;
 }
 
 template class XVPv<XVImageRGB<XV_RGBA32> >;

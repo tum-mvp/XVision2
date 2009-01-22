@@ -18,7 +18,7 @@ using namespace std ;
 
 /** exception class for XVImages */
 class XVImageException : public XVException { public:
-  XVImageException() : XVException("Image Exception") {}
+  XVImageException() : XVException((char*)"Image Exception") {}
   XVImageException(char * err) : XVException(err) {} };
 
 

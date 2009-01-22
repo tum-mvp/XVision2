@@ -14,7 +14,7 @@ class XVException : exception{
 
  public:
 
-  XVException(){ error = ""; }
+  XVException(){ error[0]=0; }
   XVException(char * err){ error = err; }
 
   const char * what() const throw () { return error ; }

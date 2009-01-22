@@ -22,7 +22,7 @@ void XVScalarTable<T, Y>::buildTable(){
 template <class T, class Y>
 void XVRGBTable<T, Y>::buildTable(){
   
-  T max = {255, 255, 255};
+  T max = {(u_int)255, (u_int)255, (u_int)255};
   int num_bits;
   
   switch(max.g){
@@ -46,9 +46,9 @@ void XVRGBTable<T, Y>::buildTable(){
   if(max.r > 31){
     add = 8;
     addG = 4;
-    max.r = 248;
-    max.g = 252;
-    max.b = 248;
+    max.r = (u_int)248;
+    max.g = (u_int)252;
+    max.b = (u_int)248;
   }
   pixel.r = pixel.b = pixel.g = 0;
   // create lookup-table

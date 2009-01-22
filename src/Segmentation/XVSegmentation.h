@@ -16,6 +16,7 @@
 #include <XVBlobs.h>
 #include <vector>
 #include <math.h>
+#include <string.h>
 
 #define NULL_VALUE ~0
 

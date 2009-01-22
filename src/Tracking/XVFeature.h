@@ -14,11 +14,11 @@
 #include <XVException.h>
 
 class XVTrackerException : public XVException { public:
-  XVTrackerException() : XVException("XVTracker Expection") {} 
+  XVTrackerException() : XVException((char*)"XVTracker Expection") {} 
   XVTrackerException( char * err ) : XVException(err) {} };  
 
 class XVTrackerOOBException : public XVException { public:
-  XVTrackerOOBException() : XVException("Tracker Out of Bounds") {}
+  XVTrackerOOBException() : XVException((char*)"Tracker Out of Bounds") {}
   XVTrackerOOBException( char * err ) : XVException(err) {} };
 
 /**

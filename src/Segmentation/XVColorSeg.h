@@ -62,7 +62,7 @@ class XVHueSectorTable : public virtual XVRGBTable<T, Y>{
   
   XVHueSectorTable(int num, u_char dp, u_char bp) : XVRGBTable<T, Y>(), numOfSectors(num), darkPix(dp), brightPix(bp) { 
     if(numOfSectors > MAX_HUE_SECTOR_NUM) { 
-      throw XVSegException("too many sectors for XVHueSectorTable"); 
+      throw XVSegException((char *)"too many sectors for XVHueSectorTable"); 
     }
     this->buildTable(); 
   };

@@ -21,6 +21,14 @@
 
 #define FRAMESCOUNT 15
 
+// camera's data
+typedef struct
+{
+    unsigned long   UID;
+    tPvHandle       Handle;
+    tPvFrame        *pv_buffers;
+}tCamera;
+
 template <class IMTYPE>
 class XVPv : public XVVideo<IMTYPE> {
  protected:
@@ -38,10 +46,10 @@ class XVPv : public XVVideo<IMTYPE> {
    tPvErr AttrRead(tPvHandle Camera,const char* Label);
    tPvErr AttrWrite(tPvHandle Camera,const char* Label,const char* Value);
  private:
-   tPvHandle             Handle;
+   tCamera		 CameraStruct;
    int			 buffer_index;
+   unsigned long	 frame_size;
    bool			 verbose;
-   tPvFrame 		*pv_buffers;
   public:
    using XVVideo<IMTYPE>::frame ;
    		XVPv(unsigned long u_id=0, char *param=NULL,

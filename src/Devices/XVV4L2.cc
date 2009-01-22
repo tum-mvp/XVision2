@@ -1,3 +1,4 @@
+#include "config.h"
 #include <iostream>
 #include <cstring>
 #include <cstdio>
@@ -7,10 +8,13 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <sys/mman.h>
-#include <ippcc.h>
-
 #include <XVImageScalar.h> //jcorso for monochrome operation
+#include <XVImageYUV422.h> 
 #include "XVV4L2.h"
+
+#ifdef HAVE_IPP
+#include <ippcc.h>
+#endif
 
 #include <XVMacros.h>
 
@@ -69,19 +73,42 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
     return 0;
   }
  
+  
+  //memset(&(vidbuf[i_frame]),0,sizeof(struct v4l2_buffer));
   vidbuf[i_frame].index = i_frame;
   vidbuf[i_frame].type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   vidbuf[i_frame].memory=V4L2_MEMORY_MMAP;
-  if(ioctl(fd,VIDIOC_DQBUF,&vidbuf[i_frame]))
+  if(ioctl(fd,VIDIOC_DQBUF,&(vidbuf[i_frame])))
   {
     perror("ioctl VIDIOCSYNC");
     return 0;
   }
-  IppiSize roi={size.Width(),size.Height()};
-  ippiYCbCr422ToBGR_8u_C2C4R((const Ipp8u *)mm_buf[i_frame],
+#ifdef HAVE_IPP
+  if ( sizeof(typename T::PIXELTYPE) == 4) // XV_RGBA32?
+  {
+    IppiSize roi={size.Width(),size.Height()};
+    ippiYCbCr422ToBGR_8u_C2C4R((const Ipp8u *)mm_buf[i_frame],
   		size.Width()*2,(Ipp8u*)(frame(i_frame).lock()),
 		size.Width()*4,roi,0);
-  frame(i_frame).unlock();
+    frame(i_frame).unlock();
+  }
+  else
+#endif
+  {
+   XV_YCbCr *ptr=(XV_YCbCr*)mm_buf[i_frame];
+   XVImageWIterator<typename T::PIXELTYPE> wIter(frame(i_frame));
+
+   for(;!wIter.end();++wIter,ptr++)
+   {
+    wIter->r=(u_char)(YUV2R(ptr->y0,ptr->u,ptr->v));
+    wIter->g=(u_char)(YUV2G(ptr->y0,ptr->u,ptr->v));
+    wIter->b=(u_char)(YUV2B(ptr->y0,ptr->u,ptr->v));
+    ++wIter;
+    wIter->r=(u_char)(YUV2R(ptr->y1,ptr->u,ptr->v));
+    wIter->g=(u_char)(YUV2G(ptr->y1,ptr->u,ptr->v));
+    wIter->b=(u_char)(YUV2B(ptr->y1,ptr->u,ptr->v));
+   }
+  }
   return 1;
 }
 
@@ -93,6 +120,7 @@ int XVV4L2<T>::set_params(char *paramstring)
    XVParser	parse_result;  
    static long norms[3]={V4L2_STD_NTSC_M,V4L2_STD_PAL_D,V4L2_STD_SECAM_D};
 
+   norm=norms[1];
    while(parse_param(paramstring,parse_result)>0) 
      switch(parse_result.c)
      {
@@ -160,6 +188,7 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
     cerr << "couldn't open device " << dev_name << endl;
     throw 10;
   }
+  memset(&capability,0,sizeof(struct v4l2_capability));
   if((ioctl (fd, VIDIOC_QUERYCAP, &capability)))
   {
      perror ("QUERYCAP in capture_init");
@@ -170,22 +199,26 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
   struct v4l2_cropcap cropcap;
   struct v4l2_crop crop;
 
-  parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-  ioctl (fd, VIDIOC_G_PARM, &parm);
-
-  if((ioctl (fd, VIDIOC_G_STD, &norm)))
-    perror ("G_STD in capture_init");
+  //if((ioctl (fd, VIDIOC_G_STD, &norm)))
+  //  perror ("G_STD in capture_init");
     
+  struct v4l2_streamparm setfps;
+  memset(&setfps,0,sizeof(struct v4l2_streamparm));
+  setfps.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+  setfps.parm.capture.timeperframe.numerator=1;
+  setfps.parm.capture.timeperframe.denominator=30;
+  if((ioctl(fd,VIDIOC_S_PARM,&setfps))==-1)
+    perror("SET_FPS failed");
+  memset(&fmt,0,sizeof(struct v4l2_format));
   fmt.type                = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   fmt.fmt.pix.width=size.Width();
   fmt.fmt.pix.height=size.Height();
   //fmt.fmt.pix.pixelformat =conv_table[sizeof(typename T::PIXELTYPE)-1];
   fmt.fmt.pix.pixelformat =V4L2_PIX_FMT_YUYV;
-  fmt.fmt.pix.field        = V4L2_FIELD_INTERLACED;
+  fmt.fmt.pix.field        = V4L2_FIELD_ANY;
   //fmt.fmt.pix.bytesperline = 0;
   if(( ioctl (fd, VIDIOC_S_FMT, &fmt))==-1)
     perror("S_FMT in capture_init");
-
 
   for(ninputs=0;ninputs<MAX_INPUT;ninputs++)
   {
@@ -208,7 +241,7 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
     }
   
     mm_buf[j]=(typename T::PIXELTYPE *)mmap((void *)0,vidbuf[j].length,
-  			PROT_READ|PROT_WRITE,MAP_SHARED,fd,vidbuf[j].m.offset);
+  			PROT_READ,MAP_SHARED,fd,vidbuf[j].m.offset);
   }
   init_map(size,n_buffers);
   int type=V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -249,3 +282,6 @@ XVV4L2<T>::~XVV4L2()
 }
 
 template class XVV4L2<XVImageRGB<XV_RGBA32> >;
+template class XVV4L2<XVImageRGB<XV_RGB24> >;
+template class XVV4L2<XVImageRGB<XV_RGB16> >;
+template class XVV4L2<XVImageRGB<XV_RGB15> >;

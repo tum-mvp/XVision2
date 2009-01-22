@@ -1,0 +1,1209 @@
+ansi2knr.o: ansi2knr.c /usr/include/stdio.h /usr/include/features.h \
+  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/include/bits/wchar.h /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/ctype.h /usr/include/endian.h \
+  /usr/include/bits/endian.h /usr/include/strings.h
+ansi2knr.o: ansi2knr.c /usr/include/stdio.h /usr/include/features.h \
+  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/include/bits/wchar.h /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/ctype.h /usr/include/endian.h \
+  /usr/include/bits/endian.h /usr/include/strings.h
+jcinit.o: jcinit.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdatadst.o: jdatadst.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h
+jdpostct.o: jdpostct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+rdjpgcom.o: rdjpgcom.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h \
+  /usr/include/ctype.h
+jcmainct.o: jcmainct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdatasrc.o: jdatasrc.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h
+jdsample.o: jdsample.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+rdppm.o: rdppm.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jcmarker.o: jcmarker.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdcoefct.o: jdcoefct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdtrans.o: jdtrans.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jmemmgr.o: jmemmgr.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jmemsys.h
+rdrle.o: rdrle.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+ckconfig.o: ckconfig.c \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h
+jcmaster.o: jcmaster.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdcolor.o: jdcolor.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jerror.o: jerror.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jversion.h jerror.h
+jmemname.o: jmemname.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jmemsys.h
+rdswitch.o: rdswitch.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h /usr/include/ctype.h
+djpeg.o: djpeg.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h jversion.h /usr/include/ctype.h
+jcomapi.o: jcomapi.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jddctmgr.o: jddctmgr.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jfdctflt.o: jfdctflt.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jmemnobs.o: jmemnobs.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jmemsys.h
+rdtarga.o: rdtarga.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jcparam.o: jcparam.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdhuff.o: jdhuff.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdhuff.h
+jfdctfst.o: jfdctfst.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jpegtran.o: jpegtran.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h transupp.h jversion.h
+transupp.o: transupp.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h transupp.h
+jcapimin.o: jcapimin.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jcphuff.o: jcphuff.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jchuff.h
+jdinput.o: jdinput.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jfdctint.o: jfdctint.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jquant1.o: jquant1.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+wrbmp.o: wrbmp.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jcapistd.o: jcapistd.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jcprepct.o: jcprepct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdmainct.o: jdmainct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jidctflt.o: jidctflt.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jquant2.o: jquant2.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+wrgif.o: wrgif.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jccoefct.o: jccoefct.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jcsample.o: jcsample.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdmarker.o: jdmarker.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jidctfst.o: jidctfst.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jutils.o: jutils.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+wrjpgcom.o: wrjpgcom.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h \
+  /usr/include/ctype.h
+jccolor.o: jccolor.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jctrans.o: jctrans.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdmaster.o: jdmaster.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jidctint.o: jidctint.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+rdbmp.o: rdbmp.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+wrppm.o: wrppm.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jcdctmgr.o: jcdctmgr.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+jdapimin.o: jdapimin.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdmerge.o: jdmerge.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jidctred.o: jidctred.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdct.h
+rdcolmap.o: rdcolmap.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+wrrle.o: wrrle.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+jchuff.o: jchuff.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jchuff.h
+jdapistd.o: jdapistd.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h
+jdphuff.o: jdphuff.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jdhuff.h
+jmemansi.o: jmemansi.c jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jpegint.h jerror.h jmemsys.h
+rdgif.o: rdgif.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h
+wrtarga.o: wrtarga.c cdjpeg.h jinclude.h jconfig.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h jpeglib.h \
+  jmorecfg.h jerror.h cderror.h

@@ -220,6 +220,22 @@ typedef struct
   unsigned char Y1() const {return y1;};
 } XV_YUV422;
 
+typedef struct
+{
+  unsigned char y0;
+  unsigned char u;
+  unsigned char y1;
+  unsigned char v;
+
+  unsigned char U() const {return u;};
+  unsigned char V() const {return v;};
+  unsigned char Y0() const {return y0;};
+  unsigned char Y1() const {return y1;};
+} XV_YCbCr;
+
+typedef u_char XV_YBAND;
+typedef u_char XV_UBAND;
+
 typedef u_char XV_YBAND;
 typedef u_char XV_UBAND;
 typedef u_char XV_VBAND;

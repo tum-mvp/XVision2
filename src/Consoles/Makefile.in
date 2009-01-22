@@ -1,7 +1,7 @@
 
 CUR_DEPTH	= ../../
 CXXFLAGS	= @CXXFLAGS@  @IPPINC@
-CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@
+CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ @IPPINC@
 OBJS		= XVWindowX.o XVRemoteWindowX.o
 
 all: .depend $(OBJS)

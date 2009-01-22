@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <XVRemoteWindowX.h>
+#include <XVImageIO.h>
 #include "StereoVidere.h"
 
 //#define REMOVE_FLOOR
@@ -65,6 +66,7 @@ int main(int argc, char* argv[]) {
   }
   
   XVImageScalar<u_short> *disp_image, *win_image;
+  const u_short *r_ptr;
 
   vid->next_frame_continuous();
   disp_image = vid->calc_stereo();
@@ -91,6 +93,13 @@ int main(int argc, char* argv[]) {
 #ifdef VIDEO
       images=vid->get_stereo();
       video.CopySubImage(*(images[XVVID_LEFT]));
+      //XVWritePPM(*images[XVVID_LEFT],(char*)"left_image.ppm");
+      //XVWritePPM(*images[XVVID_RIGHT],(char*)"right_image.ppm");
+      FILE *fptr=fopen("disp_image.ppm","w");
+      r_ptr=disp_image->data();
+      for(int k=0;k<disp_image->Width()*disp_image->Height();k++)
+         fprintf(fptr,"%d ",*r_ptr++);
+      fclose(fptr);
       video.swap_buffers();
       video.flush();
 #endif

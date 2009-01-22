@@ -32,7 +32,7 @@ int XVReadImage(XVImageRGB<T> & inIM, char* filename){
   if( *ext == '.' ) {
     ++ ext ;
   }else {
-    ext = "ppm" ; // default
+    ext = (char*)"ppm" ; // default
   }
 
   if(!strcasecmp(ext, "ppm")){
@@ -103,7 +103,7 @@ int XVWriteImage(const XVImageRGB<T> & outIM, char * filename) {
   if( *ext == '.' ) {
     ++ ext ;
   }else {
-    ext = "ppm" ; // default
+    ext = (char*)"ppm" ; // default
   }
 
   if(!strcasecmp(ext, "ppm")){
@@ -578,7 +578,7 @@ int XVReadImage(XVImageScalar<T> & inIM, char* filename){
   if( *ext == '.' ) {
     ++ ext ;
   }else {
-    ext = "pgm" ; // default
+    ext = (char*)"pgm" ; // default
   }
 
   if(!strcasecmp(ext, "pgm")){

@@ -26,6 +26,10 @@
 
 #define DEVICE_NAME	"/dev/video0"
 
+#ifndef MAX_INPUT
+#define MAX_INPUT  4
+#endif
+
 #define V4L2_DEF_NUMFRAMES 8
 #define V4L2_DEF_INPUT     0
 #define V4L2_DEF_NORM      NORM_NTSC

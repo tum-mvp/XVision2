@@ -4,6 +4,7 @@
 #include <config.h>
 #include <math.h>
 
+#define HAVE_LIBX11
 #ifdef HAVE_LIBX11
 
 #include <XVRemoteWindowX.h>
@@ -21,17 +22,19 @@ void XVRemoteWindowX<T>::init() {
 template<class T>
 void XVRemoteWindowX<T>::signal_worker()
 {
-#ifdef NEVER
+//#ifdef NEVER
   pthread_mutex_lock (&(data->signal_mutex));
   pthread_cond_signal (&(data->worker_signal));
   pthread_mutex_unlock (&(data->signal_mutex));
-#endif
+  //cerr << "(XVRemoteWindowX::signal_worker) NOTICE: sent signal!\n";
+  //cin.get();
+//#endif
 }
 
 template<class T>
 XVRemoteWindowX<T>::XVRemoteWindowX( XVDrawWindowX<T>& xwin,
 					float scaleX, float scaleY )
- : XVWindow<T>( (int)rint(xwin.Width()*scaleX), 
+ : XVWindow<T>( (int)rint(xwin.Width()*scaleX),
 		(int)rint(xwin.Height()*scaleY) ) {
   worker = &xwin ;
   to_free = false ;
@@ -41,13 +44,13 @@ XVRemoteWindowX<T>::XVRemoteWindowX( XVDrawWindowX<T>& xwin,
 }
 
 template<class T>
-XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im, 
+XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im,
  int px, int py, char * title,
- int event_mask, char * disp, int num_buf, int double_buf, int function ) 
+ int event_mask, char * disp, int num_buf, int double_buf, int function )
  : XVWindow<T>( im.Width(), im.Height() ) {
   factorX = 1.0 ;
   factorY = 1.0 ;
-  worker = new XVDrawWindowX<T>( (int)rint(im.Width()*factorX), 
+  worker = new XVDrawWindowX<T>( (int)rint(im.Width()*factorX),
 				 (int)rint(im.Height()*factorY),
 				 px, py, title, event_mask, disp,
 				 num_buf, double_buf, function );
@@ -56,14 +59,14 @@ XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im,
 }
 
 template<class T>
-XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im, 
+XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im,
  float scaleX, float scaleY, int px, int py, char * title,
- int event_mask, char * disp, int num_buf, int double_buf, int function ) 
- : XVWindow<T>( (int)rint(im.Width()*scaleX), 
+ int event_mask, char * disp, int num_buf, int double_buf, int function )
+ : XVWindow<T>( (int)rint(im.Width()*scaleX),
 		(int)rint(im.Height()*scaleY) ) {
   factorX = scaleX ;
   factorY = scaleY ;
-  worker = new XVDrawWindowX<T>( (int)rint(im.Width()*factorX), 
+  worker = new XVDrawWindowX<T>( (int)rint(im.Width()*factorX),
 				 (int)rint(im.Height()*factorY),
 				 px, py, title, event_mask, disp,
 				 num_buf, double_buf, function );
@@ -74,11 +77,11 @@ XVRemoteWindowX<T>::XVRemoteWindowX( const XVImageRGB<T> & im,
 template<class T>
 XVRemoteWindowX<T>::XVRemoteWindowX( int w, int h,
  int px, int py, char * title,
- int event_mask, char * disp, int num_buf, int double_buf, int function ) 
+ int event_mask, char * disp, int num_buf, int double_buf, int function )
   : XVWindow<T>( w, h ) {
   factorX = 1.0 ;
   factorY = 1.0 ;
-  worker = new XVDrawWindowX<T>( (int)rint(w*factorX), 
+  worker = new XVDrawWindowX<T>( (int)rint(w*factorX),
 				 (int)rint(w*factorY),
 				 px, py, title, event_mask, disp,
 				 num_buf, double_buf, function );
@@ -88,11 +91,11 @@ XVRemoteWindowX<T>::XVRemoteWindowX( int w, int h,
 template<class T>
 XVRemoteWindowX<T>::XVRemoteWindowX( int w, int h,
  float scaleX, float scaleY, int px, int py, char * title,
- int event_mask, char * disp, int num_buf, int double_buf, int function ) 
+ int event_mask, char * disp, int num_buf, int double_buf, int function )
   : XVWindow<T>( (int)rint(w*scaleX), (int)rint(h*scaleY) ) {
   factorX = scaleX ;
   factorY = scaleY ;
-  worker = new XVDrawWindowX<T>( (int)rint(w*factorX), 
+  worker = new XVDrawWindowX<T>( (int)rint(w*factorX),
 				 (int)rint(w*factorY),
 				 px, py, title, event_mask, disp,
 				 num_buf, double_buf, function );
@@ -136,7 +139,7 @@ void XVRemoteWindowX<T>::CopyImage( int which, u_short flip ) {
 template<class T>
 void XVRemoteWindowX<T>::ClearWindow(void) {
   Drawing d( Drawing::ClearWindow, (char*)DEFAULT_COLOR );
-  next->drawings.push_front( d );  
+  next->drawings.push_front( d );
   signal_worker();
 }
 
@@ -144,7 +147,7 @@ template<class T>
 void XVRemoteWindowX<T>::CopySubImage( const XVImageRGB<T>& image, bool flip ) {
   Drawing d( Drawing::DrawImage, (char*)DEFAULT_COLOR );
   d.x1 = flip ;
-  next->drawings.push_front( d );  
+  next->drawings.push_front( d );
   resample( factorX, factorY, image, next->image );
   signal_worker();
 }
@@ -152,7 +155,7 @@ void XVRemoteWindowX<T>::CopySubImage( const XVImageRGB<T>& image, bool flip ) {
 template<class T>
 void XVRemoteWindowX<T>::swap_buffers(void) {
   Drawing d( Drawing::SwapBuffer, (char*)DEFAULT_COLOR );
-  next->drawings.push_front( d );  
+  next->drawings.push_front( d );
 }
 
 template<class T>
@@ -170,6 +173,7 @@ void XVRemoteWindowX<T>::flush(void) {
     supervised = true ;
     pthread_attr_t attr ;
     pthread_attr_init( &attr );
+    //cerr << "(XVRemoteWindowX::flush) NOTICE: pthread created.\n";
     pthread_create( &supervisor, &attr, supervising, data );
     pthread_attr_destroy( &attr );
   }
@@ -178,7 +182,7 @@ void XVRemoteWindowX<T>::flush(void) {
 }
 
 template<class T>
-XVImageRGB<T> XVRemoteWindowX<T>::getDisplayedImage( int px, int py, 
+XVImageRGB<T> XVRemoteWindowX<T>::getDisplayedImage( int px, int py,
 						     int w, int h ) {
   return worker->getDisplayedImage();
 }
@@ -227,7 +231,7 @@ int XVRemoteWindowX<T>::drawPoint( int x, int y, XVDrawColor c ) {
   return 0 ;
 }
 template<class T>
-int XVRemoteWindowX<T>::drawLine( int x1, int y1, int x2, int y2, 
+int XVRemoteWindowX<T>::drawLine( int x1, int y1, int x2, int y2,
 				  XVDrawColor c ) {
   Drawing d( Drawing::DrawLine, c );
   d.x1 = (int)rint( x1 * factorX );
@@ -304,7 +308,7 @@ int XVRemoteWindowX<T>::drawString( int x, int y, char* string, int length,
 template<class T>
 void XVRemoteWindowX<T>::Requests::clear() {
   flush = false ;
-  for( OneDrawing aDrawing = drawings.begin() ; 
+  for( OneDrawing aDrawing = drawings.begin() ;
        aDrawing != drawings.end(); ++ aDrawing ) {
     delete aDrawing->data ;
   }
@@ -423,7 +427,16 @@ void * XVRemoteWindowX<T>::supervising( void * obj ) {
       data->current = carrier ;
     }
     data->unlock_last();
-    //pthread_cond_wait (&(data->worker_signal), &(data->signal_mutex));
+
+    data->lock_next();
+    if( data->next->drawings.empty() && !data->next->flush/*&& data->next->image.SizeX()==0*/) {
+      data->unlock_next();
+      pthread_mutex_lock (&(data->signal_mutex));
+      pthread_cond_wait (&(data->worker_signal), &(data->signal_mutex));
+      pthread_mutex_unlock (&(data->signal_mutex));
+    }
+    data->unlock_next();
+
   }
   return 0 ;
 }

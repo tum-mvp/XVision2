@@ -8,9 +8,9 @@
 
 extern "C"{
 #include <stdint.h>
-#include <ffmpeg/libavcodec/avcodec.h>
-#include <ffmpeg/libavformat/avformat.h>
-#include <ffmpeg/libswscale/swscale.h>
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
 }
 
 #include <stdio.h>

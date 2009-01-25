@@ -11,9 +11,9 @@
 
 static char * color_names[] =
 {
-  "black","white","tourquise1","green","brown","orange",
-  "violet","red","dark green","aquamarine",
-  "purple","pink","yellow","blue","peru","burlywood"
+  (char*)"black",(char*)"white",(char*)"tourquise1",(char*)"green",(char*)"brown",(char*)"orange",
+  (char*)"violet",(char*)"red",(char*)"dark green",(char*)"aquamarine",
+  (char*)"purple",(char*)"pink",(char*)"yellow",(char*)"blue",(char*)"peru",(char*)"burlywood"
 };
 
 bool operator < (const XVDrawColor & c1, const XVDrawColor & c2) {

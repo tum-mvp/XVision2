@@ -4,7 +4,6 @@
 #include <config.h>
 #include <math.h>
 
-#define HAVE_LIBX11
 #ifdef HAVE_LIBX11
 
 #include <XVRemoteWindowX.h>

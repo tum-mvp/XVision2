@@ -10,7 +10,7 @@
 
 #include <string>
 
-#define DEFAULT_COLOR "red"
+#define DEFAULT_COLOR (char*)"red"
 
 /** color class for XVDrawObjects */
 class XVDrawColor {

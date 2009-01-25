@@ -415,9 +415,9 @@ XVWindowX<T>::XVWindowX(int w, int h,int s_posx,int s_posy,
     windowTitle = title;
   }else{
     XChangeProperty(dpy,window,XA_WM_NAME, XA_STRING,8,
-		    PropModeReplace, (unsigned char *)"XVision(R)CIRL- Window",
-		    strlen("XVision(R)CIRL- Window"));
-    windowTitle = "XVision(R)CIRL- Window";
+		    PropModeReplace, (unsigned char *)"XVision(R) MVP(TUM)/CIRL- Window",
+		    strlen("XVision(R) MVP(TUM)/CIRL- Window"));
+    windowTitle = "XVision(R) MVP(TUM)/CIRL- Window";
   }
   event_mask = in_event_mask;
   XSelectInput(dpy,window,event_mask|ExposureMask);

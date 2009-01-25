@@ -595,10 +595,10 @@ s,@DVFIRE_LIB@,|#_!!_#|-lraw1394 -ldc1394,g
 s,@IPPINC@,|#_!!_#|-I$(IPPROOT)/include,g
 s,@IPPLIBS@,|#_!!_#|-L$(IPPROOT)/sharedlib -lippi -lippcc,g
 s,@CXXFLAGS@,|#_!!_#|-O6 -pipe -DDEBUG_LEVEL=1,g
-s,@PROSILICA_OBJS@,|#_!!_#|XVPv.o,g
-s,@PROSILICA_INCS@,|#_!!_#|-I$(PVROOT)/include,g
-s,@PROSILICA_LIBS@,|#_!!_#|-L$(PVROOT)/lib/$(PVARCH),g
-s,@PROSILICA_APPL@,|#_!!_#|showgig,g
+s,@PROSILICA_OBJS@,|#_!!_#|,g
+s,@PROSILICA_INCS@,|#_!!_#|,g
+s,@PROSILICA_LIBS@,|#_!!_#|,g
+s,@PROSILICA_APPL@,|#_!!_#|,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end

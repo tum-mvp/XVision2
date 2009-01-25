@@ -3,15 +3,15 @@ tif_fax3.o: tif_fax3.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -22,15 +22,15 @@ tif_aux.o: tif_aux.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -42,15 +42,15 @@ tif_close.o: tif_close.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -61,15 +61,15 @@ tif_codec.o: tif_codec.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -80,15 +80,15 @@ tif_compress.o: tif_compress.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -99,15 +99,15 @@ tif_dir.o: tif_dir.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -118,15 +118,15 @@ tif_dirinfo.o: tif_dirinfo.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -137,15 +137,15 @@ tif_dirread.o: tif_dirread.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -156,15 +156,15 @@ tif_dirwrite.o: tif_dirwrite.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -175,15 +175,15 @@ tif_dumpmode.o: tif_dumpmode.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -194,15 +194,15 @@ tif_error.o: tif_error.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -213,15 +213,15 @@ tif_getimage.o: tif_getimage.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -232,15 +232,15 @@ tif_jpeg.o: tif_jpeg.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -251,15 +251,15 @@ tif_flush.o: tif_flush.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -270,15 +270,15 @@ tif_luv.o: tif_luv.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -291,15 +291,15 @@ tif_lzw.o: tif_lzw.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -310,15 +310,15 @@ tif_next.o: tif_next.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -329,15 +329,15 @@ tif_open.o: tif_open.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -348,15 +348,15 @@ tif_packbits.o: tif_packbits.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -367,15 +367,15 @@ tif_pixarlog.o: tif_pixarlog.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -386,15 +386,15 @@ tif_predict.o: tif_predict.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -405,15 +405,15 @@ tif_print.o: tif_print.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -424,15 +424,15 @@ tif_read.o: tif_read.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -443,15 +443,15 @@ tif_swab.o: tif_swab.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -462,15 +462,15 @@ tif_strip.o: tif_strip.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -481,15 +481,15 @@ tif_thunder.o: tif_thunder.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -500,15 +500,15 @@ tif_tile.o: tif_tile.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -519,15 +519,15 @@ tif_unix.o: tif_unix.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -538,15 +538,15 @@ tif_warning.o: tif_warning.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -557,15 +557,15 @@ tif_write.o: tif_write.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \
@@ -576,15 +576,15 @@ tif_zip.o: tif_zip.c tiffiop.h port.h /usr/include/sys/types.h \
   /usr/include/features.h /usr/include/sys/cdefs.h \
   /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
   /usr/include/gnu/stubs-32.h /usr/include/bits/types.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stddef.h \
-  /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/stdio.h \
   /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib/gcc/i586-suse-linux/4.1.2/include/stdarg.h \
+  /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/confname.h /usr/include/getopt.h \

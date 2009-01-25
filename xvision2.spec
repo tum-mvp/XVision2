@@ -1,5 +1,5 @@
 %define name XVision2
-%define version 2.1.0
+%define version 2.2
 %define release 1
 %define sourcepkg %{name}-%{version}.tar.gz
 
@@ -14,7 +14,7 @@ Packager: Darius Burschka <burschka@cs.tum.edu>
 Group: Development/Libraries
 BuildRoot: /var/tmp/%{name}-buildroot
 Prefix: /usr/local
-Requires: libdc1394-devel,libraw1394-devel
+Requires: libdc1394-devel,libraw1394-devel,ffmpeg-devel
 
 %description
 Greg Hager's and Darius Burschka's XVision2 library with efficient

@@ -6,7 +6,7 @@ all: ;	@for i in  $(MODULES); \
 install:
 	mkdir -p $(prefix)/lib
 	cp -a lib/* $(prefix)/lib
-	mkdir -p $(prefix)/include/include
+	mkdir -p $(prefix)/include/XVision2
 	mkdir -p $(prefix)/bin
 	cp include/*.h $(prefix)/include/XVision2
 	cp include/*.icc $(prefix)/include/XVision2

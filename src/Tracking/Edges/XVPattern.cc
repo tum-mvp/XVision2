@@ -120,7 +120,7 @@ XVOffset XVMaxEdge<T>::find (XVImageScalar<T> & im) {
   int swidth = im.Width();
   int cwidth = swidth - (mwidth - 1);
 
-  if(cwidth < 2) throw XVEdgeException("XVMaxEdge: Image too small to find Edge");
+  if(cwidth < 2) throw XVEdgeException((char*)"XVMaxEdge: Image too small to find Edge");
 
   int * sums = new int[swidth];
   memset(sums,0,sizeof(int)*swidth);

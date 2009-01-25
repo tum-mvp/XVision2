@@ -337,7 +337,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/mair_el/workspace/xvision2/XVision2'
+ac_pwd='/home/burschka/XVision2'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 # If no file are specified by the user, then we need to provide default
@@ -572,8 +572,8 @@ s,@ac_ct_CC@,|#_!!_#|gcc,g
 s,@EXEEXT@,|#_!!_#|,g
 s,@OBJEXT@,|#_!!_#|o,g
 s,@CPP@,|#_!!_#|gcc -E,g
-s,@GREP@,|#_!!_#|/usr/bin/grep,g
-s,@EGREP@,|#_!!_#|/usr/bin/grep -E,g
+s,@GREP@,|#_!!_#|/bin/grep,g
+s,@EGREP@,|#_!!_#|/bin/grep -E,g
 s,@LIBPTH@,|#_!!_#|-lpthread,g
 s,@XMKMF@,|#_!!_#|,g
 s,@X_CFLAGS@,|#_!!_#|,g
@@ -585,20 +585,20 @@ s,@FRAMEGR_OBJS@,|#_!!_#|XVV4L2.o XVBt8x8.o Meteor.o,g
 s,@EXT_MODULES@,|#_!!_#|,g
 s,@DVFILES@,|#_!!_#|v2,g
 s,@DVFIRE_OBJS@,|#_!!_#|XVDig1394.o,g
-s,@VIDERE_OBJS@,|#_!!_#|,g
-s,@VIDERE_INC@,|#_!!_#|,g
+s,@VIDERE_OBJS@,|#_!!_#|Videre.o StereoVidere.o,g
+s,@VIDERE_INC@,|#_!!_#|-I$(SVS_PATH)/src,g
 s,@DVFIRE_APPL@,|#_!!_#|showdig,g
-s,@VIDERE_APPL@,|#_!!_#|,g
-s,@VIDERE_LIBS@,|#_!!_#|,g
-s,@VIDERE_MATL@,|#_!!_#|,g
+s,@VIDERE_APPL@,|#_!!_#|showdisp,g
+s,@VIDERE_LIBS@,|#_!!_#|-L$(SVS_PATH)/bin -lsvs -lsvscalc -lsvscap,g
+s,@VIDERE_MATL@,|#_!!_#|grab_videre.mexglx,g
 s,@DVFIRE_LIB@,|#_!!_#|-lraw1394 -ldc1394,g
-s,@IPPINC@,|#_!!_#|,g
-s,@IPPLIBS@,|#_!!_#|,g
+s,@IPPINC@,|#_!!_#|-I$(IPPROOT)/include,g
+s,@IPPLIBS@,|#_!!_#|-L$(IPPROOT)/sharedlib -lippi -lippcc,g
 s,@CXXFLAGS@,|#_!!_#|-O6 -pipe -DDEBUG_LEVEL=1,g
-s,@PROSILICA_OBJS@,|#_!!_#|,g
-s,@PROSILICA_INCS@,|#_!!_#|,g
-s,@PROSILICA_LIBS@,|#_!!_#|,g
-s,@PROSILICA_APPL@,|#_!!_#|,g
+s,@PROSILICA_OBJS@,|#_!!_#|XVPv.o,g
+s,@PROSILICA_INCS@,|#_!!_#|-I$(PVROOT)/include,g
+s,@PROSILICA_LIBS@,|#_!!_#|-L$(PVROOT)/lib/$(PVARCH),g
+s,@PROSILICA_APPL@,|#_!!_#|showgig,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end
@@ -883,6 +883,7 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*TIME_WITH_SYS_TIME\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_REMAP\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_VIDEO1394_DIR\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_VIDEO1394_NEW\)[	 (].*,\1define\2 1 ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_IPP\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBPTHREAD\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBPNG\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBX11\)[	 (].*,\1define\2 1 ,

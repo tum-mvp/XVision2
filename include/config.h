@@ -73,4 +73,4 @@
  
 #define HAVE_REMAP 1
 
-/* #undef HAVE_IPP */
+#define HAVE_IPP 1

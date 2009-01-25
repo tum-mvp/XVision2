@@ -1,4 +1,4 @@
-PROG		= play_avi
+PROG		= show_v4l
 CUR_DEPTH	= ../../../
 CPPFLAGS	= -I$(IPPROOT)/include -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
                   

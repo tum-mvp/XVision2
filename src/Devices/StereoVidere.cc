@@ -41,9 +41,9 @@ Y *StereoVidere<T,Y>::calc_stereo(void)
   }
   image.remap((u_short*)s_image->disparity,false);
   disp_image=image;
-  cerr << "cropping " << s_image->dp.dleft << " " << s_image->dp.dtop <<endl;
-  disp_image.setSubImage(s_image->dp.dleft,s_image->dp.dtop,
-     s_image->dp.dwidth,s_image->dp.dheight);
+  //cerr << "cropping " << s_image->dp.dleft << " " << s_image->dp.dtop <<endl;
+  //disp_image.setSubImage(s_image->dp.dleft,s_image->dp.dtop,
+  //  s_image->dp.dwidth,s_image->dp.dheight);
   return &disp_image;
 }
 

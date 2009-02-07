@@ -95,11 +95,11 @@ int main(int argc, char* argv[]) {
       video.CopySubImage(*(images[XVVID_LEFT]));
       //XVWritePPM(*images[XVVID_LEFT],(char*)"left_image.ppm");
       //XVWritePPM(*images[XVVID_RIGHT],(char*)"right_image.ppm");
-      FILE *fptr=fopen("disp_image.ppm","w");
-      r_ptr=disp_image->data();
-      for(int k=0;k<disp_image->Width()*disp_image->Height();k++)
-         fprintf(fptr,"%d ",*r_ptr++);
-      fclose(fptr);
+      //FILE *fptr=fopen("disp_image.ppm","w");
+      //r_ptr=disp_image->data();
+      //for(int k=0;k<disp_image->Width()*disp_image->Height();k++)
+      //   fprintf(fptr,"%d ",*r_ptr++);
+      //fclose(fptr);
       video.swap_buffers();
       video.flush();
 #endif

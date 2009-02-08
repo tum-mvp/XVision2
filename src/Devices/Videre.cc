@@ -52,6 +52,7 @@ XVImageScalar<u_char>       **XV_Videre<T>::get_stereo(void)
 template <class T>
 void XV_Videre<T>::close(void)
 {
+  if(sourceObject) sourceObject->Stop();
   if(sourceObject) sourceObject->Close();
   sourceObject=NULL;
 }
@@ -84,15 +85,16 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   XVSize size(params->width,params->height);
   sourceObject->SetColor(false, false); // both left and right
 
-  sourceObject->SetNDisp(32);    // 32 disparities
+  sourceObject->SetCapture(CAP_DUAL);
+  sourceObject->SetNDisp(64);    // 32 disparities
   sourceObject->SetCorrsize(15); // correlation window size
   sourceObject->SetLR(false);    // no left-right check, not available
   sourceObject->SetThresh(2);   // texture filter
   sourceObject->SetUnique(2);   // uniqueness filter
   sourceObject->SetHoropter(0);  // horopter offset
   sourceObject->SetRect(true);  //
-  sourceObject->SetProcMode(PROC_MODE_DISPARITY);
-  sourceObject->SetRate(1);
+  sourceObject->SetProcMode(parm_string? PROC_MODE_DISPARITY:PROC_MODE_RECTIFIED);
+  sourceObject->SetRate(30);
   sourceObject->Start();
 
   init_map(size,1);

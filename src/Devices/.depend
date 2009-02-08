@@ -116,8 +116,8 @@ XVV4L2.o: XVV4L2.cc ../..//include/config.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/bits/cmath.tcc \
   ../..//include/XVGeometry.h ../..//include/XVImageIterator.h \
   ../..//include/XVImageBase.icc /usr/include/stdlib.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippi.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h \
+  /usr/local/intel/ipp//include/ippi.h \
+  /usr/local/intel/ipp//include/ippdefs.h \
   ../..//include/XVImageIterator.h ../..//include/XVImageScalar.icc \
   ../..//include/XVImageFilters.icc ../..//include/XVImageYUV422.h \
   ../..//include/XVColorImage.h ../..//include/XVImageRGB.h \
@@ -137,7 +137,7 @@ XVV4L2.o: XVV4L2.cc ../..//include/config.h \
   /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
   /usr/include/asm/posix_types_32.h ../..//include/XVVideo.h \
   ../..//include/XVImageRGB.h ../..//include/XVImageYUV.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippcc.h
+  /usr/local/intel/ipp//include/ippcc.h
 XVBt8x8.o: XVBt8x8.cc \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/iostream \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/i386-redhat-linux/bits/c++config.h \
@@ -485,23 +485,22 @@ XVDig1394.o: XVDig1394.cc \
   /usr/include/asm-generic/ioctl.h /usr/include/bits/ioctl-types.h \
   /usr/include/sys/ttydefaults.h /usr/include/sys/mman.h \
   /usr/include/bits/mman.h ../..//include/config.h \
-  ../..//include/XVDig1394.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippi.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippcc.h \
-  ../..//include/video1394.h ../..//include/ieee1394-ioctl.h \
-  /usr/include/linux/ioctl.h /usr/include/linux/types.h \
-  /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
-  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
-  /usr/include/asm/types.h /usr/include/asm-generic/int-ll64.h \
-  /usr/include/libraw1394/raw1394.h /usr/include/dc1394/dc1394.h \
-  /usr/include/dc1394/types.h /usr/include/dc1394/camera.h \
-  /usr/include/dc1394/log.h /usr/include/dc1394/control.h \
-  /usr/include/dc1394/capture.h /usr/include/dc1394/video.h \
-  /usr/include/dc1394/conversions.h /usr/include/dc1394/format7.h \
-  /usr/include/dc1394/iso.h /usr/include/dc1394/register.h \
-  /usr/include/dc1394/utils.h ../..//include/config.h \
-  ../..//include/XVVideo.h ../..//include/XVImageRGB.h \
+  ../..//include/XVDig1394.h /usr/local/intel/ipp//include/ippi.h \
+  /usr/local/intel/ipp//include/ippdefs.h \
+  /usr/local/intel/ipp//include/ippcc.h ../..//include/video1394.h \
+  ../..//include/ieee1394-ioctl.h /usr/include/linux/ioctl.h \
+  /usr/include/linux/types.h /usr/include/linux/posix_types.h \
+  /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
+  /usr/include/asm/posix_types_32.h /usr/include/asm/types.h \
+  /usr/include/asm-generic/int-ll64.h /usr/include/libraw1394/raw1394.h \
+  /usr/include/dc1394/dc1394.h /usr/include/dc1394/types.h \
+  /usr/include/dc1394/camera.h /usr/include/dc1394/log.h \
+  /usr/include/dc1394/control.h /usr/include/dc1394/capture.h \
+  /usr/include/dc1394/video.h /usr/include/dc1394/conversions.h \
+  /usr/include/dc1394/format7.h /usr/include/dc1394/iso.h \
+  /usr/include/dc1394/register.h /usr/include/dc1394/utils.h \
+  ../..//include/config.h ../..//include/XVVideo.h \
+  ../..//include/XVImageRGB.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/fstream \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/bits/codecvt.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/i386-redhat-linux/bits/basic_file.h \
@@ -745,9 +744,8 @@ StereoVidere.o: StereoVidere.cc /usr/include/math.h \
   ../..//include/XVGeometry.h ../..//include/XVImageIterator.h \
   ../..//include/XVImageBase.icc /usr/include/stdlib.h \
   /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
-  /usr/include/alloca.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippi.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h \
+  /usr/include/alloca.h /usr/local/intel/ipp//include/ippi.h \
+  /usr/local/intel/ipp//include/ippdefs.h \
   ../..//include/XVImageIterator.h ../..//include/XVImageScalar.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/fstream \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/bits/codecvt.h \
@@ -868,9 +866,8 @@ XVImageSeq.o: XVImageSeq.cc /usr/include/stdio.h /usr/include/features.h \
   ../..//include/XVGeometry.h ../..//include/XVImageIterator.h \
   ../..//include/XVImageBase.icc /usr/include/stdlib.h \
   /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
-  /usr/include/alloca.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippi.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h \
+  /usr/include/alloca.h /usr/local/intel/ipp//include/ippi.h \
+  /usr/local/intel/ipp//include/ippdefs.h \
   ../..//include/XVImageIterator.h ../..//include/XVImageRGB.icc \
   ../..//include/XVImageScalar.h ../..//include/XVImageScalar.icc \
   ../..//include/XVImageFilters.icc ../..//include/XVImageIO.icc \
@@ -1114,18 +1111,16 @@ XVAVI.o: XVAVI.cc /usr/include/sys/types.h /usr/include/features.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
   /usr/include/bits/pthreadtypes.h /usr/include/sys/stat.h \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
-  /usr/include/bits/uio.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippcc.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h XVAVI.h \
-  /usr/include/stdint.h /usr/include/bits/wchar.h \
-  /usr/include/libavcodec/avcodec.h /usr/include/libavutil/avutil.h \
-  /usr/include/libavutil/common.h /usr/include/inttypes.h \
-  /usr/include/libavutil/mem.h /usr/include/libavutil/mathematics.h \
-  /usr/include/math.h /usr/include/bits/huge_val.h \
-  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
-  /usr/include/bits/inf.h /usr/include/bits/nan.h \
-  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
-  /usr/include/libavutil/rational.h \
+  /usr/include/bits/uio.h /usr/local/intel/ipp//include/ippcc.h \
+  /usr/local/intel/ipp//include/ippdefs.h XVAVI.h /usr/include/stdint.h \
+  /usr/include/bits/wchar.h /usr/include/libavcodec/avcodec.h \
+  /usr/include/libavutil/avutil.h /usr/include/libavutil/common.h \
+  /usr/include/inttypes.h /usr/include/libavutil/mem.h \
+  /usr/include/libavutil/mathematics.h /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/libavutil/rational.h \
   /usr/include/libavutil/intfloat_readwrite.h \
   /usr/include/libavutil/log.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stdarg.h \

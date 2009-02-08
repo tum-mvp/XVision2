@@ -32,15 +32,15 @@ Y *StereoVidere<T,Y>::calc_stereo(void)
 	  cerr << "image timed out" << endl;
           return NULL;
   }
-  image.resize (params->width, params->height);
+  disp_image.resize (params->width, params->height);
   processObject->CalcStereo(s_image);
   if(!s_image->haveDisparity) {cerr << "no disparity??"<< endl;return NULL;}
   if(!dispInitialized)
   {
     dispInitialized=true;
   }
-  image.remap((u_short*)s_image->disparity,false);
-  disp_image=image;
+  disp_image.remap((u_short*)s_image->disparity,false);
+  //disp_image=image;
   //cerr << "cropping " << s_image->dp.dleft << " " << s_image->dp.dtop <<endl;
   //disp_image.setSubImage(s_image->dp.dleft,s_image->dp.dtop,
   //  s_image->dp.dwidth,s_image->dp.dheight);

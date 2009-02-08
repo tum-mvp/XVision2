@@ -91,7 +91,7 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   //sourceObject->SetLR(false);    // no left-right check, not available
   //sourceObject->SetThresh(8);   // texture filter
   //sourceObject->SetUnique(2);   // uniqueness filter
-  //sourceObject->SetHoropter(0);  // horopter offset
+  //sourceObject->SetHoropter(62);  // horopter offset
   //sourceObject->SetRect(true);  //
   //sourceObject->SetProcMode(parm_string? PROC_MODE_DISPARITY:PROC_MODE_RECTIFIED);
   sourceObject->SetProcMode(PROC_MODE_RECTIFIED);

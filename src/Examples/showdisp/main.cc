@@ -10,7 +10,7 @@
 #include "StereoVidere.h"
 
 //#define REMOVE_FLOOR
-//#define VIDEO   //show grayscale image
+#define VIDEO   //show grayscale image
 
 
 typedef StereoVidere<XVImageRGB<XV_RGB>, XVImageScalar<u_short> > VID;
@@ -101,8 +101,8 @@ int main(int argc, char* argv[]) {
 
       disp_image = vid->calc_stereo();
       if(!disp_image) continue;
-      //calc_display(*disp_image,im);
-      //win.CopySubImage(im);
+      calc_display(*disp_image,im);
+      win.CopySubImage(im);
       win.swap_buffers();
       win.flush();
     }

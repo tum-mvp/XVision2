@@ -114,9 +114,8 @@ main.o: main.cc ../../..//include/config.h ../../..//include/XVAVI.h \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/../../../../include/c++/4.3.2/bits/cmath.tcc \
   ../../..//include/XVException.h ../../..//include/XVImageBase.h \
   ../../..//include/XVGeometry.h ../../..//include/XVImageIterator.h \
-  ../../..//include/XVImageBase.icc \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippi.h \
-  /usr/local/intel/ipp/5.3.1.062/ia32/include/ippdefs.h \
+  ../../..//include/XVImageBase.icc /usr/local/intel/ipp//include/ippi.h \
+  /usr/local/intel/ipp//include/ippdefs.h \
   ../../..//include/XVImageIterator.h ../../..//include/XVImageRGB.icc \
   ../../..//include/XVImageYUV.h ../../..//include/XVImageScalar.h \
   ../../..//include/XVImageScalar.icc \

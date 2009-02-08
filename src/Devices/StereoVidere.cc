@@ -206,6 +206,7 @@ StereoVidere<T,Y>::StereoVidere(const char *dev_name,
   file_image=NULL;
   processObject=new svsStereoProcess();
   file_image=new svsStoredImages;
+  XV_Videre<T>::set_stoc(true); //switch STOC on
   file_image->ReadParams((char *)dev_name);
   file_image->SetRect(true);
   dispInitialized=false;

@@ -53,8 +53,7 @@ class XV_Videre:public XVVideo<T>
    int		set_params(char *param_string=NULL) {return 1;};
    void         set_stoc(bool flag) 
                  {sourceObject->SetProcMode(flag?PROC_MODE_DISPARITY:
-		                                 PROC_MODE_RECTIFIED);
-	          sourceObject->SetHoropter(62); }
+		                                 PROC_MODE_RECTIFIED);}
    svsVideoImages* get_sourceObject(T mode){return sourceObject;}
 };
 

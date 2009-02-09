@@ -1,9 +1,10 @@
-PROG		= showlive
-CUR_DEPTH	= ../../../
-CPPFLAGS	=   -I$(IPPROOT)/include\
+PROG		= stream_stereo
+CUR_DEPTH	= ../../..
+CPPFLAGS	=   -I$(IPPROOT)/include -I$(SVS_PATH)/src\
                   -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) 
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVImages -lXVTools -lmpeg\
+                   -L$(SVS_PATH)/bin -lsvs -lsvscalc -lsvscap\
 		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread -L$(IPPROOT)/sharedlib -lippi -lippcc 
 
 # if you want to set the screen depth explicitly,

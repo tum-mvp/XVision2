@@ -9,12 +9,11 @@
 #include <XVImageScalar.h>
 #include "XVAffineWarp.h"
 #include <XVVideo.h>
-#include <Videre.h>
 #include "XVImageBase.h"
-#include <XVImageIO.h>
+#include <XVV4L2.h>
 
 
-static  XV_Videre<XVImageRGB<XV_RGB> >         *grabber;
+static  XVV4L2<XVImageRGB<XV_RGB> >         *grabber;
 
 void sighndl(int ws) {
   cerr << "SIGINT called" << endl;
@@ -29,32 +28,26 @@ int main (int argc, char **argv) {
    signal(SIGSEGV, sighndl);
    const int rate=10;
    struct timeval time1, time2;
-   grabber = new XV_Videre<XVImageRGB<XV_RGB> >();
-   XVWindowX<XV_RGB>      window1(640,480),window2(640,480);
+   grabber = new XVV4L2<XVImageRGB<XV_RGB> >(DEVICE_NAME,"B2N0");
+   XVWindowX<XV_RGB>      window1(640,480);
 
    window1.map();
-   window2.map();
     //grabber -> set_params ("I1N0B2");
   if (!grabber) {
     cerr<<"Error: no framegrabber found!"<<endl;
     exit(1);
   }
-  grabber->wait_for_completion(0);
-  XVImageScalar<u_char> **stereo_images=grabber->get_stereo();
+  grabber->next_frame_continuous();
   for (;;) {
     //Start timing
     gettimeofday (&time1, NULL);
     for (int i=0; i<rate; i++) {
 
-      grabber->wait_for_completion(0);
 
-      window1.CopySubImage(*(stereo_images[0]));     
-      window2.CopySubImage(*(stereo_images[1]));     
+      window1.CopySubImage(grabber->next_frame_continuous());     
  
       window1.swap_buffers();
       window1.flush();
-      window2.swap_buffers();
-      window2.flush();
     }
     //Produce timing results
     gettimeofday (&time2, NULL);

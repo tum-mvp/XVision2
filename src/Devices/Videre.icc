@@ -13,3 +13,17 @@ void vid_correct_color(XVImageRGB<T> &dest, u_char *source)
     }
 
 }
+
+template <class T>
+T &	XV_Videre<T>::get_color_right(void)
+{
+   return image_buffers_right;
+}
+
+template <class T>
+T &	XV_Videre<T>::get_color_left(void)
+{
+   return XVVideo<T>::frame(0);
+}
+
+//end of file

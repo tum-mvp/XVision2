@@ -34,6 +34,7 @@ class XV_Videre:public XVVideo<T>
   protected:
    using XVVideo<T>::image_buffers;
    using XVVideo<T>::init_map;
+   T image_buffers_right;
    XVImageScalar<u_char>  *scalar_image[2];
    svsVideoImages *sourceObject;
    svsStereoImage   *s_image;
@@ -45,13 +46,15 @@ class XV_Videre:public XVVideo<T>
 		~XV_Videre();
    XVImageScalar<u_char>
    		**get_stereo(void);
+   inline T & get_color_right(void);
+   inline T & get_color_left(void);
    XVSize	size(void)       {return XVSize(params->width,params->height);};
    int          open(const char *dev_name=DC_DEVICE_NAME);
    void		close(void);
    int		initiate_acquire(int frame);
    int		wait_for_completion(int frame);
    int		set_params(char *param_string=NULL) {return 1;};
-   void         set_stoc(bool flag) 
+   void         set_stoc(bool flag)
                  {sourceObject->SetProcMode(flag?PROC_MODE_DISPARITY:
 		                                 PROC_MODE_RECTIFIED);}
    svsVideoImages* get_sourceObject(T mode){return sourceObject;}

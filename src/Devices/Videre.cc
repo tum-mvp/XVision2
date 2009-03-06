@@ -26,7 +26,7 @@ template <class T>
 int XV_Videre<T>::wait_for_completion(int frame)
 {
    if(!(s_image = sourceObject->GetImage(500))) {cerr <<"t";return 0;} // timeout?
-   if(!s_image->haveColor)
+   if(!s_image->haveColor || !s_image->haveColorRight)
    {
 	   if(complain_flag){
 		   complain_flag=false;
@@ -36,8 +36,9 @@ int XV_Videre<T>::wait_for_completion(int frame)
    }
    scalar_image[XVVID_LEFT]->remap((u_char*)s_image->left,false);
    scalar_image[XVVID_RIGHT]->remap((u_char*)s_image->right,false);
-   
+
    if(s_image->haveColor)vid_correct_color(image_buffers[frame],s_image->color);
+   if(s_image->haveColorRight)vid_correct_color(image_buffers_right,s_image->color_right);
    return 1;
 }
 
@@ -48,6 +49,8 @@ XVImageScalar<u_char>       **XV_Videre<T>::get_stereo(void)
    scalar_image[XVVID_RIGHT]->remap((u_char*)s_image->right,false);
    return scalar_image;
 }
+
+
 
 template <class T>
 void XV_Videre<T>::close(void)
@@ -73,7 +76,8 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   s_image=NULL;
   sourceObject = getVideoObject();
   open(dev_name);
-  if(!sourceObject->CheckParams()) 
+  //cerr << "color from param " << sourceObject->haveColor << " "<< sourceObject->haveColorRight<<endl;
+  if(!sourceObject->CheckParams())
          sourceObject->ReadParams((char*)parm_string);
   params=sourceObject->GetIP();
   sourceObject->SetSize(640,480); // 320x240 image
@@ -83,7 +87,11 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   scalar_image[XVVID_RIGHT]=
   	new XVImageScalar<u_char>(params->width,params->height);
   XVSize size(params->width,params->height);
-  sourceObject->SetColor(false, false); // both left and right
+  //sourceObject->SetColor(false, false); // both left and right
+  //sourceObject->SetColor(true, true); // both left and right
+
+  //std::cerr << "params: " << params->color << " " << params->color_right << std::endl;
+  //cin.get();
 
   sourceObject->SetCapture(CAP_DUAL);
   //sourceObject->SetNDisp(64);    // 32 disparities
@@ -92,13 +100,16 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   //sourceObject->SetThresh(8);   // texture filter
   //sourceObject->SetUnique(2);   // uniqueness filter
   //sourceObject->SetHoropter(62);  // horopter offset
-  //sourceObject->SetRect(true);  //
+  sourceObject->SetRect(false);  //
   //sourceObject->SetProcMode(parm_string? PROC_MODE_DISPARITY:PROC_MODE_RECTIFIED);
-  sourceObject->SetProcMode(PROC_MODE_RECTIFIED);
+  //sourceObject->SetProcMode(PROC_MODE_RECTIFIED);
   sourceObject->SetRate(30);
+  sourceObject->SetColor(true, true); // both left and right
   sourceObject->Start();
 
   init_map(size,1);
+
+  image_buffers_right.resize( size.Width(), size.Height() );
 }
 
 template <class T>

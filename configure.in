@@ -143,5 +143,7 @@ src/Examples/tracking/Makefile
 src/Examples/warp/Makefile
 src/Examples/play_avi/Makefile
 src/Examples/show_v4l/Makefile
+src/Examples/stream_stereo/Makefile
+src/Examples/stream_stereo_color/Makefile
 )
  

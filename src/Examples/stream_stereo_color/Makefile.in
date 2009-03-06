@@ -1,5 +1,5 @@
 # Generated automatically from Makefile.in by configure.
-PROG		= stream_stereo
+PROG		= stream_stereo_color
 CUR_DEPTH	= ../../..
 CPPFLAGS	= -I$(CUR_DEPTH)/include -O6 -DSCREEN_DEPTH=$(SD) \
                    @X_CFLAGS@ @VIDERE_INC@ @IPPINC@\

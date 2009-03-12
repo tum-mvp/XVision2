@@ -5,12 +5,12 @@
 void perror (char *x) { cout << x << endl; exit(1);}
 
 template <class IMTYPE>
-XVVideo<IMTYPE>::XVVideo(const char * dev_name , 
+XVVideo<IMTYPE>::XVVideo(const char * dev_name ,
 			 const char * parmstring ) {
-  
+
   name = dev_name;
   frame_count = 0;
-  current_buffer=0;  
+  current_buffer=0;
   image_buffers=NULL;
   n_buffers = 0;
   own_buffers=0;
@@ -69,7 +69,7 @@ XVVideo<T>::XVVideo(const char *dev_name,
 
 template <class IMTYPE>
 XVVideo<IMTYPE>::~XVVideo() {
-  //if(own_buffers&&image_buffers) delete [] image_buffers;
+  if(own_buffers&&image_buffers) delete [] image_buffers;
 }
 
 template <class IMTYPE>

@@ -8,7 +8,7 @@ IMAGES       = XVImageBase.h XVImageRGB.h XVImageRGB.icc XVImageScalar.h \
 	       XVImageIterator.h XVImageFilters.icc XVPixel.h XVColorImage.h \
 	       XVImageYUV.h XVImageYUV.icc XVImageYUV422.h XVImageBase.icc XVImageScalar.icc \
 	       XVImageHSV.h XVImageIO.h XVImageIO.icc \
-		XVMaskedImage.h
+	XVImageYCbCr.h	XVMaskedImage.h
 
 CONSOLES     = XVWindow.h XVDrawable.h XVInteractive.h XVWindowX.h \
                XVRemoteWindowX.h

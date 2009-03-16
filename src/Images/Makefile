@@ -1,10 +1,10 @@
 
 CUR_DEPTH	= ../../
-CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=1 -I$(IPPROOT)/include
+CXXFLAGS	= -O6 -pipe -DDEBUG_LEVEL=1 -I$(IPPROOT)/include
 CPPFLAGS	= -I$(CUR_DEPTH)/include -I$(IPPROOT)/include
 OBJS		= XVPixel.o XVColorBase.o XVImageBase.o XVImageScalar.o \
 		  XVImageRGB.o XVImageYUV.o XVImageHSV.o XVImageYUV422.o \
-	           XVImageYCbCr.o XVMaskedImage.o
+		XVImageYCbCr.o	XVMaskedImage.o
 
 all: .depend $(OBJS)
 	ar rv libXVImages.a $(OBJS)

@@ -61,8 +61,7 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
 
 static void copy_pixels(XVImageYCbCr &frame,char *mm_buf)
 {
-   memcpy(frame.lock(),mm_buf,frame.Width()*frame.Height()*2);
-   frame.unlock();
+   //frame.remap((XV_YCbCr *)mm_buf,false);
 }
 
 template <class T>
@@ -119,7 +118,8 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
   else
 #endif
   {
-      copy_pixels(frame(i_frame),(char *)mm_buf[i_frame]);
+      //if(figure_out_type(*frame(i_frame).data())==XVImage_YCbCr)
+          copy_pixels(frame(i_frame),(char *)mm_buf[i_frame]);
   }
   return 1;
 }
@@ -256,6 +256,8 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
   			PROT_READ,MAP_SHARED,fd,vidbuf[j].m.offset);
   }
   init_map(size,n_buffers);
+  if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
+  			remap(mm_buf,n_buffers);
   int type=V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl( fd, VIDIOC_STREAMON, &type );
   return 1;

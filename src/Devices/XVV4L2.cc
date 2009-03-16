@@ -107,7 +107,7 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
     return 0;
   }
 #ifdef HAVE_IPP
-  if ( sizeof(typename T::PIXELTYPE) == 4) // XV_RGBA32?
+  if ( figure_out_type(*frame(0).data())==XVImage_RGB32) // XV_RGBA32?
   {
     IppiSize roi={size.Width(),size.Height()};
     ippiYCbCr422ToBGR_8u_C2C4R((const Ipp8u *)mm_buf[i_frame],

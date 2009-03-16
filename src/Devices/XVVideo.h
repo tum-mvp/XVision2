@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "XVImageRGB.h"
 #include "XVImageYUV.h"
+#include "XVImageYCbCr.h"
 
 typedef enum {MODE_CAP_SINGLE = 0, MODE_CAP_CONTINUOUS = 1}       XVCapture_Mode;
 typedef enum {NORM_NTSC=0,NORM_PAL,NORM_SECAM, INPUT_DETERMINED}  XV_Video_Norms;

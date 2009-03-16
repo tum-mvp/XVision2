@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <XVImageScalar.h> //jcorso for monochrome operation
-#include <XVImageYUV422.h> 
+#include <XVImageYCbCr.h> 
 #include "XVV4L2.h"
 
 #ifdef HAVE_IPP
@@ -44,7 +44,7 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
   if(fd<0) return 0;
   if(i_frame <0 || i_frame>n_buffers)
   {
-    cerr << "invalid frame number" << endl;
+    cerr << "scheduled invalid frame number " << i_frame<< endl;
     return 0;
   }
  
@@ -59,6 +59,30 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
   return 1;
 }
 
+static void copy_pixels(XVImageYCbCr &frame,char *mm_buf)
+{
+   memcpy(frame.lock(),mm_buf,frame.Width()*frame.Height()*2);
+   frame.unlock();
+}
+
+template <class T>
+void copy_pixels(T &frame,char *mm_buf)
+{
+       XV_YCbCr *ptr=(XV_YCbCr*)mm_buf;
+       XVImageWIterator<typename T::PIXELTYPE> wIter(frame);
+
+      for(;!wIter.end();++wIter,ptr++)
+       {
+         wIter->r=(u_char)(YUV2R(ptr->y0,ptr->u,ptr->v));
+         wIter->g=(u_char)(YUV2G(ptr->y0,ptr->u,ptr->v));
+         wIter->b=(u_char)(YUV2B(ptr->y0,ptr->u,ptr->v));
+         ++wIter;
+         wIter->r=(u_char)(YUV2R(ptr->y1,ptr->u,ptr->v));
+         wIter->g=(u_char)(YUV2G(ptr->y1,ptr->u,ptr->v));
+         wIter->b=(u_char)(YUV2B(ptr->y1,ptr->u,ptr->v));
+       }
+}
+
 template <class T>
 int XVV4L2<T>::wait_for_completion(int i_frame)
 {
@@ -69,7 +93,7 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
   if(fd<0) return 0;
   if(i_frame <0 || i_frame>n_buffers)
   {
-    cerr << "invalid frame number" << endl;
+    cerr << "invalid frame number " << i_frame<< endl;
     return 0;
   }
  
@@ -95,19 +119,7 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
   else
 #endif
   {
-   XV_YCbCr *ptr=(XV_YCbCr*)mm_buf[i_frame];
-   XVImageWIterator<typename T::PIXELTYPE> wIter(frame(i_frame));
-
-   for(;!wIter.end();++wIter,ptr++)
-   {
-    wIter->r=(u_char)(YUV2R(ptr->y0,ptr->u,ptr->v));
-    wIter->g=(u_char)(YUV2G(ptr->y0,ptr->u,ptr->v));
-    wIter->b=(u_char)(YUV2B(ptr->y0,ptr->u,ptr->v));
-    ++wIter;
-    wIter->r=(u_char)(YUV2R(ptr->y1,ptr->u,ptr->v));
-    wIter->g=(u_char)(YUV2G(ptr->y1,ptr->u,ptr->v));
-    wIter->b=(u_char)(YUV2B(ptr->y1,ptr->u,ptr->v));
-   }
+      copy_pixels(frame(i_frame),(char *)mm_buf[i_frame]);
   }
   return 1;
 }
@@ -285,3 +297,4 @@ template class XVV4L2<XVImageRGB<XV_RGBA32> >;
 template class XVV4L2<XVImageRGB<XV_RGB24> >;
 template class XVV4L2<XVImageRGB<XV_RGB16> >;
 template class XVV4L2<XVImageRGB<XV_RGB15> >;
+template class XVV4L2<XVImageYCbCr>;

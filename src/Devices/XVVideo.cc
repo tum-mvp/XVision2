@@ -102,6 +102,7 @@ template class XVVideo<XVImageRGB<XV_RGBA32> >;
 template class XVVideo<XVImageRGB<XV_GLRGBA32> >;
 
 template class XVVideo<XVImageYUV<XV_YUV24> >;
+template class XVVideo<XVImageYCbCr >;
 
 template class XVVideo<XVImageScalar<u_char> >;
 template class XVVideo<XVImageScalar<char> >;

@@ -1,10 +1,10 @@
 CUR_DEPTH  = ../../
-CXXFLAGS=-O6 -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H -I$(IPPROOT)/include
-CPPFLAGS	= -I$(SVS_PATH)/src  -I$(IPPROOT)/include  \
+CXXFLAGS=-g -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H -I$(IPPROOT)/include
+CPPFLAGS	= -I$(SVS_PATH)/src  -I$(IPPROOT)/include -I$(PVROOT)/include \
                   -I$(CUR_DEPTH)/include \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394
 OBJS		= XVV4L2.o XVBt8x8.o Meteor.o XVDig1394.o Videre.o StereoVidere.o\
-                   XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
+                  XVPv.o XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
 
 
 all: .depend $(OBJS)

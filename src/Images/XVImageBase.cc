@@ -283,6 +283,7 @@ template class XVPixmap<XV_RGB15>;
 
 template class XVPixmap<XV_YUV24>;
 template class XVPixmap<XV_YUV422>;
+template class XVPixmap<XV_YCbCr>;
 template class XVPixmap<XV_UVBAND16>;
 
 template class XVPixmap<XV_HSV24>;
@@ -311,4 +312,5 @@ template class XVImageBase<XV_HSV24>;
 template class XVImageBase<XV_YUV16>;
 template class XVImageBase<XV_YUV24>;
 template class XVImageBase<XV_YUV422>;
+template class XVImageBase<XV_YCbCr>;
 

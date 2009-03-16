@@ -7,6 +7,8 @@
 #include <XVImageYUV.h>
 #include <XVImageHSV.h>
 #include <XVImageScalar.h>
+#include <XVImageYUV422.h>
+#include <XVImageYCbCr.h>
 
 #ifdef HAVE_IPP 
 #include <ippi.h>
@@ -70,6 +72,7 @@ CONVERT_OP_IMPL(XVImageRGB<XV_RGBA32>);
 CONVERT_OP_IMPL(XVImageRGB<XV_GLRGBA32>);
 CONVERT_OP_IMPL(XVImageYUV<XV_YUV24>);  
 CONVERT_OP_IMPL(XVImageHSV<XV_HSV24>);
+CONVERT_OP_IMPL(XVImageYCbCr);
 
 CONVERT_OP_IMPL(XVImageScalar<u_char>);
 CONVERT_OP_IMPL(XVImageScalar<char>);
@@ -80,7 +83,6 @@ CONVERT_OP_IMPL(XVImageScalar<int>);
 CONVERT_OP_IMPL(XVImageScalar<float>);
 CONVERT_OP_IMPL(XVImageScalar<double>);
 
-#include <XVImageYUV422.h>
 
 template <class T>
 XVColorBase<T>::operator XVImageYUV422() const {
@@ -95,6 +97,30 @@ XVColorBase<T>::operator XVImageYUV422() const {
   newIM.resize((int)(this->Width() / 2), this->Height());
   XVImageIterator<T> fromIter(*this);
   XVImageWIterator<XV_YUV422> toIter(newIM);
+  T doublePix[2];
+  for(; !toIter.end(); ++toIter, ++fromIter){
+    doublePix[0] = *fromIter;
+    ++fromIter;
+    doublePix[1] = *fromIter;
+    *toIter << doublePix;
+  }
+  (const_cast<XVColorBase<T> *>(this))->resize(oldSize);
+  return newIM;
+};
+  
+template <class T>
+XVColorBase<T>::operator XVImageYCbCr() const {
+
+  XVImageYCbCr newIM(0, 0);
+  if(newIM.ImageType() == this->ImageType()){
+    newIM = dynamic_cast<XVImageYCbCr & >(const_cast<XVColorBase<T> & >(*this)); 
+    return newIM;
+  }
+  XVSize oldSize = (XVSize)(*this);
+  (const_cast<XVColorBase<T> *>(this))->resize(2 * ((int)(this->Width() / 2)), this->Height());
+  newIM.resize((int)(this->Width() / 2), this->Height());
+  XVImageIterator<T> fromIter(*this);
+  XVImageWIterator<XV_YCbCr> toIter(newIM);
   T doublePix[2];
   for(; !toIter.end(); ++toIter, ++fromIter){
     doublePix[0] = *fromIter;

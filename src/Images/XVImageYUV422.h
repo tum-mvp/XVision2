@@ -37,6 +37,7 @@ class XVImageYUV422 : public XVImageBase<XV_YUV422>, public XVColorImage {
   operator XVImageRGB<XV_GLRGBA32>() const;
   operator XVImageYUV<XV_YUV24>()  const; 
   operator XVImageYUV422()         const;
+  operator XVImageYCbCr()         const;
   operator XVImageHSV<XV_HSV24>()  const;
 
   operator XVImageScalar<u_char>()  const;

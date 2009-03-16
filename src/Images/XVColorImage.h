@@ -15,6 +15,7 @@ template <class T> class XVImageRGB;
 template <class T> class XVImageYUV;
 template <class T> class XVImageHSV;
 class XVImageYUV422;
+class XVImageYCbCr;
 
 /**
  * The purpose of this class is to allow implicit
@@ -35,6 +36,7 @@ class XVColorImage {
   virtual operator XVImageYUV<XV_YUV24>()  const = 0;
   virtual operator XVImageHSV<XV_HSV24>()  const = 0;
   virtual operator XVImageYUV422()         const = 0;
+  virtual operator XVImageYCbCr()         const = 0;
 
   virtual operator XVImageScalar<u_char>()  const = 0;
   virtual operator XVImageScalar<char>()    const = 0;
@@ -70,6 +72,7 @@ class XVColorBase : public XVImageBase<T>, virtual public XVColorImage {
   virtual operator XVImageRGB<XV_GLRGBA32>()  const;
   virtual operator XVImageYUV<XV_YUV24>()   const; 
   virtual operator XVImageYUV422()          const;
+  virtual operator XVImageYCbCr()          const;
   virtual operator XVImageHSV<XV_HSV24>()   const;
 
   virtual operator XVImageScalar<u_char>()  const;

@@ -1,5 +1,6 @@
 
 #include <XVImageYUV422.h>
+#include <XVImageYCbCr.h>
 
 #define CONVERT_OP_IMPL(IM_TYPE) \
 XVImageYUV422::operator IM_TYPE() const { \
@@ -63,3 +64,4 @@ XVImageYUV422::operator IM_TYPE() const { \
 
 CONVERT_OP_SINGLE_IMPL(XVImageHSV<XV_HSV24>);
 CONVERT_OP_SINGLE_IMPL(XVImageYUV422);
+CONVERT_OP_SINGLE_IMPL(XVImageYCbCr);

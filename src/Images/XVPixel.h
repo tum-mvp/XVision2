@@ -46,7 +46,9 @@ typedef enum { XVImage_uchar  =  0,
 	       XVImage_UVBAND8  = 44,
                XVImage_UVBAND16 = 45,
                XVImage_HUE      = 51,
-               XVImage_HSV24    = 52} 
+               XVImage_HSV24    = 52,
+	       XVImage_YCbCr	= 53
+	       } 
 XVImage_Type;
 
 inline bool XVImage_Signed_Type(XVImage_Type x) { return ((x/10) == 1); }
@@ -520,10 +522,16 @@ float YUVtoHue(XV_YUV24 pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL,
 float YUV422toHue(XV_YUV422 pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL, 
 		  int darkPixel = DEFAULT_DARK_PIXEL);
 
+float YCbCrtoHue(XV_YCbCr pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL, 
+		  int darkPixel = DEFAULT_DARK_PIXEL);
+
 XV_HSV24 YUVtoHSV(XV_YUV24 pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL,
 		  int darkPixel = DEFAULT_DARK_PIXEL);
 
 XV_HSV24 YUV422toHSV(XV_YUV422 pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL,
+		     int darkPixel = DEFAULT_DARK_PIXEL);
+    
+XV_HSV24 YCbCrtoHSV(XV_YCbCr pixel, int brightPixel = DEFAULT_BRIGHT_PIXEL,
 		     int darkPixel = DEFAULT_DARK_PIXEL);
     
 // conversion functions
@@ -592,6 +600,16 @@ inline void operator <<  (XV_RGB15 pout[2], const XV_YUV422 & pin) {
   pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v)) >> 3;
 };
 
+inline void operator <<  (XV_RGB15 pout[2], const XV_YCbCr & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v)) >> 3;
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v)) >> 3;
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v)) >> 3;
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v)) >> 3;
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v)) >> 3;
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v)) >> 3;
+};
+
 inline void operator <<  (XV_RGB16 & pout, const XV_RGB15 & pin) {
 
   pout.r = pin.r;
@@ -647,6 +665,16 @@ inline void operator <<  (XV_RGB16 & pout, const XV_YUV24 & pin) {
 };
 
 inline void operator <<  (XV_RGB16 pout[2], const XV_YUV422 & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v)) >> 3;
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v)) >> 2;
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v)) >> 3;
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v)) >> 3;
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v)) >> 2;
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v)) >> 3;
+};
+
+inline void operator <<  (XV_RGB16 pout[2], const XV_YCbCr & pin) {
 
   pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v)) >> 3;
   pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v)) >> 2;
@@ -721,6 +749,16 @@ inline void operator <<  (XV_RGB24 pout[2], const XV_YUV422 & pin) {
   pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
 };
 
+inline void operator <<  (XV_RGB24 pout[2], const XV_YCbCr & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v));
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v));
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v));
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v));
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v));
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
+};
+
 inline void operator <<  (XV_TRGB24 & pout, const XV_RGB15 & pin) {
 
   pout.r = pin.r << 3;
@@ -776,6 +814,16 @@ inline void operator <<  (XV_TRGB24 & pout, const XV_YUV24 &  pin) {
 };
 
 inline void operator <<  (XV_TRGB24 pout[2], const XV_YUV422 & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v));
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v));
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v));
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v));
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v));
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
+};
+
+inline void operator <<  (XV_TRGB24 pout[2], const XV_YCbCr & pin) {
 
   pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v));
   pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v));
@@ -908,6 +956,26 @@ inline void operator <<  (XV_GLRGBA32 pout[2], const XV_YUV422 & pin) {
   pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
 };
 
+inline void operator <<  (XV_RGBA32 pout[2], const XV_YCbCr & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v));
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v));
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v));
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v));
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v));
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
+};
+
+inline void operator <<  (XV_GLRGBA32 pout[2], const XV_YCbCr & pin) {
+
+  pout[0].r = (u_char)(YUV2R(pin.y0, pin.u, pin.v));
+  pout[0].g = (u_char)(YUV2G(pin.y0, pin.u, pin.v));
+  pout[0].b = (u_char)(YUV2B(pin.y0, pin.u, pin.v));
+  pout[1].r = (u_char)(YUV2R(pin.y1, pin.u, pin.v));
+  pout[1].g = (u_char)(YUV2G(pin.y1, pin.u, pin.v));
+  pout[1].b = (u_char)(YUV2B(pin.y1, pin.u, pin.v));
+};
+
 #define HSV_TO_RGB(RGB_TYPE) \
 inline void operator <<  (RGB_TYPE & pout, const XV_HSV24 & pin) { \
 \
@@ -966,11 +1034,27 @@ inline void operator <<  (XV_YUV24 pout[2], const XV_YUV422 & pin) {
   pout[1].v = pin.v;
 };
 
+inline void operator <<  (XV_YUV24 pout[2], const XV_YCbCr & pin) {
+  pout[0].y = pin.y0;
+  pout[0].u = pin.u;
+  pout[0].v = pin.v;
+  pout[1].y = pin.y1;
+  pout[1].u = pin.u;
+  pout[1].v = pin.v;
+};
+
 inline void operator <<  (XV_YUV24 & pout, const XV_YUV24 & pin) {
   pout = pin;
 };
 
 inline void operator <<  (XV_YUV422 & pout, const XV_YUV24 pin[2]) {
+  pout.y0 = pin[0].y;
+  pout.u  = pin[0].u;
+  pout.y1 = pin[1].y;
+  pout.v  = pin[1].v;
+};
+
+inline void operator <<  (XV_YCbCr & pout, const XV_YUV24 pin[2]) {
   pout.y0 = pin[0].y;
   pout.u  = pin[0].u;
   pout.y1 = pin[1].y;
@@ -992,12 +1076,49 @@ RGB_TO_YUV422(XV_TRGB24);
 RGB_TO_YUV422(XV_RGBA32);
 RGB_TO_YUV422(XV_GLRGBA32);
 
+#define RGB_TO_YCbCr(RGB_TYPE) \
+inline void operator <<  (XV_YCbCr & pout, const RGB_TYPE pin[2]) { \
+  pout.y0 = (u_char)(RGB2Y(pin[0].R(), pin[0].G(), pin[0].B())); \
+  pout.u = (u_char)(RGB2U(pin[0].R(), pin[0].G(), pin[0].B())); \
+  pout.v = (u_char)(RGB2V(pin[0].R(), pin[0].G(), pin[0].B())); \
+  pout.y1 = (u_char)(RGB2Y(pin[1].R(), pin[1].G(), pin[1].B())); \
+};
+
+RGB_TO_YCbCr(XV_RGB15);
+RGB_TO_YCbCr(XV_RGB16);
+RGB_TO_YCbCr(XV_RGB24);
+RGB_TO_YCbCr(XV_TRGB24);
+RGB_TO_YCbCr(XV_RGBA32);
+RGB_TO_YCbCr(XV_GLRGBA32);
+
 inline void operator <<  (XV_YUV422 & pout, const XV_HSV24 pin[2]) {
   XV_YUV24 tmp[2]; tmp[0] << pin[0]; tmp[1] << pin[1];
   pout << tmp;
 };
 
+inline void operator <<  (XV_YCbCr & pout, const XV_HSV24 pin[2]) {
+  XV_YUV24 tmp[2]; tmp[0] << pin[0]; tmp[1] << pin[1];
+  pout << tmp;
+};
 inline void operator <<  (XV_YUV422 & pout, const XV_YUV422 & pin) {
+  pout  = pin;
+};
+
+inline void operator <<  (XV_YUV422 & pout, const XV_YCbCr & pin) {
+  pout.y0  = pin.y0;
+  pout.y1  = pin.y1;
+  pout.u  = pin.u;
+  pout.v  = pin.v;
+};
+
+inline void operator <<  (XV_YCbCr & pout, const XV_YUV422 & pin) {
+  pout.y0  = pin.y0;
+  pout.y1  = pin.y1;
+  pout.u  = pin.u;
+  pout.v  = pin.v;
+};
+
+inline void operator <<  (XV_YCbCr & pout, const XV_YCbCr & pin) {
   pout  = pin;
 };
 
@@ -1019,6 +1140,10 @@ inline void operator <<  (XV_HSV24 & pout, const XV_YUV24 & pin) {
 
 inline void operator <<  (XV_HSV24 & pout, const XV_YUV422 & pin) {
   pout = YUV422toHSV(pin);
+};
+
+inline void operator <<  (XV_HSV24 & pout, const XV_YCbCr & pin) {
+  pout = YCbCrtoHSV(pin);
 };
 
 inline void operator <<  (XV_HSV24 & pout, const XV_HSV24 & pin) {
@@ -1149,6 +1274,33 @@ SCALAR_TO_YUV422(float);
 YUV422_TO_SCALAR(double);
 SCALAR_TO_YUV422(double);
 
+#define YCbCr_TO_SCALAR(SCALAR) \
+inline void operator << (SCALAR sc[2], const XV_YCbCr & yuv) { \
+  sc[0] = yuv.y0; sc[1] = yuv.y1; \
+};
+
+#define SCALAR_TO_YCbCr(SCALAR) \
+inline void operator << (XV_YCbCr & yuv, const SCALAR sc[2]) { \
+  yuv.y0 = (u_char)sc[0]; yuv.y1 = (u_char)sc[1]; yuv.u = 0; yuv.v = 0; \
+};
+
+YCbCr_TO_SCALAR(u_char);
+SCALAR_TO_YCbCr(u_char);
+YCbCr_TO_SCALAR(char);
+SCALAR_TO_YCbCr(char);
+YCbCr_TO_SCALAR(u_short);
+SCALAR_TO_YCbCr(u_short);
+YCbCr_TO_SCALAR(short);
+SCALAR_TO_YCbCr(short);
+YCbCr_TO_SCALAR(u_int);
+SCALAR_TO_YCbCr(u_int);
+YCbCr_TO_SCALAR(int);
+SCALAR_TO_YCbCr(int);
+YCbCr_TO_SCALAR(float);
+SCALAR_TO_YCbCr(float);
+YCbCr_TO_SCALAR(double);
+SCALAR_TO_YCbCr(double);
+
 // Type Determination Functions.  Overloaded to include all types.
 
 inline XVImage_Type figure_out_type(XV_RGB16 x) { return XVImage_RGB16; }
@@ -1170,6 +1322,7 @@ inline XVImage_Type figure_out_type(int x)    { return XVImage_int;   }
 inline XVImage_Type figure_out_type(long x) { return XVImage_int; }
 inline XVImage_Type figure_out_type(float x)    { return XVImage_float; }
 inline XVImage_Type figure_out_type(double x)   { return XVImage_double;}
+inline XVImage_Type figure_out_type(XV_YCbCr x){ return XVImage_YCbCr;}
 
 #define PRINT_RGB_PIXEL(PIX) \
 inline ostream &operator << (ostream & output, const PIX & RGB) { \

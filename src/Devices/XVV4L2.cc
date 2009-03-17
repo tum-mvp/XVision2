@@ -142,6 +142,9 @@ int XVV4L2<T>::set_params(char *paramstring)
        case 'B': // number of buffers
 	 num_frames=parse_result.val;
 	 break;
+       case 'r': // raw mode
+	 raw_mode=parse_result.val;
+	 break;
        case 'N': // norm
          if(parse_result.val<0 || parse_result.val>2)
            cerr << "Unsupported norm" << endl;
@@ -221,12 +224,13 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
   setfps.parm.capture.timeperframe.denominator=30;
   if((ioctl(fd,VIDIOC_S_PARM,&setfps))==-1)
     perror("SET_FPS failed");
+  if(!set_params(parameter)) return 0;
   memset(&fmt,0,sizeof(struct v4l2_format));
   fmt.type                = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   fmt.fmt.pix.width=size.Width();
   fmt.fmt.pix.height=size.Height();
   //fmt.fmt.pix.pixelformat =conv_table[sizeof(typename T::PIXELTYPE)-1];
-  fmt.fmt.pix.pixelformat =V4L2_PIX_FMT_YUYV;
+  fmt.fmt.pix.pixelformat =raw_mode? V4L2_PIX_FMT_MJPEG:V4L2_PIX_FMT_YUYV;
   fmt.fmt.pix.field        = V4L2_FIELD_ANY;
   //fmt.fmt.pix.bytesperline = 0;
   if(( ioctl (fd, VIDIOC_S_FMT, &fmt))==-1)
@@ -237,7 +241,6 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
      inp[ninputs].index=ninputs;
      if(ioctl(fd,VIDIOC_ENUMINPUT,&(inp[ninputs]))==-1) break;
   }
-  if(!set_params(parameter)) return 0;
   if(ioctl(fd,VIDIOC_S_STD,&norm))
     perror("S_STD error");
   // mmap buffers into user space
@@ -255,6 +258,8 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
     mm_buf[j]=(typename T::PIXELTYPE *)mmap((void *)0,vidbuf[j].length,
   			PROT_READ,MAP_SHARED,fd,vidbuf[j].m.offset);
   }
+  if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
+  				size.resize(size.Width()/2,size.Height());
   init_map(size,n_buffers);
   if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
   			remap(mm_buf,n_buffers);
@@ -269,7 +274,7 @@ XVV4L2<T>::XVV4L2(char const *dev_name,char const *parm_string):
 {
 
   size=XVSize(640,480);
-  fd=-1;
+  fd=-1;raw_mode=false;
   open(dev_name,parm_string);
 }
 
@@ -281,7 +286,7 @@ XVV4L2<T>::XVV4L2(const XVSize & in_size, char const *dev_name,char const *parm_
 {
 
   size=in_size;
-  fd=-1;
+  fd=-1; raw_mode=false;
   open(dev_name,parm_string);
   cerr << "finished" << endl;
 }

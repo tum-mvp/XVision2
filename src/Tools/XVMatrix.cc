@@ -17,7 +17,7 @@ void _panic(char *mess)
   exit(1);
 }
 
-XVMatrix::XVMatrix (const XVMatrix& m) 
+XVMatrix::XVMatrix (const XVMatrix& m)
 {
   init_empty();
   resize(m.rowNum,m.colNum);
@@ -29,16 +29,16 @@ XVMatrix::XVMatrix (const XVMatrix& m)
 }
 
 int
-XVMatrix::resize(int nrows, int ncols) 
+XVMatrix::resize(int nrows, int ncols)
 {
   // If things are the same, do nothing and return
-  
+
   if ((nrows == rowNum) && (ncols == colNum)) {return 1;}
   rowNum = nrows; colNum = ncols;
-  
+
   if (dataShared())
     _panic((char*)"Cannot resize a matrix which has an outstanding submatrix");
-  
+
   // Check data room
   if ( (nrows*ncols > csize) || (csize == 0) ) {
     dsize = nrows*ncols; csize = dsize;
@@ -61,7 +61,7 @@ XVMatrix::resize(int nrows, int ncols)
 
 
 XVMatrix&
-XVMatrix::operator=(const XVMatrix &m) 
+XVMatrix::operator=(const XVMatrix &m)
 {
   //CHECKSIZE(m,"Incompatible size in =");
   resize(m.rowNum, m.colNum); // now it's same with <<
@@ -74,7 +74,7 @@ XVMatrix::operator=(const XVMatrix &m)
 }
 
 XVMatrix&
-XVMatrix::operator<<(const XVMatrix &m) 
+XVMatrix::operator<<(const XVMatrix &m)
 {
   resize(m.rowNum, m.colNum);
 
@@ -98,7 +98,7 @@ XVMatrix& XVMatrix::operator<<( FrReal *x )
 
 
 XVMatrix&
-XVMatrix::operator=(FrReal x) 
+XVMatrix::operator=(FrReal x)
 {
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
@@ -113,10 +113,10 @@ XVMatrix::operator*(const XVMatrix &mat) const
 {
   XVMatrix p(rowNum,mat.colNum);
   p = 0;
-  
+
   if (colNum != mat.rowNum)
     _panic((char*)"XVMatrix mismatch in matrix matrix multiply");
-  
+
   for (int i=0;i<rowNum;i++)
     for (int j=0;j<mat.colNum;j++)
       for (int k=0;k<mat.rowNum;k++)
@@ -197,7 +197,7 @@ XVColVector::operator+(const XVColVector &mat) const
 }
 
 XVMatrix
-XVMatrix::operator-(const XVMatrix &mat) const 
+XVMatrix::operator-(const XVMatrix &mat) const
 {
   CHECKSIZE(mat,(char*)"Incompatible size in -");
   XVMatrix v(rowNum,colNum);
@@ -230,7 +230,7 @@ XVMatrix::operator-() const //negate
 }
 
 XVColVector
-XVColVector::operator-() 
+XVColVector::operator-()
 {
   XVColVector A=(*this);
 
@@ -316,10 +316,10 @@ XVColVector::operator*(FrReal x) const
 }
 
 XVColVector&
-XVColVector::operator=(const XVMatrix &m) 
+XVColVector::operator=(const XVMatrix &m)
 {
   //CHECKSIZE(m,"Incompatible size in =");
-  
+
   resize(m.rowNum);
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
@@ -330,7 +330,7 @@ XVColVector::operator=(const XVMatrix &m)
 }
 
 XVColVector&
-XVColVector::operator=(const XVColVector &v) 
+XVColVector::operator=(const XVColVector &v)
 {
   //CHECKSIZE(v,"Incompatible size in =");
 
@@ -344,7 +344,7 @@ XVColVector::operator=(const XVColVector &v)
 }
 
 XVColVector&
-XVColVector::operator<<(const XVColVector &v) 
+XVColVector::operator<<(const XVColVector &v)
 {
   resize(v.rowNum);
   for (int i=0; i<rowNum; i++) {
@@ -367,7 +367,7 @@ XVColVector::operator<<( FrReal *x )
 }
 
 XVColVector&
-XVColVector::operator=(FrReal x) 
+XVColVector::operator=(FrReal x)
 {
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
@@ -378,7 +378,7 @@ XVColVector::operator=(FrReal x)
 }
 
 XVRowVector&
-XVRowVector::operator=(const XVRowVector &v) 
+XVRowVector::operator=(const XVRowVector &v)
 {
   //CHECKSIZE(v,"Incompatible size in =");
 
@@ -393,7 +393,7 @@ XVRowVector::operator=(const XVRowVector &v)
 }
 
 XVRowVector&
-XVRowVector::operator=(const XVMatrix &m) 
+XVRowVector::operator=(const XVMatrix &m)
 {
   CHECKSIZE(m,(char*)"Incompatible size in =");
 
@@ -407,7 +407,7 @@ XVRowVector::operator=(const XVMatrix &m)
 }
 
 XVRowVector&
-XVRowVector::operator<<(const XVRowVector &v) 
+XVRowVector::operator<<(const XVRowVector &v)
 {
   resize(v.colNum);
   for (int i=0; i<rowNum; i++) {
@@ -419,7 +419,7 @@ XVRowVector::operator<<(const XVRowVector &v)
 }
 
 XVRowVector&
-XVRowVector::operator=(FrReal x) 
+XVRowVector::operator=(FrReal x)
 {
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
@@ -474,16 +474,16 @@ XVMatrix::init(XVMatrix &m,int startr, int startc, int nrows, int ncols)
       (nrows > m.rowNum) || (ncols > m.colNum))
     _panic((char*)"Submatrix requested out of bounds");
 #endif
-  
+
     // Set up the XVMatrix parameters
   rowNum = nrows;
   colNum = ncols;
   rowPtrs = new FrReal*[nrows];
- 
+
     // Set up the pointers
   int i;
   for (i=0;i<nrows;i++) {rowPtrs[i] = m.rowPtrs[i+startr]+startc;}
-  
+
     // This is a shared structure, so reference it.
   refPtr = m.ref();
   data = m.data;
@@ -492,17 +492,17 @@ XVMatrix::init(XVMatrix &m,int startr, int startc, int nrows, int ncols)
 
 XVMatrix::~XVMatrix()
 {
-  delete[] rowPtrs; 
+  delete[] rowPtrs;
   if (!dataShared()) {
     if (refPtr != NULL) delete refPtr;
-    delete[] data; 
+    delete[] data;
   }
   else
     unref();
 }
 
 XVMatrix
-XVMatrix::t() const 
+XVMatrix::t() const
 {
   XVMatrix tmp(colNum,rowNum);
   int i,j;
@@ -513,7 +513,7 @@ XVMatrix::t() const
 }
 
 XVColVector
-XVRowVector::t() const 
+XVRowVector::t() const
 {
   XVColVector tmp(colNum);
   for (int i=0;i<colNum;i++)
@@ -522,7 +522,7 @@ XVRowVector::t() const
 }
 
 XVRowVector
-XVColVector::t() const 
+XVColVector::t() const
 {
   XVRowVector tmp(rowNum);
   for (int i=0;i<rowNum;i++)
@@ -550,7 +550,7 @@ XVMatrix::ip() const
 }
 
 FrReal
-XVColVector::ip() const 
+XVColVector::ip() const
 {
   FrReal sum = 0;
   for (int i=0;i<rowNum;i++)
@@ -560,7 +560,7 @@ XVColVector::ip() const
 }
 
 FrReal
-XVColVector::ip(const XVColVector &x) const 
+XVColVector::ip(const XVColVector &x) const
 {
   assert(n_of_rows() == x.n_of_rows());
 
@@ -606,7 +606,7 @@ XVMatrix::LUDcmp(int *perm, int& d)
   int i,imax,j,k;
   FrReal big,dum,sum,temp;
   XVColVector vv(n);
-  
+
   d=1;
   for (i=0;i<n;i++) {
     big=0.0;
@@ -659,7 +659,7 @@ XVMatrix::LUBksb(int *perm, XVColVector& b)
 
   int i,ii=-1,ip,j;
   FrReal sum;
-  
+
   for (i=0;i<n;i++) {
     ip=perm[i];
     sum=b[ip];
@@ -720,7 +720,7 @@ XVMatrix::LDLtDcmp()
 
     if (j==0) {
       v[j] = (*A)[j][j];
-      // Store D[j] only 
+      // Store D[j] only
       (*A)[j][j] = v[j];
       (*A)(j+1,n-1,j,j) = (*A)(j+1,n-1,j,j)/v[j];
     } else {
@@ -733,7 +733,7 @@ XVMatrix::LDLtDcmp()
     }
   }
 }
-  
+
 XVMatrix
 XVMatrix::sqrt()
 {
@@ -757,7 +757,7 @@ XVMatrix::Map(FrReal (*fn)(FrReal)) const
 {
   int i, j;
   XVMatrix temp(rowNum,colNum);
-  
+
   for (i=0;i<rowNum;i++)
     for (j=0;j<colNum;j++)
       temp[i][j] = fn((*this)[i][j]);
@@ -792,10 +792,10 @@ static FrReal maxarg1,maxarg2;
 // singular value decomposition
 //
 // M = U.t * Md * V
-//        
-// if I understand it correctly, W is the diagonal matrix stored in 
-// a column vector, V becomes V.t, and A becomes U.t. 
-// try not to use SVDcmp directly. See SVD(M, Md, U, V) -- JW. 
+//
+// if I understand it correctly, W is the diagonal matrix stored in
+// a column vector, V becomes V.t, and A becomes U.t.
+// try not to use SVDcmp directly. See SVD(M, Md, U, V) -- JW.
 
 void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
 {
@@ -814,14 +814,19 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
 
   w--;
   for (i=1;i<=m;i++) {
-    a[i] = this->rowPtrs[i-1]-1; 
+    a[i] = this->rowPtrs[i-1]-1;
   }
   for (i=1;i<=n;i++) {
     v[i] = V.rowPtrs[i-1]-1;
   }
-  
-  if (m < n) _panic((char*)"SVDcmp: You must augment A with extra zero rows");
-  FrReal* rv1=new FrReal[n+1]; 
+
+  if (m < n)
+  {
+	  delete[] a;
+	  delete[] v;
+	  throw XVException((char*)"SVDcmp: You must augment A with extra zero rows"); //_panic((char*)"SVDcmp: You must augment A with extra zero rows");
+  }
+  FrReal* rv1=new FrReal[n+1];
 
   for (i=1;i<=n;i++) {
     l=i+1;
@@ -949,7 +954,13 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
 	}
 	break;
       }
-      if (its == 30) _panic((char*)"SVDcmp:no convergence in 30 iterations");
+      if (its == 30)
+      {
+    	  delete[] rv1;
+    	  delete[] a;
+    	  delete[] v;
+    	  throw XVException((char*)"SVDcmp:no convergence in 30 iterations"); //_panic((char*)"SVDcmp:no convergence in 30 iterations");
+      }
       x=w[l][0];
       nm=k-1;
       y=w[nm][0];
@@ -1009,7 +1020,7 @@ void XVMatrix::SVDcmp(XVColVector& W, XVMatrix& V)
 #undef MAX
 #undef PYTHAG
 
-void XVMatrix::SVBksb(const XVColVector& w, const XVMatrix& v,  
+void XVMatrix::SVBksb(const XVColVector& w, const XVMatrix& v,
 		    const XVColVector& b, XVColVector& x)
 {
   int m = this->rowNum;
@@ -1018,7 +1029,7 @@ void XVMatrix::SVBksb(const XVColVector& w, const XVMatrix& v,
 
   int jj,j,i;
   FrReal s,*tmp;
-  
+
   tmp=new FrReal[n];
   for (j=0;j<n;j++) {
     s=0.0;
@@ -1040,7 +1051,7 @@ void XVMatrix::SVBksb(const XVColVector& w, const XVMatrix& v,
 
 #define TOL 1.0e-5
 
-void 
+void
 XVMatrix::solveBySVD(const XVColVector& b, XVColVector& x)
 {
   int j;
@@ -1167,7 +1178,7 @@ XVMatrix::deriv_from_pts(FrReal y1, FrReal y2, FrReal y3,
 }
 
 /* Approximate dfn(i)/dval(n) for each i using some method or another. */
-void  
+void
 XVMatrix::deriv_n(XVColVector (*fn)(const XVColVector&, const XVColVector&),
 	const XVColVector& val, int n, const XVColVector& extra, XVColVector& deriv)
 {
@@ -1192,15 +1203,15 @@ XVMatrix::deriv_n(XVColVector (*fn)(const XVColVector&, const XVColVector&),
 
 /* computes the jacobian of a function evaluated with parameters
    where and other inputs extra.  Form is:
-   
+
    dy1/da1  dy2/da1 ....
    dy1/da2  dy2/da2 ....
    .         .
    .         .
    .         .
-   
+
    where y = f(a).
-   
+
    */
 XVMatrix
 XVMatrix::jacobian(XVColVector (*fn)(const XVColVector&, const XVColVector&),
@@ -1213,7 +1224,7 @@ XVMatrix::jacobian(XVColVector (*fn)(const XVColVector&, const XVColVector&),
   for (int i=1;i<=idim;i++)     // col() starts with 1
 #else
   for (int i=0;i<idim;i++) {    // col() starts with 0
-#endif  
+#endif
     XVColVector jac_col = jac.col(i);
     deriv_n(fn,where,i,extra,jac_col);
   }
@@ -1289,7 +1300,7 @@ operator*(const XVMatrix &x, const XVDiagonalMatrix &y)
   return temp;
 }
 
-  
+
 XVDiagonalMatrix
 operator*(const XVDiagonalMatrix &x, const XVDiagonalMatrix &y)
 {
@@ -1298,12 +1309,12 @@ operator*(const XVDiagonalMatrix &x, const XVDiagonalMatrix &y)
 
   XVColVector temp(x.t);
 
-  for (int j=0;j<y.n_of_cols();j++) 
+  for (int j=0;j<y.n_of_cols();j++)
     temp[j] *= y(j);
   return XVDiagonalMatrix(temp);
 }
 
-  
+
 ostream &operator << (ostream &s,const XVDiagonalMatrix &x)
 {
   s << (x.t).t();

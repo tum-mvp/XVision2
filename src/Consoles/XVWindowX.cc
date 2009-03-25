@@ -17,7 +17,7 @@ static char * color_names[] =
 };
 
 bool operator < (const XVDrawColor & c1, const XVDrawColor & c2) {
-  return c1.colorName < c2.colorName; 
+  return c1.colorName < c2.colorName;
 };
 
 bool operator == (const XVDrawColor & c1, const XVDrawColor & c2) {
@@ -62,7 +62,7 @@ void XVWindowX<T>::setImages(XVImageRGB<T> * frames, int count) {
     shminfo->shmid = shmget(IPC_PRIVATE,
                             shm_images[i]->bytes_per_line*shm_images[i]->height,
                             IPC_CREAT | 0777);
-    shminfo->shmaddr = 
+    shminfo->shmaddr =
 	    (char *) shmat(shminfo->shmid,frames[i].data(),SHM_REMAP|SHM_RND);
     shm_images[i]->data = shminfo->shmaddr;
     shared_fields[i]=(T*)shminfo->shmaddr;
@@ -71,7 +71,7 @@ void XVWindowX<T>::setImages(XVImageRGB<T> * frames, int count) {
     shmctl(shminfo->shmid,IPC_RMID,NULL);
     }
 #endif
-  }     
+  }
   else{
     for (i=0;i<count;i++) {
       shm_images[i] = XCreateImage(dpy,
@@ -115,7 +115,7 @@ void XVWindowX<T>::CopyImage(int which,u_short s_flip)
   }
 #ifdef HAVE_REMAP
   if(shared_memory)
-    XShmPutImage(dpy,(back_flag)? back_buffer : window, 
+    XShmPutImage(dpy,(back_flag)? back_buffer : window,
                         gc_clear,im,0,0,0,0,width,height,False);
   else
 #endif
@@ -126,16 +126,16 @@ void XVWindowX<T>::CopyImage(int which,u_short s_flip)
     if(!(width&1)){
      memcpy(im->data,frames_buf[which].pixData(),
                                         width*height*bitmap_pad/8);
-    }else{  
+    }else{
      from = frames_buf[which].pixData();
      for(i = 0, to = (T*)(im->data); i < frames_buf[which].Height();
-        i++, to += im->bytes_per_line / sizeof(T), 
+        i++, to += im->bytes_per_line / sizeof(T),
         from += frames_buf[which].SizeX())
        memcpy(to,from,frames_buf[which].Width()*sizeof(T));
     }
    }
   }
-  XPutImage(dpy,(back_flag)? back_buffer : window, 
+  XPutImage(dpy,(back_flag)? back_buffer : window,
                    gc_clear,im,0,0,0,0,width,height);
  }
 }
@@ -213,7 +213,7 @@ XVWindowX<T>::XVWindowX(const XVImageRGB<T> & image,int s_posx,int s_posy,
 #ifdef HAVE_REMAP
   if(!(shared_memory=(XDisplayName(display)[0]==':')))
      cerr << "shared memory display not available on remote" << endl;
-  else 
+  else
     shm_images=new XImage *[num_buffers];
 #endif
   // screen depth
@@ -227,10 +227,10 @@ XVWindowX<T>::XVWindowX(const XVImageRGB<T> & image,int s_posx,int s_posy,
   {
       cerr << "Could not match screen depth" << endl;
   }
-  if((bitmap_pad+1)/8 
+  if((bitmap_pad+1)/8
             !=sizeof(T))
   {
-    cerr << "screen depth " 
+    cerr << "screen depth "
          << bitmap_pad
 	 << " does not match window depth " << sizeof(T)*8 << " ...exiting" << endl;
     exit(1);
@@ -285,14 +285,14 @@ XVWindowX<T>::XVWindowX(const XVImageRGB<T> & image,int s_posx,int s_posy,
   xgcv.foreground = bg_pix;
   gc_clear = XCreateGC(dpy,window,
 		   GCFunction|GCForeground | GCBackground,&xgcv);
-  XFlush(dpy); 
+  XFlush(dpy);
 
   num_fonts=0;
   font=new Font[MAX_FONT_NUM];
   // double buffering available ??
   back_flag=0;
 #ifdef HAVE_LIBXEXT
-  if (double_buf && 
+  if (double_buf &&
       XdbeQueryExtension (dpy, &major_version, &minor_version) )
   {
     Drawable                        root_win;
@@ -363,7 +363,7 @@ XVWindowX<T>::XVWindowX(int w, int h,int s_posx,int s_posy,
 #ifdef HAVE_LIBXEXT
   if(!(shared_memory=(XDisplayName(display)[0]==':')))
      cerr << "shared memory display not available on remote" << endl;
-  else 
+  else
     shm_images=new XImage *[num_buffers];
 #endif
   // screen depth
@@ -377,10 +377,10 @@ XVWindowX<T>::XVWindowX(int w, int h,int s_posx,int s_posy,
   {
       cerr << "Could not match screen depth" << endl;
   }
-  if((bitmap_pad+1)/8 
+  if((bitmap_pad+1)/8
             !=sizeof(T))
   {
-    cerr << "screen depth " 
+    cerr << "screen depth "
          << bitmap_pad
 	 << " does not match window depth " << sizeof(T)*8 << " ...exiting" << endl;
     exit(1);
@@ -435,14 +435,14 @@ XVWindowX<T>::XVWindowX(int w, int h,int s_posx,int s_posy,
   xgcv.foreground = bg_pix;
   gc_clear = XCreateGC(dpy,window,
 		   GCFunction|GCForeground | GCBackground,&xgcv);
-  XFlush(dpy); 
+  XFlush(dpy);
 
   num_fonts=0;
   font=new Font[MAX_FONT_NUM];
   // double buffering available ??
   back_flag=0;
 #ifdef HAVE_LIBXEXT
-  if (double_buf && 
+  if (double_buf &&
       XdbeQueryExtension (dpy, &major_version, &minor_version) )
   {
     Drawable                        root_win;
@@ -475,6 +475,7 @@ XVWindowX<T>::XVWindowX(int w, int h,int s_posx,int s_posy,
 	cerr << "got double buffer" << endl;
       }
     }
+    XdbeFreeVisualInfo(dbeVisInfo);
   }
 #endif
 }
@@ -576,7 +577,7 @@ int XVWindowX<T>::check_events(int *ret_field)
 	return KEY_RELEASED ;
       case ResizeRequest:
         if(xev.xresizerequest.width!=width ||
-	   xev.xresizerequest.height!=height)	
+	   xev.xresizerequest.height!=height)
 	  {
 	    ret_field[0]=xev.xresizerequest.width;
 	    ret_field[1]=xev.xresizerequest.height;
@@ -642,7 +643,7 @@ void XVWindowX<T>::CopySubImage(const XVImageRGB<T> & image,bool s_flip) {
       if(shared_memory)
       {
 #ifdef HAVE_REMAP
-	XShmSegmentInfo      *shminfo;
+    	XShmSegmentInfo      *shminfo;
         shminfo = new XShmSegmentInfo;
         def_image= XShmCreateImage(dpy, DefaultVisual(dpy,DefaultScreen(dpy)),
                                  DefaultDepth(dpy,DefaultScreen(dpy)),
@@ -656,6 +657,7 @@ void XVWindowX<T>::CopySubImage(const XVImageRGB<T> & image,bool s_flip) {
         XShmAttach(dpy, shminfo);
 	def_shminfo = shminfo;
         shmctl(shminfo->shmid,IPC_RMID,NULL);
+        //delete shminfo; //don't delete it - shared memory won't work otherwise
 #endif
       }
       else
@@ -704,7 +706,7 @@ void XVWindowX<T>::CopySubImage(const XVImageRGB<T> & image,bool s_flip) {
   if(shared_memory)
   {
 #ifdef HAVE_REMAP
-     XShmPutImage(dpy,(back_flag)? back_buffer : window, 
+     XShmPutImage(dpy,(back_flag)? back_buffer : window,
 		  gc_clear,def_image,0,0,0,0,width,height,False);
 #else
      XPutImage(dpy,(back_flag)? back_buffer : window,
@@ -713,7 +715,7 @@ void XVWindowX<T>::CopySubImage(const XVImageRGB<T> & image,bool s_flip) {
   }
   else
   {
-    XPutImage(dpy,(back_flag)? back_buffer : window, 
+    XPutImage(dpy,(back_flag)? back_buffer : window,
                    gc_clear,def_image,0,0,0,0,width,height);
   }
 }
@@ -733,8 +735,8 @@ template class XVWindowX<XV_RGB15>;
 
 template <class PIX>
 XVDrawWindowX<PIX>::XVDrawWindowX(const XVImageRGB<PIX > & im, int px, int py ,
-				  char * title, int event_mask, char * disp, 
-				int num_buf, int double_buf, int f) : 
+				  char * title, int event_mask, char * disp,
+				int num_buf, int double_buf, int f) :
   XVWindowX<PIX>(im, px, py, title, event_mask, disp, num_buf, double_buf),
   XVWindow<PIX>(im.Width(),im.Height()) {
 
@@ -752,8 +754,8 @@ XVDrawWindowX<PIX>::XVDrawWindowX(const XVImageRGB<PIX > & im, int px, int py ,
 
 template <class PIX>
 XVDrawWindowX<PIX>::XVDrawWindowX(int w, int h, int px, int py,
-				  char * title, int event_mask, char * disp, 
-				int num_buf, int double_buf, int f) : 
+				  char * title, int event_mask, char * disp,
+				int num_buf, int double_buf, int f) :
   XVWindowX<PIX>(w, h, px, py, title, event_mask, disp, num_buf, double_buf),
   XVWindow<PIX>(w,h) {
 
@@ -779,7 +781,7 @@ XVDrawWindowX<PIX>::~XVDrawWindowX() {
 };
 
 template <class PIX>
-inline void XVDrawWindowX<PIX>::setFunction(int f){ 
+inline void XVDrawWindowX<PIX>::setFunction(int f){
 
   for(MI iter = GCmap.begin(); iter != GCmap.end(); ++iter){
     XGCValues vals;
@@ -802,7 +804,7 @@ inline void XVDrawWindowX<PIX>::addColor(XVDrawColor colorName){
 
   ret = XAllocNamedColor(dpy, DefaultColormap(dpy, DefaultScreen(dpy)),
 			 string(colorName).c_str(), & nearcolor, & xcolor);
-  
+
   if(!ret) throw CannotAllocColorException();
 
   XGCValues vals;
@@ -811,89 +813,89 @@ inline void XVDrawWindowX<PIX>::addColor(XVDrawColor colorName){
   vals.function   = function;
   vals.foreground = nearcolor.pixel;
 
-  GCmap[colorName] = XCreateGC(dpy, back_flag ? back_buffer : window, 
+  GCmap[colorName] = XCreateGC(dpy, back_flag ? back_buffer : window,
 			       GCFunction | GCForeground | GCBackground, & vals);
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::drawPoint(int x, int y, 
+inline int XVDrawWindowX<PIX>::drawPoint(int x, int y,
 					 XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  
-  XVDrawPointX p(dpy, back_flag ? back_buffer : window, GCmap[c], 
+
+  XVDrawPointX p(dpy, back_flag ? back_buffer : window, GCmap[c],
 		 XVPosition(x, y), c);
   p.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2, 
+inline int XVDrawWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2,
 					XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
 
-  XVDrawLineX l(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawLineX l(dpy, back_flag ? back_buffer : window, GCmap[c],
 		XVPosition(x1, y1), XVPosition(x2, y2), c);
-  
+
   l.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::drawRectangle(int x, int y, int w, int h, 
+inline int XVDrawWindowX<PIX>::drawRectangle(int x, int y, int w, int h,
 					     XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  XVDrawRectX r(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawRectX r(dpy, back_flag ? back_buffer : window, GCmap[c],
 		     XVImageGeneric(w, h, x, y), false, c);
   r.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::fillRectangle(int x, int y, int w, int h, 
+inline int XVDrawWindowX<PIX>::fillRectangle(int x, int y, int w, int h,
 					     XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  XVDrawRectX r(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawRectX r(dpy, back_flag ? back_buffer : window, GCmap[c],
 		     XVImageGeneric(w, h, x, y), true, c);
   r.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::drawEllipse(int x, int y, int w, int h, 
+inline int XVDrawWindowX<PIX>::drawEllipse(int x, int y, int w, int h,
 					   XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
 
-  XVDrawEllipseX e(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawEllipseX e(dpy, back_flag ? back_buffer : window, GCmap[c],
 		   XVImageGeneric(w, h, x, y), false, c);
   e.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::fillEllipse(int x, int y, int w, int h, 
+inline int XVDrawWindowX<PIX>::fillEllipse(int x, int y, int w, int h,
 					   XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
 
-  XVDrawEllipseX e(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawEllipseX e(dpy, back_flag ? back_buffer : window, GCmap[c],
 		   XVImageGeneric(w, h, x, y), true, c);
   e.draw();
   return true;
 };
 
 template <class PIX>
-inline int XVDrawWindowX<PIX>::drawString(int x, int y, 
-					  char * str, int length, 
+inline int XVDrawWindowX<PIX>::drawString(int x, int y,
+					  char * str, int length,
 					  XVDrawColor c){
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
 
-  XVDrawStringX s(dpy, back_flag ? back_buffer : window, GCmap[c], 
+  XVDrawStringX s(dpy, back_flag ? back_buffer : window, GCmap[c],
 		  XVPosition(x, y), str, length, c);
   s.draw();
   return true;
@@ -903,9 +905,9 @@ template <class PIX>
 inline void XVStateWindowX<PIX>::CopySubImage(const XVImageRGB<PIX > & image){
 
   this->XVDrawWindowX<PIX >::CopySubImage(image);
-  for(OBJ_ITER oiter = drawObjects.begin(); 
+  for(OBJ_ITER oiter = drawObjects.begin();
       oiter != drawObjects.end(); ++oiter){
-    (dynamic_cast<XVDrawObjectX *>(*oiter))->reset(dpy, 
+    (dynamic_cast<XVDrawObjectX *>(*oiter))->reset(dpy,
      back_flag ? back_buffer : window, GCmap[(*oiter)->color]);
     (*oiter)->draw();
   }
@@ -915,16 +917,16 @@ template <class PIX>
 inline void XVStateWindowX<PIX>::CopyImage(int which, u_short s_flip) {
 
   this->XVDrawWindowX<PIX >::CopyImage(which, s_flip);
-  for(OBJ_ITER oiter = drawObjects.begin(); 
+  for(OBJ_ITER oiter = drawObjects.begin();
       oiter != drawObjects.end(); ++oiter){
     (*oiter)->draw();
-    (dynamic_cast<XVDrawObjectX *>(*oiter))->reset(dpy, 
+    (dynamic_cast<XVDrawObjectX *>(*oiter))->reset(dpy,
      back_flag ? back_buffer : window, GCmap[(*oiter)->color]);
   }
 };
 
 template <class PIX>
-inline void XVStateWindowX<PIX>::erase(int i) { 
+inline void XVStateWindowX<PIX>::erase(int i) {
   OBJ_ITER iter = drawObjects.begin();
   for(int j = 0; j < i && iter != drawObjects.end(); ++j, ++iter){}
   if(*iter) delete *iter;
@@ -932,22 +934,22 @@ inline void XVStateWindowX<PIX>::erase(int i) {
 }
 
 template <class PIX>
-inline void XVStateWindowX<PIX>::clear() { 
+inline void XVStateWindowX<PIX>::clear() {
   OBJ_ITER iter = drawObjects.begin();
   for(; iter != drawObjects.end(); ++iter){
     if(*iter) delete *iter;
   }
-  drawObjects.clear(); 
+  drawObjects.clear();
 }
 
 template <class PIX>
 int
 XVStateWindowX<PIX>::drawPoint(int x, int y, XVDrawColor c) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  XVDrawPointX * p 
-    = new XVDrawPointX(this->dpy, 
-		       this->back_flag ? this->back_buffer : this->window, 
+  XVDrawPointX * p
+    = new XVDrawPointX(this->dpy,
+		       this->back_flag ? this->back_buffer : this->window,
 		       this->GCmap[c],
 		       XVPosition(x, y), c);
   drawObjects.push_back(p);
@@ -957,15 +959,15 @@ XVStateWindowX<PIX>::drawPoint(int x, int y, XVDrawColor c) {
 
 template <class PIX>
 int
-XVStateWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2, 
+XVStateWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2,
 			      XVDrawColor c ) {
 
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  XVDrawLineX * l 
-    = new XVDrawLineX(this->dpy, 
+  XVDrawLineX * l
+    = new XVDrawLineX(this->dpy,
 		      this->back_flag ? this->back_buffer : this->window,
-		      this->GCmap[c], 
-		      XVPosition(x1, y1), 
+		      this->GCmap[c],
+		      XVPosition(x1, y1),
 		      XVPosition(x2, y2), c);
   drawObjects.push_back(l);
   l->draw();
@@ -974,12 +976,12 @@ XVStateWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2,
 
 template <class PIX>
 int
-XVStateWindowX<PIX>::drawRectangle(int x, int y, int w, int h, 
+XVStateWindowX<PIX>::drawRectangle(int x, int y, int w, int h,
 				   XVDrawColor c ) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
   XVDrawRectX * r
-    = new XVDrawRectX(this->dpy, 
+    = new XVDrawRectX(this->dpy,
 		      this->back_flag ? this->back_buffer : this->window,
 		      this->GCmap[c], XVImageGeneric(w, h, x, y), false, c);
   drawObjects.push_back(r);
@@ -989,12 +991,12 @@ XVStateWindowX<PIX>::drawRectangle(int x, int y, int w, int h,
 
 template <class PIX>
 int
-XVStateWindowX<PIX>::fillRectangle(int x, int y, int w, int h, 
+XVStateWindowX<PIX>::fillRectangle(int x, int y, int w, int h,
 				   XVDrawColor c ) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
-  XVDrawRectX * r 
-    = new XVDrawRectX(this->dpy, 
+  XVDrawRectX * r
+    = new XVDrawRectX(this->dpy,
 		      this->back_flag ? this->back_buffer : this->window,
 		      this->GCmap[c], XVImageGeneric(w, h, x, y), true, c);
   drawObjects.push_back(r);
@@ -1004,14 +1006,14 @@ XVStateWindowX<PIX>::fillRectangle(int x, int y, int w, int h,
 
 template <class PIX>
 int
-XVStateWindowX<PIX>::drawEllipse(int x, int y, int w, int h, 
+XVStateWindowX<PIX>::drawEllipse(int x, int y, int w, int h,
 				 XVDrawColor c ) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
   XVDrawEllipseX * e
-    = new XVDrawEllipseX(this->dpy, 
+    = new XVDrawEllipseX(this->dpy,
 			 this->back_flag ? this->back_buffer : this->window,
-			 this->GCmap[c], 
+			 this->GCmap[c],
 			 XVImageGeneric(w, h, x, y), false, c);
   drawObjects.push_back(e);
   e->draw();
@@ -1020,12 +1022,12 @@ XVStateWindowX<PIX>::drawEllipse(int x, int y, int w, int h,
 
 template <class PIX>
 int
-XVStateWindowX<PIX>::fillEllipse(int x, int y, int w, int h, 
+XVStateWindowX<PIX>::fillEllipse(int x, int y, int w, int h,
 				 XVDrawColor c ) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
   XVDrawEllipseX * e
-    = new XVDrawEllipseX(this->dpy, 
+    = new XVDrawEllipseX(this->dpy,
 			 this->back_flag ? this->back_buffer : this->window,
 			 this->GCmap[c], XVImageGeneric(w, h, x, y), true, c);
   drawObjects.push_back(e);
@@ -1037,10 +1039,10 @@ template <class PIX>
 int
 XVStateWindowX<PIX>::drawString(int x, int y, char * str, int length,
 				XVDrawColor c ) {
-  
+
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
   XVDrawStringX * s
-    = new XVDrawStringX(this->dpy, 
+    = new XVDrawStringX(this->dpy,
 			this->back_flag ? this->back_buffer : this->window,
 			this->GCmap[c], XVPosition(x, y), str, length, c);
   drawObjects.push_back(s);
@@ -1049,35 +1051,35 @@ XVStateWindowX<PIX>::drawString(int x, int y, char * str, int length,
 };
 
 template <class PIX>
-XVInteractWindowX<PIX>::XVInteractWindowX(const XVImageRGB<PIX > & im, 
+XVInteractWindowX<PIX>::XVInteractWindowX(const XVImageRGB<PIX > & im,
 					  int px , int py ,
 					  char * title ,
-					  int event_mask , 
+					  int event_mask ,
 					  char * disp ,
-					  int num_buf , 
-					  int double_buf, 
-					  int function ) : 
-  XVDrawWindowX<PIX>(im, px, py, title, event_mask, 
+					  int num_buf ,
+					  int double_buf,
+					  int function ) :
+  XVDrawWindowX<PIX>(im, px, py, title, event_mask,
 		     disp, num_buf, double_buf, function),
   XVWindow<PIX>(im.Width(),im.Height()) {
-  
+
   crossHair = XCreateFontCursor(dpy, XC_crosshair);
   arrow     = XCreateFontCursor(dpy, XC_arrow);
 }
 
 template <class PIX>
-XVInteractWindowX<PIX>::XVInteractWindowX(int w, int h, 
+XVInteractWindowX<PIX>::XVInteractWindowX(int w, int h,
 					  int px, int py,
 					  char * title,
-					  int event_mask, 
+					  int event_mask,
 					  char * disp,
-					  int num_buf, 
-					  int double_buf, 
-					  int function ) : 
-  XVDrawWindowX<PIX>(w, h, px, py, title, event_mask, 
+					  int num_buf,
+					  int double_buf,
+					  int function ) :
+  XVDrawWindowX<PIX>(w, h, px, py, title, event_mask,
 		     disp, num_buf, double_buf, function),
   XVWindow<PIX>(w,h) {
-  
+
   crossHair = XCreateFontCursor(dpy, XC_crosshair);
   arrow     = XCreateFontCursor(dpy, XC_arrow);
 }
@@ -1090,25 +1092,25 @@ XVInteractWindowX<PIX>::~XVInteractWindowX() {
 };
 
 template <class PIX>
-inline void 
-XVInteractWindowX<PIX>::selectPoint(XVPosition & point, 
+inline void
+XVInteractWindowX<PIX>::selectPoint(XVPosition & point,
 				    XVDrawColor c,bool draw_flag ){
 
   XEvent xev;
   XWindowAttributes attr;
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
-  
+
   point.reposition(-1, -1);
 
   if(draw_flag) XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, this->window, ButtonPressMask   | 
-	                                ButtonReleaseMask | 
+  XSelectInput(this->dpy, this->window, ButtonPressMask   |
+	                                ButtonReleaseMask |
                                         ButtonMotionMask);
-  
+
    do{
     if(XCheckMaskEvent(this->dpy, ButtonPressMask, & xev)){
-      
+
       point.reposition(xev.xbutton.x, xev.xbutton.y);
       if(draw_flag)
       {
@@ -1126,17 +1128,17 @@ XVInteractWindowX<PIX>::selectPoint(XVPosition & point,
 
 
 template <class PIX>
-inline void 
+inline void
 XVInteractWindowX<PIX>::selectLine(XVPosition & p1, XVPosition & p2, XVDrawColor c ){
 
   XEvent xev;
   XWindowAttributes attr;
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
-  
+
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   ButtonMotionMask);
 
   p1.reposition(-1, -1);
@@ -1144,21 +1146,21 @@ XVInteractWindowX<PIX>::selectLine(XVPosition & p1, XVPosition & p2, XVDrawColor
   bool mouseDown = false;
 
   while(1){
-    
+
     if(XCheckMaskEvent(this->dpy, ButtonPressMask, &xev) && !mouseDown){
-      
+
       p1.reposition(xev.xbutton.x, xev.xbutton.y);
       p2.reposition(xev.xbutton.x, xev.xbutton.y);
       mouseDown = true;
     }else if(XCheckMaskEvent(this->dpy, ButtonReleaseMask, &xev) && mouseDown){
-      
+
       p2.reposition(xev.xbutton.x, xev.xbutton.y);
       XUndefineCursor(this->dpy, this->window);
       /** reset the input mask for this window **/
       XSelectInput(this->dpy,this->window,attr.all_event_masks);
       return;
     }else if(XCheckMaskEvent(this->dpy, ButtonMotionMask, &xev) && mouseDown){
-      
+
       this->XVDrawWindowX<PIX >::drawLine(p1.PosX(), p1.PosY(),
 					  p2.PosX(), p2.PosY(), c);
       p2.reposition(xev.xbutton.x, xev.xbutton.y);
@@ -1170,8 +1172,8 @@ XVInteractWindowX<PIX>::selectLine(XVPosition & p1, XVPosition & p2, XVDrawColor
 };
 
 template <class PIX>
-inline void  
-XVInteractWindowX<PIX>::selectRectangle(XVImageGeneric & region, 
+inline void
+XVInteractWindowX<PIX>::selectRectangle(XVImageGeneric & region,
 					XVDrawColor c ){
 
   XEvent xev;
@@ -1179,25 +1181,25 @@ XVInteractWindowX<PIX>::selectRectangle(XVImageGeneric & region,
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   ButtonMotionMask);
 
   region.reposition(-1, -1); region.resize(-1, -1);
   bool mouseDown = false;
   int tmpWidth, tmpHeight;
-  
+
   while(1){
-    
+
     if(XCheckMaskEvent(dpy, ButtonPressMask, &xev) && !mouseDown){
-      
+
       region = XVImageGeneric(0, 0, xev.xbutton.x, xev.xbutton.y);
       this->XVDrawWindowX<PIX >::drawRectangle(region.PosX(), region.PosY(),
 					       region.Width(), region.Height(), c);
       mouseDown = true;
 
     }else if(XCheckMaskEvent(dpy, ButtonReleaseMask, &xev) && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region.PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region.PosY()) > 0 &&
 	 region.PosX() != -1 && region.PosY() != -1){
@@ -1238,10 +1240,10 @@ XVInteractWindowX<PIX>::selectEllipse(XVImageGeneric & region,
   XWindowAttributes attr;
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
-  
+
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   ButtonMotionMask);
 
   region.reposition(-1, -1);
@@ -1249,15 +1251,15 @@ XVInteractWindowX<PIX>::selectEllipse(XVImageGeneric & region,
 
   bool mouseDown = false;
   int tmpWidth, tmpHeight;
-  
+
   while(1){
-    
+
     if(XCheckMaskEvent(this->dpy, ButtonPressMask, &xev) && !mouseDown){
-      
+
       region.reposition(xev.xbutton.x, xev.xbutton.y);
       mouseDown = true;
     }else if(XCheckMaskEvent(this->dpy, ButtonReleaseMask, &xev) && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region.PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region.PosY()) > 0 &&
 	 region.PosX() != -1 && region.PosY() != -1){
@@ -1271,15 +1273,15 @@ XVInteractWindowX<PIX>::selectEllipse(XVImageGeneric & region,
       region = XVImageGeneric(-1, -1, -1, -1);
       mouseDown = false;
     }else if(XCheckMaskEvent(this->dpy, PointerMotionMask, &xev) && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region.PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region.PosY()) > 0 &&
 	 region.PosX() != -1 && region.PosY() != -1){
-	
+
 	this->XVDrawWindowX<PIX >::drawEllipse(region.PosX(), region.PosY(),
 					       region.Width(), region.Height(), c);
 	region.resize(tmpWidth, tmpHeight);
-	this->XVDrawWindowX<PIX >::drawEllipse(region.PosX(), region.PosY(), 
+	this->XVDrawWindowX<PIX >::drawEllipse(region.PosX(), region.PosY(),
 					       tmpWidth, tmpHeight, c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
@@ -1290,8 +1292,8 @@ XVInteractWindowX<PIX>::selectEllipse(XVImageGeneric & region,
 
 template <class PIX>
 inline void
-XVInteractWindowX<PIX>::selectSizedRect(XVImageGeneric & box, 
-					const XVSize & size, 
+XVInteractWindowX<PIX>::selectSizedRect(XVImageGeneric & box,
+					const XVSize & size,
 					XVDrawColor c ){
 
   XEvent xev;
@@ -1300,20 +1302,20 @@ XVInteractWindowX<PIX>::selectSizedRect(XVImageGeneric & box,
   XGetWindowAttributes(this->dpy,this->window,&attr);
 
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   PointerMotionMask);
 
   int first = true;
   XVPosition half(size.Width() / 2, size.Height() / 2);
   XVPosition currPos(-1, -1);
   box.resize(size); box.reposition(currPos);
-    
+
   while(1){
-    
+
     if(XCheckMaskEvent(dpy, PointerMotionMask, &xev)){
 
-      if(!first){ 
+      if(!first){
 	this->XVDrawWindowX<PIX >::drawRectangle(box.PosX(), box.PosY(),
 						 box.Width(), box.Height(), c);
       }else{ first = false; }
@@ -1324,7 +1326,7 @@ XVInteractWindowX<PIX>::selectSizedRect(XVImageGeneric & box,
       this->XVWindowX<PIX>::flush();
 
     }else if(XCheckMaskEvent(dpy, ButtonPressMask, &xev)){
-      
+
       box.reposition(XVPosition(xev.xbutton.x, xev.xbutton.y) - half);
       XUndefineCursor(this->dpy, this->window);
       /** reset the input mask for this window **/
@@ -1336,72 +1338,72 @@ XVInteractWindowX<PIX>::selectSizedRect(XVImageGeneric & box,
 
 template <class PIX>
 inline void
-XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVSize & size, 
+XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVSize & size,
 					 double & angle,
 					 XVDrawColor c ) {
-  
+
   XEvent xev;
   XWindowAttributes attr;
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
 
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   PointerMotionMask);
 
   XV2Vec<double> ulc, urc, lrc, llc;
 
   bool topLineSelected = false;
   bool mouseDown = false;
-    
+
   while(1){
 
     if(XCheckMaskEvent(dpy, PointerMotionMask, &xev)){
       if(mouseDown && !topLineSelected) {
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	urc = XV2Vec<double>(xev.xbutton.x, xev.xbutton.y);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
       } else if(topLineSelected) {
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(llc.PosX()), 
+					   (int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
 	XV2Vec<double> currentPos(xev.xbutton.x, xev.xbutton.y);
 	XV2Vec<double> topVec = urc - ulc;
 	XV2Vec<double> tmpVec = currentPos - ulc;
-	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec) 
+	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec)
 	  / (topVec.length() * topVec.length());
 	XV2Vec<double> heightVec = currentPos - (projVec + ulc);
 	llc = ulc + heightVec;
 	lrc = llc + topVec;
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(llc.PosX()), 
+					   (int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
@@ -1411,9 +1413,9 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVSize & size,
       if(!topLineSelected) {
 	ulc = XV2Vec<double>(xev.xbutton.x, xev.xbutton.y);
 	urc = ulc;
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
@@ -1434,10 +1436,10 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVSize & size,
       }else if(topLineSelected) {
 	XV2Vec<double> diffVec = ulc - llc;
 	if(diffVec.x() < 0){
-	  angle = -acos((XV2Vec<double>(0, -1) * diffVec) 
+	  angle = -acos((XV2Vec<double>(0, -1) * diffVec)
 					   / diffVec.length());
 	}else{
-	  angle = acos((XV2Vec<double>(0, -1) * diffVec) 
+	  angle = acos((XV2Vec<double>(0, -1) * diffVec)
 		       / diffVec.length());
 	}
 	size = XVSize((int)rint((urc - ulc).length()), (int)rint(diffVec.length()));
@@ -1453,72 +1455,72 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVSize & size,
 
 template <class PIX>
 inline void
-XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVPosition & urcPos, XVSize & size, 
+XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVPosition & urcPos, XVSize & size,
 					 double & angle,
 					 XVDrawColor c ) {
-  
+
   XEvent xev;
   XWindowAttributes attr;
 
   XGetWindowAttributes(this->dpy,this->window,&attr);
 
   XDefineCursor(this->dpy, this->window, crossHair);
-  XSelectInput(this->dpy, window, ButtonPressMask | 
-	                          ButtonReleaseMask | 
+  XSelectInput(this->dpy, window, ButtonPressMask |
+	                          ButtonReleaseMask |
                                   PointerMotionMask);
 
   XV2Vec<double> ulc, urc, lrc, llc;
 
   bool topLineSelected = false;
   bool mouseDown = false;
-    
+
   while(1){
 
     if(XCheckMaskEvent(dpy, PointerMotionMask, &xev)){
       if(mouseDown && !topLineSelected) {
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	urc = XV2Vec<double>(xev.xbutton.x, xev.xbutton.y);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
       } else if(topLineSelected) {
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(llc.PosX()), 
+					   (int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
 	XV2Vec<double> currentPos(xev.xbutton.x, xev.xbutton.y);
 	XV2Vec<double> topVec = urc - ulc;
 	XV2Vec<double> tmpVec = currentPos - ulc;
-	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec) 
+	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec)
 	  / (topVec.length() * topVec.length());
 	XV2Vec<double> heightVec = currentPos - (projVec + ulc);
 	llc = ulc + heightVec;
 	lrc = llc + topVec;
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(llc.PosX()), 
+					   (int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()),
 					   (int)rint(llc.PosY()),
-					   (int)rint(lrc.PosX()), 
+					   (int)rint(lrc.PosX()),
 					   (int)rint(lrc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
@@ -1528,9 +1530,9 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVPosition & urcPo
       if(!topLineSelected) {
 	ulc = XV2Vec<double>(xev.xbutton.x, xev.xbutton.y);
 	urc = ulc;
-	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	this->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					   (int)rint(ulc.PosY()),
-					   (int)rint(urc.PosX()), 
+					   (int)rint(urc.PosX()),
 					   (int)rint(urc.PosY()), c);
 	this->XVWindowX<PIX>::swap_buffers();
 	this->XVWindowX<PIX>::flush();
@@ -1551,10 +1553,10 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVPosition & urcPo
       }else if(topLineSelected) {
 	XV2Vec<double> diffVec = ulc - llc;
 	if(diffVec.x() < 0){
-	  angle = -acos((XV2Vec<double>(0, -1) * diffVec) 
+	  angle = -acos((XV2Vec<double>(0, -1) * diffVec)
 					   / diffVec.length());
 	}else{
-	  angle = acos((XV2Vec<double>(0, -1) * diffVec) 
+	  angle = acos((XV2Vec<double>(0, -1) * diffVec)
 		       / diffVec.length());
 	}
 	size = XVSize((int)rint((urc - ulc).length()), (int)rint(diffVec.length()));
@@ -1569,21 +1571,21 @@ XVInteractWindowX<PIX>::selectAngledRect(XVPosition & ulcPos, XVPosition & urcPo
     }
   }
 };
-  
+
 
 #include <pthread.h>
 
 template <class PIX, class INPUT>
 void *
 XVThreadedWindowX<PIX, INPUT>::selectPointThreadFunc(void * params) {
-  
-  XVThreadedWindowX<PIX, INPUT> * pThis 
+
+  XVThreadedWindowX<PIX, INPUT> * pThis
     = (XVThreadedWindowX<PIX, INPUT> *) ((VOIDP *) params)[0];
   XVPosition * point = (XVPosition *) ((VOIDP *) params)[1];
   XVDrawColor * c = (XVDrawColor *) ((VOIDP *) params)[2];
 
   pthread_mutex_lock(& pThis->selectMutex);
-  XEvent xev;  
+  XEvent xev;
   XDefineCursor(pThis->dpy, pThis->window, pThis->crossHair);
   XSelectInput(pThis->dpy, pThis->window, ButtonPressMask   |
 	                                  ButtonReleaseMask |
@@ -1591,19 +1593,19 @@ XVThreadedWindowX<PIX, INPUT>::selectPointThreadFunc(void * params) {
   pthread_mutex_unlock(& pThis->selectMutex);
 
   point->reposition(-1, -1);
-  
+
   while(1){
-    
+
     pthread_mutex_lock(& pThis->selectMutex);
     bool bpev = XCheckMaskEvent(pThis->dpy, ButtonPressMask, & xev);
     pthread_mutex_unlock(& pThis->selectMutex);
 
     if(bpev){
-      
+
       point->reposition(xev.xbutton.x, xev.xbutton.y);
       pthread_mutex_lock(& pThis->selectMutex);
-      pThis->XVDrawWindowX<PIX >::drawPoint(point->PosX(), 
-					    point->PosY(), 
+      pThis->XVDrawWindowX<PIX >::drawPoint(point->PosX(),
+					    point->PosY(),
 					    *c);
       pthread_mutex_unlock(& pThis->selectMutex);
       pThis->swap_buffers();
@@ -1619,17 +1621,17 @@ XVThreadedWindowX<PIX, INPUT>::selectPointThreadFunc(void * params) {
 };
 
 template <class PIX, class INPUT>
-void * 
+void *
 XVThreadedWindowX<PIX, INPUT>::selectLineThreadFunc(void * params) {
 
-  XVThreadedWindowX<PIX, INPUT> * pThis 
+  XVThreadedWindowX<PIX, INPUT> * pThis
     = (XVThreadedWindowX<PIX, INPUT> *) ((VOIDP *)params)[0];
   XVPosition * p1 = (XVPosition *) ((VOIDP *) params)[1];
   XVPosition * p2 = (XVPosition *) ((VOIDP *) params)[2];
   XVDrawColor  * c  = (XVDrawColor  *) ((VOIDP *) params)[3];
-  
+
   XEvent xev;
-  
+
   pthread_mutex_lock(& pThis->selectMutex);
   XDefineCursor(pThis->dpy, pThis->window, pThis->crossHair);
   XSelectInput(pThis->dpy, pThis->window, ButtonPressMask   |
@@ -1640,7 +1642,7 @@ XVThreadedWindowX<PIX, INPUT>::selectLineThreadFunc(void * params) {
   p1->reposition(-1, -1);
   p2->reposition(-1, -1);
   bool mouseDown = false;
-  
+
   int lhandle;
 
   while(1){
@@ -1652,18 +1654,18 @@ XVThreadedWindowX<PIX, INPUT>::selectLineThreadFunc(void * params) {
     pthread_mutex_unlock(& pThis->selectMutex);
 
     if(bpev && !mouseDown){
-      
+
       p1->reposition(xev.xbutton.x, xev.xbutton.y);
       pthread_mutex_lock(& pThis->selectMutex);
-      lhandle = pThis->XVStateWindowX<PIX>::drawLine(p1->PosX(), 
-						     p1->PosY(), 
-						     xev.xbutton.x, 
-						     xev.xbutton.y, 
+      lhandle = pThis->XVStateWindowX<PIX>::drawLine(p1->PosX(),
+						     p1->PosY(),
+						     xev.xbutton.x,
+						     xev.xbutton.y,
 						     *c);
       pthread_mutex_unlock(& pThis->selectMutex);
       mouseDown = true;
     }else if(brev && mouseDown){
-      
+
       p2->reposition(xev.xbutton.x, xev.xbutton.y);
       pthread_mutex_lock(& pThis->selectMutex);
       XUndefineCursor(pThis->dpy, pThis->window);
@@ -1673,9 +1675,9 @@ XVThreadedWindowX<PIX, INPUT>::selectLineThreadFunc(void * params) {
       pthread_mutex_unlock(& pThis->selectMutex);
        return NULL;
     }else if(pmev && mouseDown){
-      
+
       pthread_mutex_lock(& pThis->selectMutex);
-      pThis->XVDrawWindowX<PIX >::drawLine(p1->PosX(), 
+      pThis->XVDrawWindowX<PIX >::drawLine(p1->PosX(),
 					   p1->PosY(),
 					   p2->PosX(),
 					   p2->PosY(), *c);
@@ -1714,19 +1716,19 @@ XVThreadedWindowX<PIX, INPUT>::selectRectThreadFunc(void * params) {
   bool brev      = false;
   bool pmev      = false;
   int tmpWidth, tmpHeight;
-  
+
   int rhandle;
 
   while(1){
-    
+
     pthread_mutex_lock(& pThis->selectMutex);
     bpev = XCheckMaskEvent(pThis->dpy, ButtonPressMask, &xev);
     brev = XCheckMaskEvent(pThis->dpy, ButtonReleaseMask, &xev);
     pmev = XCheckMaskEvent(pThis->dpy, PointerMotionMask, &xev);
     pthread_mutex_unlock(& pThis->selectMutex);
-    
+
     if(bpev && !mouseDown){
-      
+
       *region = XVImageGeneric(0, 0, xev.xbutton.x, xev.xbutton.y);
       pthread_mutex_lock(& pThis->selectMutex);
       rhandle = pThis->XVStateWindowX<PIX >::drawRectangle(region->PosX(),
@@ -1737,7 +1739,7 @@ XVThreadedWindowX<PIX, INPUT>::selectRectThreadFunc(void * params) {
       mouseDown = true;
 
     }else if(brev && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region->PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region->PosY()) > 0 &&
 	 region->PosX() != -1 && region->PosY() != -1){
@@ -1746,7 +1748,7 @@ XVThreadedWindowX<PIX, INPUT>::selectRectThreadFunc(void * params) {
 	pthread_mutex_lock( & pThis->selectMutex);
 	XUndefineCursor(pThis->dpy, pThis->window);
 	pThis->erase(rhandle);
-	pThis->currentlySelecting = false;	
+	pThis->currentlySelecting = false;
 	pThis->hasBeenSelected = true;
 	pthread_mutex_unlock( & pThis->selectMutex);
 	return NULL;
@@ -1778,7 +1780,7 @@ template <class PIX, class INPUT>
 void *
 XVThreadedWindowX<PIX, INPUT>::selectEllipseThreadFunc(void * params) {
 
-  XVThreadedWindowX<PIX, INPUT> * pThis 
+  XVThreadedWindowX<PIX, INPUT> * pThis
     = (XVThreadedWindowX<PIX, INPUT> *) ((VOIDP *) params)[0];
   XVImageGeneric * region = (XVImageGeneric *) ((VOIDP *) params)[1];
   XVDrawColor * c = (XVDrawColor *) ((VOIDP *) params)[2];
@@ -1799,9 +1801,9 @@ XVThreadedWindowX<PIX, INPUT>::selectEllipseThreadFunc(void * params) {
   int tmpWidth, tmpHeight;
 
   int ehandle;
-  
+
   while(1){
-    
+
     pthread_mutex_lock(& pThis->selectMutex);
     bool bpev = XCheckMaskEvent(pThis->dpy, ButtonPressMask, &xev);
     bool brev = XCheckMaskEvent(pThis->dpy, ButtonReleaseMask, &xev);
@@ -1809,7 +1811,7 @@ XVThreadedWindowX<PIX, INPUT>::selectEllipseThreadFunc(void * params) {
     pthread_mutex_unlock(& pThis->selectMutex);
 
     if(bpev && !mouseDown){
-      
+
       region->reposition(xev.xbutton.x, xev.xbutton.y);
       region->resize(0, 0);
       pthread_mutex_lock(& pThis->selectMutex);
@@ -1820,7 +1822,7 @@ XVThreadedWindowX<PIX, INPUT>::selectEllipseThreadFunc(void * params) {
       pthread_mutex_unlock(& pThis->selectMutex);
       mouseDown = true;
     }else if(brev && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region->PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region->PosY()) > 0 &&
 	 region->PosX() != -1 && region->PosY() != -1){
@@ -1838,11 +1840,11 @@ XVThreadedWindowX<PIX, INPUT>::selectEllipseThreadFunc(void * params) {
       *region = XVImageGeneric(-1, -1, -1, -1);
       mouseDown = false;
     }else if(pmev && mouseDown){
-      
+
       if((tmpWidth  = xev.xmotion.x - region->PosX()) > 0 &&
 	 (tmpHeight = xev.xmotion.y - region->PosY()) > 0 &&
 	 region->PosX() != -1 && region->PosY() != -1){
-	
+
 	pthread_mutex_lock(& pThis->selectMutex);
 	pThis->XVDrawWindowX<PIX >::drawEllipse(region->PosX(), region->PosY(),
 						region->Width(), region->Height(), *c);
@@ -1862,14 +1864,14 @@ template <class PIX, class INPUT>
 void *
 XVThreadedWindowX<PIX, INPUT>::selectSizedRectThreadFunc(void * params) {
 
-  XVThreadedWindowX<PIX, INPUT> * pThis 
+  XVThreadedWindowX<PIX, INPUT> * pThis
     = (XVThreadedWindowX<PIX, INPUT> *) ((VOIDP *) params)[0];
   XVImageGeneric * box = (XVImageGeneric *) ((VOIDP *) params)[1];
   XVSize * size = (XVSize *) ((VOIDP *) params)[2];
   XVDrawColor * c = (XVDrawColor *) ((VOIDP *) params)[3];
 
   XEvent xev;
-  
+
   pthread_mutex_lock(& pThis->selectMutex);
   XDefineCursor(pThis->dpy, pThis->window, pThis->crossHair);
   XSelectInput(pThis->dpy, pThis->window, ButtonPressMask   |
@@ -1883,35 +1885,35 @@ XVThreadedWindowX<PIX, INPUT>::selectSizedRectThreadFunc(void * params) {
   box->resize(*size); box->reposition(currPos);
 
   int srhandle;
-  
+
   while(1){
-    
+
     pthread_mutex_lock(& pThis->selectMutex);
     bool pmev = XCheckMaskEvent(pThis->dpy, PointerMotionMask, &xev);
     bool bpev = XCheckMaskEvent(pThis->dpy, ButtonPressMask, &xev);
     pthread_mutex_unlock(& pThis->selectMutex);
-    
+
     if(pmev){
 
       if(!first){
 	pthread_mutex_lock(& pThis->selectMutex);
 	pThis->XVDrawWindowX<PIX >::drawRectangle(box->PosX(), box->PosY(),
-  						  box->Width(), box->Height(), 
-  						  *c); 
+  						  box->Width(), box->Height(),
+  						  *c);
 	pthread_mutex_unlock(& pThis->selectMutex);
 	box->reposition(XVPosition(xev.xmotion.x, xev.xmotion.y) - half);
 	pthread_mutex_lock(& pThis->selectMutex);
 	static_cast<XVDrawRect &>((*pThis)[srhandle]).region.reposition((XVPosition)*box);
 	pthread_mutex_unlock(& pThis->selectMutex);
-      }else{ 
-      
+      }else{
+
 	box->reposition(XVPosition(xev.xmotion.x, xev.xmotion.y) - half);
 	pthread_mutex_lock(& pThis->selectMutex);
 	srhandle = pThis->XVStateWindowX<PIX >::
 	  drawRectangle(box->PosX(), box->PosY(),
 			box->Width(), box->Height(), *c);
 	pthread_mutex_unlock(& pThis->selectMutex);
-	first = false; 
+	first = false;
       }
       pThis->swap_buffers();
       pThis->flush();
@@ -1931,7 +1933,7 @@ XVThreadedWindowX<PIX, INPUT>::selectSizedRectThreadFunc(void * params) {
 template <class PIX, class INPUT>
 void *
 XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
-  
+
   XVThreadedWindowX<PIX, INPUT> * pThis
     = (XVThreadedWindowX<PIX, INPUT> *) ((VOIDP *) params)[0];
   XVPosition * ulcPos = (XVPosition *) ((VOIDP *) params)[1];
@@ -1943,8 +1945,8 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
 
   pthread_mutex_lock(& pThis->selectMutex);
   XDefineCursor(pThis->dpy, pThis->window, pThis->crossHair);
-  XSelectInput(pThis->dpy, pThis->window, ButtonPressMask | 
-	                                  ButtonReleaseMask | 
+  XSelectInput(pThis->dpy, pThis->window, ButtonPressMask |
+	                                  ButtonReleaseMask |
                                           PointerMotionMask);
   pthread_mutex_unlock(& pThis->selectMutex);
 
@@ -1954,9 +1956,9 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
   bool mouseDown = false;
 
   int topH, leftH, rightH, bottomH;
-    
+
   while(1){
-    
+
     pthread_mutex_lock(& pThis->selectMutex);
     bool pmev = XCheckMaskEvent(pThis->dpy, PointerMotionMask, &xev);
     bool bpev = XCheckMaskEvent(pThis->dpy, ButtonPressMask,   &xev);
@@ -1966,9 +1968,9 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
     if(pmev){
       if(mouseDown && !topLineSelected) {
 	pthread_mutex_lock(& pThis->selectMutex);
-	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					    (int)rint(ulc.PosY()),
-					    (int)rint(urc.PosX()), 
+					    (int)rint(urc.PosX()),
 					    (int)rint(urc.PosY()), *c);
 	pthread_mutex_unlock(& pThis->selectMutex);
 	urc = XV2Vec<double>(xev.xbutton.x, xev.xbutton.y);
@@ -1977,23 +1979,23 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
 	pthread_mutex_unlock(& pThis->selectMutex);
       } else if(topLineSelected) {
 	pthread_mutex_lock(& pThis->selectMutex);
-	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()), 
+	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(ulc.PosX()),
 					    (int)rint(ulc.PosY()),
-					    (int)rint(llc.PosX()), 
+					    (int)rint(llc.PosX()),
 					    (int)rint(llc.PosY()), *c);
-	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()), 
+	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(urc.PosX()),
 					    (int)rint(urc.PosY()),
-					    (int)rint(lrc.PosX()), 
+					    (int)rint(lrc.PosX()),
 					    (int)rint(lrc.PosY()), *c);
-	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()), 
+	pThis->XVDrawWindowX<PIX>::drawLine((int)rint(llc.PosX()),
 					    (int)rint(llc.PosY()),
-					    (int)rint(lrc.PosX()), 
+					    (int)rint(lrc.PosX()),
 					    (int)rint(lrc.PosY()), *c);
 	pthread_mutex_unlock(& pThis->selectMutex);
 	XV2Vec<double> currentPos(xev.xbutton.x, xev.xbutton.y);
 	XV2Vec<double> topVec = urc - ulc;
 	XV2Vec<double> tmpVec = currentPos - ulc;
-	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec) 
+	XV2Vec<double> projVec = ((topVec * tmpVec) * topVec)
 	  / (topVec.length() * topVec.length());
 	XV2Vec<double> heightVec = currentPos - (projVec + ulc);
 	llc = ulc + heightVec;
@@ -2036,10 +2038,10 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
 	XV2Vec<double> diffVec = ulc - llc;
 	pthread_mutex_lock(& pThis->selectMutex);
 	if(diffVec.x() < 0){
-	  *angle = -acos((XV2Vec<double>(0, -1) * diffVec) 
+	  *angle = -acos((XV2Vec<double>(0, -1) * diffVec)
 					   / diffVec.length());
 	}else{
-	  *angle = acos((XV2Vec<double>(0, -1) * diffVec) 
+	  *angle = acos((XV2Vec<double>(0, -1) * diffVec)
 		       / diffVec.length());
 	}
 	*size = XVSize((int)rint((urc - ulc).length()), (int)rint(diffVec.length()));
@@ -2062,7 +2064,7 @@ XVThreadedWindowX<PIX, INPUT>::selectAngledRectThreadFunc(void * params) {
 
 template <class T, class I>
 inline void
-XVThreadedWindowX<T, I>::selectPoint(XVPosition & p, 
+XVThreadedWindowX<T, I>::selectPoint(XVPosition & p,
 				  XVDrawColor c,bool draw_flag ){
 
   if(!draw_flag) XVThreadedWindowException((char*)"Not implemented");
@@ -2070,15 +2072,15 @@ XVThreadedWindowX<T, I>::selectPoint(XVPosition & p,
   if(currentlySelecting)
     throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
-  
+
   static XVDrawColor selectPointThreadFuncColor = c;
   static VOIDP selectPointThreadFuncParams[3];
   selectPointThreadFuncParams[0] = (VOIDP) this;
   selectPointThreadFuncParams[1] = (VOIDP) & p;
   selectPointThreadFuncParams[2] = (VOIDP) & selectPointThreadFuncColor;
-  
+
   pthread_t selectionThread;
-  pthread_create(& selectionThread, NULL, 
+  pthread_create(& selectionThread, NULL,
 		 & XVThreadedWindowX<T, I>::selectPointThreadFunc,
 		 (void *) selectPointThreadFuncParams);
 
@@ -2095,12 +2097,12 @@ inline  void
 XVThreadedWindowX<T, I>::selectLine(XVPosition & p1,
 				    XVPosition & p2,
 				    XVDrawColor c ){
-  
+
   hasBeenSelected = false;
   if(currentlySelecting)
     throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
-  
+
   static XVDrawColor selectLineThreadFuncColor = c;
   static VOIDP selectLineThreadFuncParams[4];
 
@@ -2110,7 +2112,7 @@ XVThreadedWindowX<T, I>::selectLine(XVPosition & p1,
   selectLineThreadFuncParams[3] = (VOIDP) & selectLineThreadFuncColor;
 
   pthread_t selectionThread;
-  pthread_create(& selectionThread, NULL, 
+  pthread_create(& selectionThread, NULL,
 		 & XVThreadedWindowX<T, I>::selectLineThreadFunc,
 		 (void *) selectLineThreadFuncParams);
 
@@ -2124,7 +2126,7 @@ XVThreadedWindowX<T, I>::selectLine(XVPosition & p1,
 
 template <class T, class I>
 inline void
-XVThreadedWindowX<T, I>::selectRectangle(XVImageGeneric & g, 
+XVThreadedWindowX<T, I>::selectRectangle(XVImageGeneric & g,
 					 XVDrawColor c ){
 
   hasBeenSelected = false;
@@ -2140,7 +2142,7 @@ XVThreadedWindowX<T, I>::selectRectangle(XVImageGeneric & g,
   selectRectangleThreadFuncParams[2] = (VOIDP) & selectRectangleThreadFuncColor;
 
   pthread_t selectionThread;
-  pthread_create(& selectionThread, NULL, 
+  pthread_create(& selectionThread, NULL,
 		 & XVThreadedWindowX<T, I>::selectRectThreadFunc,
 		 (void *) selectRectangleThreadFuncParams);
 
@@ -2154,9 +2156,9 @@ XVThreadedWindowX<T, I>::selectRectangle(XVImageGeneric & g,
 
 template <class T, class I>
 inline void
-XVThreadedWindowX<T, I>::selectEllipse(XVImageGeneric & g, 
+XVThreadedWindowX<T, I>::selectEllipse(XVImageGeneric & g,
 				       XVDrawColor c ){
-  
+
   hasBeenSelected = false;
   if(currentlySelecting)
     throw XVThreadedWindowException((char*)"Already Selecting");
@@ -2168,9 +2170,9 @@ XVThreadedWindowX<T, I>::selectEllipse(XVImageGeneric & g,
   selectEllipseThreadFuncParams[0] = (VOIDP) this;
   selectEllipseThreadFuncParams[1] = (VOIDP) & g;
   selectEllipseThreadFuncParams[2] = (VOIDP) & selectEllipseThreadFuncColor;
-  
+
   pthread_t selectionThread;
-  pthread_create(& selectionThread, NULL, 
+  pthread_create(& selectionThread, NULL,
 		 & XVThreadedWindowX<T, I>::selectEllipseThreadFunc,
 		 (void *) selectEllipseThreadFuncParams);
 
@@ -2186,12 +2188,12 @@ template <class T, class I>
 inline void
 XVThreadedWindowX<T, I>::selectSizedRect(XVImageGeneric & g, const XVSize & s,
 					 XVDrawColor c ){
-  
+
   hasBeenSelected = false;
   if(currentlySelecting)
     throw XVThreadedWindowException((char*)"Already Selecting");
   currentlySelecting = true;
-  
+
   static XVDrawColor selectSizedRectThreadFuncColor = c;
   static XVSize      selectSizedRectThreadFuncSize = s;
   static VOIDP selectSizedRectThreadFuncParams[4];
@@ -2200,9 +2202,9 @@ XVThreadedWindowX<T, I>::selectSizedRect(XVImageGeneric & g, const XVSize & s,
   selectSizedRectThreadFuncParams[1] = (VOIDP) & g;
   selectSizedRectThreadFuncParams[2] = (VOIDP) & selectSizedRectThreadFuncSize;
   selectSizedRectThreadFuncParams[3] = (VOIDP) & selectSizedRectThreadFuncColor;
-  
+
   pthread_t selectionThread;
-  pthread_create(& selectionThread, NULL, 
+  pthread_create(& selectionThread, NULL,
 		 & XVThreadedWindowX<T, I>::selectSizedRectThreadFunc,
 		 (void *) selectSizedRectThreadFuncParams);
 
@@ -2216,10 +2218,10 @@ XVThreadedWindowX<T, I>::selectSizedRect(XVImageGeneric & g, const XVSize & s,
 
 template <class PIX, class INPUT>
 inline void
-XVThreadedWindowX<PIX, INPUT>::selectAngledRect(XVPosition & ulcPos, XVSize & size, 
+XVThreadedWindowX<PIX, INPUT>::selectAngledRect(XVPosition & ulcPos, XVSize & size,
 					 double & angle,
 					 XVDrawColor c ) {
-  
+
   hasBeenSelected = false;
   if(currentlySelecting)
     throw XVThreadedWindowException((char*)"Already Selecting");
@@ -2320,4 +2322,4 @@ _MANINST_THREADED_WINDOW_(XVImageScalar<double >);
 #endif
 
 void XV_temporary_fix_for_the_ipp_bug_with_pthread(void)
-{ pthread_attr_t attr; pthread_attr_init(&attr); } 
+{ pthread_attr_t attr; pthread_attr_init(&attr); }

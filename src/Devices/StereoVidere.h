@@ -37,7 +37,7 @@ class StereoVidere : public XV_Videre<T>
   double expectedFloorDisparity(CALIBRATION_PARAMS &, double);
 
  public:
-  StereoVidere(const char *dev_name = DC_DEVICE_NAME,
+  StereoVidere(const char *dev_name = VIDERE_DEVICE_NAME,
 	       const char *parm_string = NULL);
   ~StereoVidere();
   Y			*calc_stereo(void);

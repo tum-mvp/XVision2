@@ -15,6 +15,7 @@
 #include "dc1394/dc1394.h"
 #include "config.h"
 #include <XVVideo.h>
+#include <list>
 
 #ifdef HAVE_VIDEO1394_NEW
 #define DC_DEVICE_NAME	"/dev/video1394/0"
@@ -70,6 +71,9 @@
  */
 
 
+typedef std::list<int> Jobs;
+
+
 template <class IMTYPE>
 class XVDig1394 : public XVVideo<IMTYPE> {
  protected:
@@ -108,7 +112,11 @@ class XVDig1394 : public XVVideo<IMTYPE> {
    const char            * device_name;
    dc1394camera_t        *camera_node;
    dc1394_t * 		 fd;
-
+   pthread_t		 grabber_thread;
+   pthread_mutex_t       wait_grab[DIG_DEF_NUMFRAMES];
+   bool			 threadded;
+   static void			 *grab_thread(void *obj);
+   Jobs			  requests; 
   public:
    using XVVideo<IMTYPE>::frame ;
    // camera_id can either be the 64-bit id of the camera, or one

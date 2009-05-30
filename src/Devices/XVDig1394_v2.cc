@@ -433,6 +433,9 @@ namespace {
 template <class IMTYPE>
 int XVDig1394<IMTYPE>::initiate_acquire(int i_frame)
 {
+   if(i_frame<0 || i_frame>=n_buffers) return 0;
+   pthread_mutex_lock(&wait_grab[i_frame]);
+   requests.push_front(i_frame);
    return 1;
 }
 
@@ -679,38 +682,8 @@ template <class IMTYPE>
 int XVDig1394<IMTYPE>::wait_for_completion(int i_frame)
 {
            
-   dc1394video_frame_t *cur_frame;
-   dc1394_capture_dequeue( camera_node, DC1394_CAPTURE_POLICY_WAIT,
-                   &cur_frame);
-   if(!format7)
-   {
-     switch(mode_type)
-     {
-      case RGB8:
-        Convert<IMTYPE>::rgb8_f(cur_frame->image,frame(i_frame),
-				frame(i_frame).Width()*frame(i_frame).Height());
-       break;
-      case YUV411:
-        Convert<IMTYPE>::yuv411_f(cur_frame->image,frame(i_frame),
-				frame(i_frame).Width()*frame(i_frame).Height());
-        break;
-      case YUV422:
-        Convert<IMTYPE>::yuv422_f(cur_frame->image,frame(i_frame),
-				frame(i_frame).Width()*frame(i_frame).Height());
-        break;
-      case YUV444:
-        Convert<IMTYPE>::yuv444_f(cur_frame->image,frame(i_frame),
-				frame(i_frame).Width()*frame(i_frame).Height());
-        break;
-      default:
-        cerr << "unknown" << endl;
-        break;
-     }
-   }
-   else
-     BayerNearestNeighbor(cur_frame->image,frame(i_frame),
-     		frame(i_frame).Width(),frame(i_frame).Height(),optical_filter);
-   dc1394_capture_enqueue( camera_node, cur_frame );
+   pthread_mutex_lock(&wait_grab[i_frame]);
+   pthread_mutex_unlock(&wait_grab[i_frame]);
    return 1;
 }
 
@@ -830,8 +803,71 @@ template <class IMTYPE> int XVDig1394<IMTYPE>::open(const char *dev_name) {
 }
 
 template <class IMTYPE>
+void *XVDig1394<IMTYPE>::grab_thread(void *obj) {
+   
+ XVDig1394<IMTYPE> *me=reinterpret_cast<XVDig1394<IMTYPE>*>(obj);
+ int i_frame;
+
+ dc1394video_frame_t *cur_frame;
+ usleep(200);
+ while(1)
+ {
+  dc1394_capture_dequeue( me->camera_node, DC1394_CAPTURE_POLICY_WAIT,
+                   &cur_frame);
+  if(!me->requests.empty())
+  {
+   i_frame=me->requests.back();
+   me->requests.pop_back();
+   if(!me->format7)
+   {
+     switch(me->mode_type)
+     {
+      case RGB8:
+        Convert<IMTYPE>::rgb8_f(cur_frame->image,me->frame(i_frame),
+				me->frame(i_frame).Width()*
+				me->frame(i_frame).Height());
+       break;
+      case YUV411:
+        Convert<IMTYPE>::yuv411_f(cur_frame->image,me->frame(i_frame),
+				me->frame(i_frame).Width()*
+				me->frame(i_frame).Height());
+        break;
+      case YUV422:
+        Convert<IMTYPE>::yuv422_f(cur_frame->image,me->frame(i_frame),
+				me->frame(i_frame).Width()*
+				me->frame(i_frame).Height());
+        break;
+      case YUV444:
+        Convert<IMTYPE>::yuv444_f(cur_frame->image,me->frame(i_frame),
+				me->frame(i_frame).Width()*
+				me->frame(i_frame).Height());
+        break;
+      default:
+        cerr << "unknown" << endl;
+        break;
+     }
+   }
+   else
+     BayerNearestNeighbor(cur_frame->image,me->frame(i_frame),
+     		me->frame(i_frame).Width(),me->frame(i_frame).Height(),
+		me->optical_filter);
+   
+   pthread_mutex_unlock(&me->wait_grab[i_frame]);
+  }
+  dc1394_capture_enqueue( me->camera_node, cur_frame );
+
+ }
+ return NULL;
+}
+
+template <class IMTYPE>
 XVDig1394<IMTYPE>::~XVDig1394()
 {
+  if(threadded) {
+    pthread_join(grabber_thread,0);
+    for(int i=0;i<n_buffers;i++)
+      pthread_mutex_destroy(&wait_grab[i]);
+  }
   close();
 }
 
@@ -844,6 +880,7 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
   dc1394switch_t bOn;
   uint32_t       num_cameras;
   dc1394camera_t **camera;
+  threadded=false;
 
   // parsing parameters
   verbose=true;optical_flag=false;reset_ieee=false;
@@ -1150,14 +1187,25 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
 			     ext_trigger ? DC1394_OFF : DC1394_ON );
     dc1394_external_trigger_set_mode( camera_node, DC1394_TRIGGER_MODE_1 );
   }
-  dc1394_feature_set_mode(camera_node,DC1394_FEATURE_BRIGHTNESS,DC1394_FEATURE_MODE_AUTO);
-  dc1394_feature_set_mode(camera_node,DC1394_FEATURE_EXPOSURE,DC1394_FEATURE_MODE_AUTO);
+  //dc1394_feature_set_mode(camera_node,DC1394_FEATURE_BRIGHTNESS,DC1394_FEATURE_MODE_AUTO);
+ // dc1394_feature_set_mode(camera_node,DC1394_FEATURE_EXPOSURE,DC1394_FEATURE_MODE_AUTO);
   if(verbose)
       cout << "Setting image size to " << dec <<frame(0).Width() << "x" <<
                frame(0).Height() << endl;
-  dc1394_capture_setup(camera_node,n_buffers,DC1394_CAPTURE_FLAGS_DEFAULT);
-  open(NULL);
   init_tab();
+  dc1394_capture_setup(camera_node,n_buffers,
+              DC1394_CAPTURE_FLAGS_DEFAULT|DC1394_CAPTURE_FLAGS_AUTO_ISO);
+  open(NULL);
+  pthread_mutexattr_t tattr;
+  pthread_mutexattr_init( &tattr );
+  for(int i=0;i<n_buffers;i++)
+     pthread_mutex_init( &wait_grab[i], &tattr );
+  pthread_mutexattr_destroy( &tattr );
+  pthread_attr_t attr ;
+  pthread_attr_init( &attr );
+  pthread_create(&grabber_thread,&attr,grab_thread,this);
+  threadded=true;
+  pthread_attr_destroy( &attr );
 }
 
 template <class IMTYPE>

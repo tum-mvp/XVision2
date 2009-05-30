@@ -77,7 +77,7 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
   sourceObject = getVideoObject();
   open(dev_name);
   //cerr << "color from param " << sourceObject->haveColor << " "<< sourceObject->haveColorRight<<endl;
-  if(!sourceObject->CheckParams())
+  //if(!sourceObject->CheckParams())
          sourceObject->ReadParams((char*)parm_string);
   params=sourceObject->GetIP();
   sourceObject->SetSize(640,480); // 320x240 image
@@ -95,11 +95,11 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
 
   sourceObject->SetCapture(CAP_DUAL);
   //sourceObject->SetNDisp(64);    // 32 disparities
-  //sourceObject->SetCorrsize(15); // correlation window size
+  sourceObject->SetCorrsize(7); // correlation window size
   //sourceObject->SetLR(false);    // no left-right check, not available
-  //sourceObject->SetThresh(8);   // texture filter
-  //sourceObject->SetUnique(2);   // uniqueness filter
-  //sourceObject->SetHoropter(62);  // horopter offset
+  sourceObject->SetThresh(8);   // texture filter
+  sourceObject->SetUnique(2);   // uniqueness filter
+  sourceObject->SetHoropter(62);  // horopter offset
   sourceObject->SetRect(false);  //
   //sourceObject->SetProcMode(parm_string? PROC_MODE_DISPARITY:PROC_MODE_RECTIFIED);
   //sourceObject->SetProcMode(PROC_MODE_RECTIFIED);

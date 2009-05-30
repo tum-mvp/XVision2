@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
     for(int i = 0; i < 50; i++) {
       vid->wait_for_completion(0);
 #ifdef VIDEO
-      images=vid->get_stereo();
+      images=vid->get_warped();
       video.CopySubImage(*(images[XVVID_LEFT]));
       //XVWritePPM(*images[XVVID_LEFT],(char*)"left_image.ppm");
       //XVWritePPM(*images[XVVID_RIGHT],(char*)"right_image.ppm");

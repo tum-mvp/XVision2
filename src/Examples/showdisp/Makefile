@@ -1,6 +1,6 @@
 # Generated automatically from Makefile.in by configure.
 PROG		= showdisp
-CUR_DEPTH	= ../../..
+CUR_DEPTH	= $(HOME)/XVision2
 CPPFLAGS	= -I$(CUR_DEPTH)/include -O6 -DSCREEN_DEPTH=$(SD) \
                     -I$(SVS_PATH)/src -I$(IPPROOT)/include\
 		  -I/usr/lib/glib/include -DLINUX -D_REENTRANT -DUNIX

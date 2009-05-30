@@ -23,7 +23,9 @@ We provide this software "as is" without express or implied warranty.
 
 #define DIG_DEF_NUMFRAMES 4
 #define DIG_DEF_INPUT     0
+#ifndef DC_DEVICE_NAME
 #define DC_DEVICE_NAME    "head.ini"
+#endif
 
 #define XVVID_RIGHT	  0
 #define XVVID_LEFT	  1

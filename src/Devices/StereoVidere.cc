@@ -33,7 +33,7 @@ bool StereoVidere<T,Y>::calc3D(svs3Dpoint * &pts,int &num_pts,char *file_name)
 }
 
 template <class T,class Y> 
-Y *StereoVidere<T,Y>::calc_stereo(void)
+Y *StereoVidere<T,Y>::calc_stereo(char *dispfile_name)
 {
   static Y image;
   calc_warped();
@@ -45,6 +45,7 @@ Y *StereoVidere<T,Y>::calc_stereo(void)
   }
   disp_image.resize (params->width, params->height);
   processObject->CalcStereo(s_image);
+  if(dispfile_name) s_image->SaveDisparity(dispfile_name);
   if(!s_image->haveDisparity) {cerr << "no disparity??"<< endl;return NULL;}
   if(!dispInitialized)
   {

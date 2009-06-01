@@ -922,6 +922,7 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
     throw(2);
   }
   if(verbose) dc1394_camera_print_info(camera_node,stdout);
+re_init:
   if(reset_ieee) dc1394_camera_reset(camera_node);
     if(dc1394_video_get_transmission(camera_node,&bOn) != DC1394_SUCCESS)
     {
@@ -1026,7 +1027,11 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
 	throw(7);
     }
     dc1394_video_set_framerate(camera_node,rates.framerates[rate_index]);
-    dc1394_video_set_iso_channel(camera_node,channel);
+    if(dc1394_video_set_iso_channel(camera_node,channel)!=DC1394_SUCCESS)
+    {
+       reset_ieee=true;
+       goto re_init;
+    }
     XVSize sized(mode_descr[modes.modes[mode_index]-
     			DC1394_VIDEO_MODE_160x120_YUV444].width,
                 mode_descr[modes.modes[mode_index]-

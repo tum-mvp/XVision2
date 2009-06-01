@@ -40,7 +40,7 @@ class StereoVidere : public XV_Videre<T>
   StereoVidere(const char *dev_name = VIDERE_DEVICE_NAME,
 	       const char *parm_string = NULL);
   ~StereoVidere();
-  Y			*calc_stereo(void);
+  Y			*calc_stereo(char *dispfile_name=NULL);
   Y			*calc_display(void);
   void                  calc_warped(void);
   XVImageScalar<u_char> **get_warped(){return get_stereo();}

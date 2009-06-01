@@ -73,6 +73,7 @@ class StereoVidere : public XV_Videre<T>
 
   //get 3D information 
   void calcPoint3D(int mx, int my, double& x, double &y, double &z); 
+  bool calc3D(svs3Dpoint * &pts,int &num_pts,char *file_name=NULL);
 };
 
 #endif

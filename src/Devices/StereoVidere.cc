@@ -22,6 +22,17 @@ Y *StereoVidere<T,Y>::calc_display(void)
 }
 
 template <class T,class Y> 
+bool StereoVidere<T,Y>::calc3D(svs3Dpoint * &pts,int &num_pts,char *file_name)
+{
+   if(!s_image || !s_image->haveDisparity) return false;
+   processObject->Calc3D(s_image);
+   if(file_name) s_image->Save3DPointArray(file_name);
+   pts=s_image->pts3D;
+   num_pts=s_image->numPoints;
+   return true;
+}
+
+template <class T,class Y> 
 Y *StereoVidere<T,Y>::calc_stereo(void)
 {
   static Y image;
@@ -206,7 +217,7 @@ StereoVidere<T,Y>::StereoVidere(const char *dev_name,
   file_image=NULL;
   processObject=new svsStereoProcess();
   file_image=new svsStoredImages;
-  XV_Videre<T>::set_stoc(true); //switch STOC on
+  //XV_Videre<T>::set_stoc(true); //switch STOC on
   file_image->ReadParams((char *)dev_name);
   file_image->SetRect(true);
   dispInitialized=false;

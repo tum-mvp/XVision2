@@ -1048,7 +1048,7 @@ re_init:
 	   DC1394_VIDEO_MODE_160x120_YUV444].mode==RGB8)
       cout << "Running RGB mode" <<endl;
     else
-      cout << "Running non-RGB mode"<<endl;
+      if(verbose) cout << "Running non-RGB mode"<<endl;
   }else{ // format7
    if(dc1394_video_set_mode(camera_node,DC1394_VIDEO_MODE_FORMAT7_0)!=DC1394_SUCCESS)
    {

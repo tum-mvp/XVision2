@@ -64,9 +64,8 @@ template <class T>
 int XV_Videre<T>::open(const char *dev_name)
 {
   sourceObject->Open(0);
-  sourceObject->ReadParams((char *)dev_name);
+  return sourceObject->ReadParams((char *)dev_name);
   //sourceObject->SetRect(true);
-  return 1;
 }
 
 template <class T>
@@ -75,7 +74,11 @@ XV_Videre<T>::XV_Videre(const char *dev_name,const char *parm_string):
 {
   s_image=NULL;
   sourceObject = getVideoObject();
-  open(dev_name);
+  if(!open(dev_name))
+  {
+    cerr << "Couldn't parse the init file " << dev_name << endl;
+    cerr << "... defaulting to standard values"<<endl;
+  }
   //cerr << "color from param " << sourceObject->haveColor << " "<< sourceObject->haveColorRight<<endl;
   //if(!sourceObject->CheckParams())
          sourceObject->ReadParams((char*)parm_string);

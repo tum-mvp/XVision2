@@ -6,7 +6,7 @@ CPPFLAGS	=  -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
 
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVImages\
-		  -lraw1394 -ldc1394 \
+		   \
 		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
 
 # if you want to set the screen depth explicitly,

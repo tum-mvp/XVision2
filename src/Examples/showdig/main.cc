@@ -48,10 +48,10 @@ int main (int argc, char **argv) {
   int framenum=0, n_buffers, i, j, rate=100 ;
   struct timeval time1, time2; 
 
-  //const char *param="i1V1", * files=0;
+  const char *param="i1V1", * files=0;
   //const char *param="i1V1", * files=0;
   //const char * param = "i1V1f7r450", * files = 0 ;
-  const char * param = "i1V1f7o3r300", * files = 0 ;
+  //const char * param = "i1V1f7o3r300", * files = 0 ;
   //const char * param = "h200f2m2o2", * files = 0 ;//1280x960
   //const char * param = "h200m5o2", * files = 0 ;// 640x480
   //const char * param = "h200f1m2o2", * files = 0 ;// 800x600

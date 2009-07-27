@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
   XVImageScalar<u_short> *disp_image, *win_image;
   const u_short *r_ptr;
 
+  vid->set_stoc(true);
   vid->next_frame_continuous();
   disp_image = vid->calc_stereo();
 #ifdef VIDEO

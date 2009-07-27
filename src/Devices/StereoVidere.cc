@@ -189,7 +189,7 @@ StereoVidere<T, Y> :: expectedFloorDisparity(CALIBRATION_PARAMS & params,
 					     double v_coordinate) {
 
   // compute gamma from v_coordinate
-  double gamma = (v_coordinate*4*sourceObject->GetRP()->left.dpy / focalLength);
+  double gamma = (v_coordinate*4/ focalLength);
   // compute guessed disparity at particular v
   double d_floor = (baseline / params.height) * 
     (cos(params.angle) - sin(params.angle) * (gamma)) * (focalLength / pixelsize)*DISP_INTERPOLATION/4;
@@ -204,10 +204,11 @@ void  StereoVidere<T,Y>::LoadImages( XVImageScalar<u_char> &im_l,
 			    XVImageRGB<XV_RGBA32> &col,bool rect){ 
      file_image->Load(im_l.Width(),
                       im_l.Height(),
-		      (u_char*)im_l.data(),
-		      (u_char*)im_r.data(),
-		      (u_char*)col.data(),NULL,rect,true);
+                      (u_char*)im_l.data(),
+                      (u_char*)im_r.data(),
+                      (u_char*)col.data(),NULL,rect,true);
      s_image=file_image->GetImage(500);
+
 };
 
 template <class T,class Y>

@@ -215,6 +215,12 @@ typedef struct
   unsigned char y0;
   unsigned char v;
   unsigned char y1;
+ 
+   
+  void setY(unsigned char a) {y0 = a;};
+  void setY2(unsigned char a) {y1 = a;};
+  void setU(unsigned char a) {u = a;};
+  void setV(unsigned char a) {v = a;};
 
   unsigned char U() const {return u;};
   unsigned char V() const {return v;};

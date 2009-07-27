@@ -50,7 +50,8 @@ int main (int argc, char **argv) {
 
   //const char *param="i1V1", * files=0;
   //const char *param="i1V1", * files=0;
-  const char * param = "i1V1", * files = 0 ;
+  //const char * param = "i1V1f7r450", * files = 0 ;
+  const char * param = "i1V1f7o3r300", * files = 0 ;
   //const char * param = "h200f2m2o2", * files = 0 ;//1280x960
   //const char * param = "h200m5o2", * files = 0 ;// 640x480
   //const char * param = "h200f1m2o2", * files = 0 ;// 800x600
@@ -104,9 +105,9 @@ int main (int argc, char **argv) {
      return 1;
    }
    temp_grab->set_whitebalance_auto();
-   temp_grab->set_exposure_auto();
-   temp_grab->set_brightness_auto();
-   temp_grab->set_gain_auto();
+   //temp_grab->set_exposure_auto();
+   //temp_grab->set_brightness_auto();
+   temp_grab->set_shutter_auto();
    grabber[j]=temp_grab;
   }
   n_buffers=grabber[0]->buffer_count(); // assuming same buffer count

@@ -848,10 +848,19 @@ void *XVDig1394<IMTYPE>::grab_thread(void *obj) {
      }
    }
    else
+   {
+    if(me->optical_flag)
      BayerNearestNeighbor(cur_frame->image,me->frame(i_frame),
      		me->frame(i_frame).Width(),me->frame(i_frame).Height(),
 		me->optical_filter);
-   
+
+    else
+    {
+      memcpy(me->frame(i_frame).lock(),cur_frame->image,
+             (me->frame(i_frame).Width())*(me->frame(i_frame).Height()));
+      me->frame(i_frame).unlock();
+    }
+   }
    pthread_mutex_unlock(&me->wait_grab[i_frame]);
   }
   dc1394_capture_enqueue( me->camera_node, cur_frame );
@@ -880,6 +889,8 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
   dc1394switch_t bOn;
   uint32_t       num_cameras;
   dc1394camera_t **camera;
+  dc1394video_modes_t modes;
+  int		      mode_index;
   threadded=false;
 
   // parsing parameters
@@ -947,9 +958,8 @@ re_init:
     }
   if(!format7)
   {
-    dc1394video_modes_t modes;
     dc1394_video_get_supported_modes(camera_node,&modes);
-    int mode_index=modes.num-1;
+    mode_index=modes.num-1;
     if(rgb_pixel>-1)
     {
       if(rgb_pixel)
@@ -1008,30 +1018,6 @@ re_init:
     dc1394_video_set_mode(camera_node,modes.modes[mode_index]);
     mode_type=mode_descr[modes.modes[mode_index]-
     			DC1394_VIDEO_MODE_160x120_YUV444].mode;
-    dc1394framerates_t rates;
-    dc1394_video_get_supported_framerates(camera_node,
-                   modes.modes[mode_index],&rates);
-    if(rates.num==0) 
-    {
-      if(verbose)
-        cerr << "No possible rates" << endl;
-	throw(7);
-    }
-    int rate_index=rates.num-1;
-    framerate--;
-    while(rate_index>=0 && framerate) rate_index--,framerate--;
-    if(rate_index<0)
-    {
-      if(verbose)
-        cerr << "Could not set rate" << endl;
-	throw(7);
-    }
-    dc1394_video_set_framerate(camera_node,rates.framerates[rate_index]);
-    if(dc1394_video_set_iso_channel(camera_node,channel)!=DC1394_SUCCESS)
-    {
-       reset_ieee=true;
-       goto re_init;
-    }
     XVSize sized(mode_descr[modes.modes[mode_index]-
     			DC1394_VIDEO_MODE_160x120_YUV444].width,
                 mode_descr[modes.modes[mode_index]-
@@ -1049,6 +1035,25 @@ re_init:
       cout << "Running RGB mode" <<endl;
     else
       if(verbose) cout << "Running non-RGB mode"<<endl;
+    dc1394framerates_t rates;
+    dc1394_video_get_supported_framerates(camera_node,
+           modes.modes[mode_index], &rates);
+    if(rates.num==0) 
+    {
+      if(verbose)
+        cerr << "No possible rates" << endl;
+	throw(7);
+    }
+    int rate_index=rates.num-1;
+    framerate--;
+    while(rate_index>=0 && framerate) rate_index--,framerate--;
+    if(rate_index<0)
+    {
+      if(verbose)
+        cerr << "Could not set rate" << endl;
+	throw(7);
+    }
+    dc1394_video_set_framerate(camera_node,rates.framerates[rate_index]);
   }else{ // format7
    if(dc1394_video_set_mode(camera_node,DC1394_VIDEO_MODE_FORMAT7_0)!=DC1394_SUCCESS)
    {
@@ -1069,7 +1074,12 @@ re_init:
      		&hmax,&vmax);
 
      		
-      float fbytesPerPacket= 7.5*0.000125*hmax*vmax*1;
+      if(framerate==1) 
+      {
+          framerate=250;
+          cerr << "Setting framerate to " << framerate/10.0 <<endl;
+      }
+      float fbytesPerPacket= framerate/10.0*0.000125*hmax*vmax*1;
       int ceilbytesPerPacket= static_cast<int>(ceil(fbytesPerPacket));
       int bytesPerPacket= (ceilbytesPerPacket+3)/4*4;
 
@@ -1092,6 +1102,11 @@ re_init:
     //}
     if(verbose) cout << "Running Format 7" <<endl;
   }
+    if(dc1394_video_set_iso_channel(camera_node,channel)!=DC1394_SUCCESS)
+    {
+       reset_ieee=true;
+       goto re_init;
+    }
   // setting the gain 
   if( gain != -1 ) {
     unsigned int min_gain_val, max_gain_val;

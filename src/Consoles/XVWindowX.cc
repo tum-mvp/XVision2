@@ -164,7 +164,7 @@ int XVWindowX<T>::get_font(char *name)
   if(num_fonts==MAX_FONT_NUM) return 0;
   if((font[num_fonts]=XLoadFont(dpy,name))==BadName) return 0;
   num_fonts++;
-  return 1;
+  return num_fonts-1;
 }
 
 template <class T>
@@ -831,14 +831,26 @@ inline int XVDrawWindowX<PIX>::drawPoint(int x, int y,
 
 template <class PIX>
 inline int XVDrawWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2,
-					XVDrawColor c){
+					XVDrawColor c, int line_width){
 
+  XGCValues  temp_gc;
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
+  XGetGCValues(dpy,GCmap[c],GCLineWidth,&temp_gc);
+  if(line_width)
+  {
+    temp_gc.line_width=line_width;
+    XChangeGC(dpy,GCmap[c],GCLineWidth,&temp_gc);
+  }
 
   XVDrawLineX l(dpy, back_flag ? back_buffer : window, GCmap[c],
 		XVPosition(x1, y1), XVPosition(x2, y2), c);
 
   l.draw();
+  if(line_width)
+  {
+    temp_gc.line_width=0;
+    XChangeGC(dpy,GCmap[c],GCLineWidth,&temp_gc);
+  }
   return true;
 };
 
@@ -960,9 +972,18 @@ XVStateWindowX<PIX>::drawPoint(int x, int y, XVDrawColor c) {
 template <class PIX>
 int
 XVStateWindowX<PIX>::drawLine(int x1, int y1, int x2, int y2,
-			      XVDrawColor c ) {
+			      XVDrawColor c,int line_width ) {
 
   if(GCmap.find(c) == GCmap.end()) this->addColor(c);
+
+  XGCValues temp_gc;
+  XGetGCValues(dpy,GCmap[c],GCLineWidth,&temp_gc);
+  if(line_width!=temp_gc.line_width)
+  {
+    temp_gc.line_width=line_width;
+    XChangeGC(dpy,GCmap[c],GCLineWidth,&temp_gc);
+  }
+
   XVDrawLineX * l
     = new XVDrawLineX(this->dpy,
 		      this->back_flag ? this->back_buffer : this->window,

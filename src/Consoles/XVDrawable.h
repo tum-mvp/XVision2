@@ -146,7 +146,7 @@ class XVDrawable {
   
   virtual int drawLine(int x1, int y1, 
 		       int x2, int y2, 
-		       XVDrawColor c = (char*)DEFAULT_COLOR) = 0;
+		       XVDrawColor c = (char*)DEFAULT_COLOR,int line_width=0) = 0;
   
   inline int drawRectangle(XVImageGeneric rect, 
 			   XVDrawColor c = DEFAULT_COLOR){

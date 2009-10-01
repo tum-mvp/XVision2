@@ -57,7 +57,7 @@ AC_TRY_CPP([#include <dc1394/control.h>],
 
 dnl bttv section
   AC_DEFINE(HAVE_BTTV)
-  FRAMEGR_OBJS="XVV4L2.o XVBt8x8.o Meteor.o"
+  FRAMEGR_OBJS="XVPwc.o XVV4L2.o XVBt8x8.o Meteor.o"
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

@@ -5840,7 +5840,7 @@ rm -f conftest.err conftest.$ac_ext
 #define HAVE_BTTV 1
 _ACEOF
 
-  FRAMEGR_OBJS="XVV4L2.o XVBt8x8.o Meteor.o"
+  FRAMEGR_OBJS="XVPwc.o XVV4L2.o XVBt8x8.o Meteor.o"
 
 { $as_echo "$as_me:$LINENO: checking for an ANSI C-conforming const" >&5
 $as_echo_n "checking for an ANSI C-conforming const... " >&6; }

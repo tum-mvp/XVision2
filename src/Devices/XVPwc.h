@@ -1,8 +1,8 @@
 // *** BEGIN_XVISION2_COPYRIGHT_NOTICE ***
 // *** END_XVISION2_COPYRIGHT_NOTICE ***
 
-#ifndef _XVV4L2_H_
-#define _XVV4L2_H_
+#ifndef _XVPwc_H_
+#define _XVPwc_H_
 
 #include <errno.h>
 #include <fcntl.h>
@@ -45,7 +45,7 @@ struct STRTAB {
 #endif
 
 template <class IMTYPE>
-class XVV4L2 : public XVVideo<IMTYPE> {
+class XVPwc : public XVVideo<IMTYPE> {
   protected:
    using XVVideo<IMTYPE>::size ;
    using XVVideo<IMTYPE>::n_buffers ;
@@ -68,11 +68,11 @@ class XVV4L2 : public XVVideo<IMTYPE> {
    int		set_input(int channel);
    int		set_params(char *param_string);
   public:
-   		XVV4L2(char const *dev_name=DEVICE_NAME,
+   		XVPwc(char const *dev_name=DEVICE_NAME,
 		       char const *parm_string=NULL);
-   		XVV4L2(const XVSize &, char const *dev_name=DEVICE_NAME,
+   		XVPwc(const XVSize &, char const *dev_name=DEVICE_NAME,
 		      char const *parm_string=NULL);
-   virtual	~XVV4L2();
+   virtual	~XVPwc();
    // Video_h compatibility functions
    int          open(const char *dev_name,const char *parm_string=NULL);
    void		close(void);

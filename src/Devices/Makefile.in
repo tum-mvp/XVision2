@@ -2,7 +2,8 @@ CUR_DEPTH  = ../../
 CXXFLAGS=@CXXFLAGS@ @DEFS@ @IPPINC@
 CPPFLAGS	= @VIDERE_INC@ @BTTV_HEAD@ @IPPINC@ @PROSILICA_INCS@ \
                   -I$(CUR_DEPTH)/include \
-		  -I/lib/modules/`uname -r`/build/drivers/ieee1394
+		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\
+		  -I/lib/modules/`uname -r`/build/drivers/media/video
 OBJS		= @FRAMEGR_OBJS@ @DVFIRE_OBJS@ @VIDERE_OBJS@\
                   @PROSILICA_OBJS@ XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
 

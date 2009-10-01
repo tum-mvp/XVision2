@@ -10,11 +10,11 @@
 #include "XVAffineWarp.h"
 #include <XVVideo.h>
 #include "XVImageBase.h"
-#include <XVV4L2.h>
+#include <XVPwc.h>
 #include <XVImageSeq.h>
 
 
-static  XVV4L2<XVImageRGB<XV_RGB> >         *grabber;
+static  XVPwc<XVImageRGB<XV_RGB> >         *grabber;
 
 void sighndl(int ws) {
   cerr << "SIGINT called" << endl;
@@ -34,7 +34,7 @@ int main (int argc, char **argv) {
    XVWindowX<XV_RGB>      window1(size.Width(),size.Height());
    XVImageScalar<u_char> image(size.Width(),size.Height());
    XVImageRGB<XV_RGB> image_col(size.Width(),size.Height());
-   grabber = new XVV4L2<XVImageRGB<XV_RGB > >(window1);
+   grabber = new XVPwc<XVImageRGB<XV_RGB > >(window1);
 
    window1.map();
   //grabber -> set_params ("I1N0B2");

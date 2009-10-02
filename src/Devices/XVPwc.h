@@ -52,7 +52,7 @@ class XVPwc : public XVVideo<IMTYPE> {
    using XVVideo<IMTYPE>::parse_param ;
 
   private:
-   bool		raw_mode;
+   int		rate;
    int		fd;
    struct 	v4l2_input        inp[MAX_INPUT];
    struct       v4l2_buffer       vidbuf[V4L2_DEF_NUMFRAMES];

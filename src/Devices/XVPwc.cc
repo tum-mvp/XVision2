@@ -60,28 +60,6 @@ int XVPwc<T>::initiate_acquire(int i_frame)
   return 1;
 }
 
-static void copy_pixels(XVImageYCbCr &frame,char *mm_buf)
-{
-   //frame.remap((XV_YCbCr *)mm_buf,false);
-}
-
-template <class T>
-void copy_pixels(T &frame,char *mm_buf)
-{
-       XV_YCbCr *ptr=(XV_YCbCr*)mm_buf;
-       XVImageWIterator<typename T::PIXELTYPE> wIter(frame);
-
-      for(;!wIter.end();++wIter,ptr++)
-       {
-         wIter->r=(u_char)(YUV2R(ptr->y0,ptr->u,ptr->v));
-         wIter->g=(u_char)(YUV2G(ptr->y0,ptr->u,ptr->v));
-         wIter->b=(u_char)(YUV2B(ptr->y0,ptr->u,ptr->v));
-         ++wIter;
-         wIter->r=(u_char)(YUV2R(ptr->y1,ptr->u,ptr->v));
-         wIter->g=(u_char)(YUV2G(ptr->y1,ptr->u,ptr->v));
-         wIter->b=(u_char)(YUV2B(ptr->y1,ptr->u,ptr->v));
-       }
-}
 
 template <class T>
 int XVPwc<T>::wait_for_completion(int i_frame)
@@ -107,27 +85,6 @@ int XVPwc<T>::wait_for_completion(int i_frame)
     perror("ioctl VIDIOCSYNC");
     return 0;
   }
-#ifdef HAVE_IPP
-  if ( figure_out_type(*frame(0).data())==XVImage_RGB32) // XV_RGBA32?
-  {
-    IppiSize roi={size.Width(),size.Height()};
-    const Ipp8u* pSrc[3]={(const Ipp8u *)mm_buf[i_frame],
-                          (const Ipp8u *)mm_buf[i_frame]+
-			                    size.Width()*size.Height(),
-                          (const Ipp8u *)mm_buf[i_frame]+
-			                    size.Width()*size.Height()*5/4};
-    memcpy(frame(i_frame).lock(),mm_buf[i_frame],size.Width()*size.Height());
-    //ippiYCbCr422ToBGR_8u_C2C4R((const Ipp8u *)mm_buf[i_frame],
-  //		size.Width()*2,(Ipp8u*)(frame(i_frame).lock()),
-//		size.Width()*4,roi,0);
-    frame(i_frame).unlock();
-  }
-  else
-#endif
-  {
-      //if(figure_out_type(*frame(i_frame).data())==XVImage_YCbCr)
-          copy_pixels(frame(i_frame),(char *)mm_buf[i_frame]);
-  }
   return 1;
 }
 
@@ -152,12 +109,14 @@ int XVPwc<T>::set_agc(int agc)
 template <class T>
 int XVPwc<T>::set_params(char *paramstring)
 {
+
    int 		num_frames=2;
    int		input=1;
    XVParser	parse_result;  
    static long norms[3]={V4L2_STD_NTSC_M,V4L2_STD_PAL_D,V4L2_STD_SECAM_D};
 
    norm=norms[1];
+   rate=15;
    while(parse_param(paramstring,parse_result)>0) 
      switch(parse_result.c)
      {
@@ -167,8 +126,8 @@ int XVPwc<T>::set_params(char *paramstring)
        case 'B': // number of buffers
 	 num_frames=parse_result.val;
 	 break;
-       case 'r': // raw mode
-	 raw_mode=parse_result.val;
+       case 'r': // rate
+	 rate=parse_result.val;
 	 break;
        case 'N': // norm
          if(parse_result.val<0 || parse_result.val>2)
@@ -242,23 +201,21 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
   //if((ioctl (fd, VIDIOC_G_STD, &norm)))
   //  perror ("G_STD in capture_init");
     
-  struct video_window vwin;
-  ioctl(fd, VIDIOCGWIN, &vwin);
-  vwin.flags &= ~PWC_FPS_FRMASK;
-  vwin.flags |= (30 << PWC_FPS_SHIFT);  // framerate
-  ioctl(fd, VIDIOCSWIN, &vwin);
   int agc=-1;                        // gain - negative is auto
   ioctl(fd, VIDIOCPWCSAGC, &agc);
   int shutter=40000;
   ioctl(fd,  VIDIOCPWCSSHUTTER, &shutter);
 
   if(!set_params(parameter)) return 0;
+  struct video_window vwin;
+  ioctl(fd, VIDIOCGWIN, &vwin);
+  vwin.flags &= ~PWC_FPS_FRMASK;
+  vwin.flags |= (rate << PWC_FPS_SHIFT);  // framerate
+  ioctl(fd, VIDIOCSWIN, &vwin);
   memset(&fmt,0,sizeof(struct v4l2_format));
   fmt.type                = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   fmt.fmt.pix.width=size.Width();
   fmt.fmt.pix.height=size.Height();
-  //fmt.fmt.pix.pixelformat =conv_table[sizeof(typename T::PIXELTYPE)-1];
-  //fmt.fmt.pix.pixelformat =raw_mode? V4L2_PIX_FMT_MJPEG:V4L2_PIX_FMT_YUYV;
   fmt.fmt.pix.pixelformat =0x32315559;
   fmt.fmt.pix.field        = V4L2_FIELD_ANY;
   //fmt.fmt.pix.bytesperline = 480;
@@ -290,8 +247,7 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
   //if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
   //				size.resize(size.Width(),size.Height());
   init_map(size,n_buffers);
-  if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
-  			remap(mm_buf,n_buffers);
+  remap(mm_buf,n_buffers);
   int type=V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl( fd, VIDIOC_STREAMON, &type );
   return 1;
@@ -303,7 +259,7 @@ XVPwc<T>::XVPwc(char const *dev_name,char const *parm_string):
 {
 
   size=XVSize(640,480);
-  fd=-1;raw_mode=false;
+  fd=-1;
   open(dev_name,parm_string);
 }
 
@@ -315,7 +271,7 @@ XVPwc<T>::XVPwc(const XVSize & in_size, char const *dev_name,char const *parm_st
 {
 
   size=in_size;
-  fd=-1; raw_mode=false;
+  fd=-1; 
   open(dev_name,parm_string);
   cerr << "finished" << endl;
 }
@@ -329,8 +285,4 @@ XVPwc<T>::~XVPwc()
   fd=-1;
 }
 
-template class XVPwc<XVImageRGB<XV_RGBA32> >;
-template class XVPwc<XVImageRGB<XV_RGB24> >;
-template class XVPwc<XVImageRGB<XV_RGB16> >;
-template class XVPwc<XVImageRGB<XV_RGB15> >;
-template class XVPwc<XVImageYCbCr>;
+template class XVPwc<XVImageScalar<u_char> >;

@@ -36,8 +36,8 @@ int main (int argc, char **argv) {
    //grabber = new XVPwc<XVImageScalar<u_char> >(window1);
    // r is the framerate... 30 seems to work only with 320x240??
    grabber = new XVPwc<XVImageScalar<u_char> >(window1,DEVICE_NAME,"r30");
-   grabber->agc(-1);  // -1 = default is auto  0...65535
-   //grabber->shutter(40000);
+   grabber->set_agc(-1);  // -1 = default is auto  0...65535
+   //grabber->set_shutter(40000);
    window1.map();
   if (!grabber) {
     cerr<<"Error: no framegrabber found!"<<endl;

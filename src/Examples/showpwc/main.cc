@@ -14,7 +14,7 @@
 #include <XVImageSeq.h>
 
 
-static  XVPwc<XVImageRGB<XV_RGB> >         *grabber;
+static  XVPwc<XVImageScalar<u_char> >         *grabber;
 
 void sighndl(int ws) {
   cerr << "SIGINT called" << endl;
@@ -32,9 +32,8 @@ int main (int argc, char **argv) {
    struct timeval time1, time2;
    XVSize  size(640,480);
    XVWindowX<XV_RGB>      window1(size.Width(),size.Height());
-   XVImageScalar<u_char> image(size.Width(),size.Height());
    XVImageRGB<XV_RGB> image_col(size.Width(),size.Height());
-   grabber = new XVPwc<XVImageRGB<XV_RGB > >(window1);
+   grabber = new XVPwc<XVImageScalar<u_char> >(window1);
 
    window1.map();
   //grabber -> set_params ("I1N0B2");
@@ -51,10 +50,7 @@ int main (int argc, char **argv) {
 
       grabber->initiate_acquire(index^1);
       grabber->wait_for_completion(index);
-      memcpy(image.lock(),grabber->frame(index).data(),image.Width()*
-                                                image.Height());
-      image.unlock();
-      window1.CopySubImage(ScalartoRGB(image,image_col));     
+      window1.CopySubImage(ScalartoRGB(grabber->frame(index),image_col));     
  
       window1.swap_buffers();
       window1.flush();

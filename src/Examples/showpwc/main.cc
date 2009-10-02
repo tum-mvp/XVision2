@@ -25,18 +25,20 @@ void sighndl(int ws) {
 
 int main (int argc, char **argv) {
 
+   int rate=10;
    int index=0;
    signal(SIGINT, sighndl);
    signal(SIGSEGV, sighndl);
-   const int rate=10;
    struct timeval time1, time2;
-   XVSize  size(640,480);
+   XVSize  size(320,240);
    XVWindowX<XV_RGB>      window1(size.Width(),size.Height());
    XVImageRGB<XV_RGB> image_col(size.Width(),size.Height());
-   grabber = new XVPwc<XVImageScalar<u_char> >(window1);
-
+   //grabber = new XVPwc<XVImageScalar<u_char> >(window1);
+   // r is the framerate... 30 seems to work only with 320x240??
+   grabber = new XVPwc<XVImageScalar<u_char> >(window1,DEVICE_NAME,"r30");
+   grabber->agc(-1);  // -1 = default is auto  0...65535
+   //grabber->shutter(40000);
    window1.map();
-  //grabber -> set_params ("I1N0B2");
   if (!grabber) {
     cerr<<"Error: no framegrabber found!"<<endl;
     exit(1);

@@ -77,6 +77,9 @@ class XVPwc : public XVVideo<IMTYPE> {
    int          open(const char *dev_name,const char *parm_string=NULL);
    void		close(void);
    int		initiate_acquire(int frame);
+   int		set_agc(int agc);
+   int		get_agc(int &agc);
+   int          set_shutter(int shutter);
    int		wait_for_completion(int frame);
    using XVVideo<IMTYPE>::frame ;
 };

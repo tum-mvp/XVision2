@@ -132,6 +132,24 @@ int XVPwc<T>::wait_for_completion(int i_frame)
 }
 
 template <class T>
+int XVPwc<T>::set_shutter(int shutter)
+{
+   return ioctl(fd,VIDIOCPWCSSHUTTER,&shutter);
+}
+
+template <class T>
+int XVPwc<T>::get_agc(int &agc)
+{
+   return ioctl(fd,VIDIOCPWCGAGC,&agc);
+}
+
+template <class T>
+int XVPwc<T>::set_agc(int agc)
+{
+   return ioctl(fd,VIDIOCPWCSAGC,&agc);
+}
+
+template <class T>
 int XVPwc<T>::set_params(char *paramstring)
 {
    int 		num_frames=2;
@@ -227,12 +245,11 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
   struct video_window vwin;
   ioctl(fd, VIDIOCGWIN, &vwin);
   vwin.flags &= ~PWC_FPS_FRMASK;
-  vwin.flags |= (15 << PWC_FPS_SHIFT);  // framerate
+  vwin.flags |= (30 << PWC_FPS_SHIFT);  // framerate
   ioctl(fd, VIDIOCSWIN, &vwin);
-  int agc=40000;                        // gain - negative is auto
-  //int agc=-1;                        // gain - negative is auto
+  int agc=-1;                        // gain - negative is auto
   ioctl(fd, VIDIOCPWCSAGC, &agc);
-  int shutter=50000;
+  int shutter=40000;
   ioctl(fd,  VIDIOCPWCSSHUTTER, &shutter);
 
   if(!set_params(parameter)) return 0;

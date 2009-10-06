@@ -254,6 +254,22 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
 }
 
 template <class T>
+int XVPwc<T>::set_brightness(int brightness)
+{
+   control.id =   V4L2_CID_BRIGHTNESS;
+   control.value =brightness;
+   return ioctl (fd, VIDIOC_S_CTRL, &control);
+}
+
+template <class T>
+int XVPwc<T>::set_contrast(int contrast)
+{
+   control.id =   V4L2_CID_CONTRAST;
+   control.value =contrast;
+   return ioctl (fd, VIDIOC_S_CTRL, &control);
+}
+
+template <class T>
 XVPwc<T>::XVPwc(char const *dev_name,char const *parm_string):
 				XVVideo<T>(dev_name,parm_string)
 {

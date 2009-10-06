@@ -60,6 +60,7 @@ class XVPwc : public XVVideo<IMTYPE> {
    v4l2_std_id 	  		  norm;
    struct 	v4l2_format 	  fmt;
    struct 	v4l2_requestbuffers req;
+   struct       v4l2_control      control;
 
 
    int		ninputs;
@@ -80,6 +81,8 @@ class XVPwc : public XVVideo<IMTYPE> {
    int		set_agc(int agc);
    int		get_agc(int &agc);
    int          set_shutter(int shutter);
+   int          set_brightness(int brightness);
+   int          set_contrast(int contrast);
    int		wait_for_completion(int frame);
    using XVVideo<IMTYPE>::frame ;
 };

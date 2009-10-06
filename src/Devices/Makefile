@@ -1,5 +1,5 @@
 CUR_DEPTH  = ../../
-CXXFLAGS=-O6 -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H -I$(IPPROOT)/include
+CXXFLAGS=-O3 -mmmx -msse -msse2 -msse3 -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H -I$(IPPROOT)/include
 CPPFLAGS	= -I$(SVS_PATH)/src  -I$(IPPROOT)/include  \
                   -I$(CUR_DEPTH)/include \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\

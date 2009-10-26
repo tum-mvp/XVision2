@@ -231,7 +231,7 @@ int XVRemoteWindowX<T>::drawPoint( int x, int y, XVDrawColor c ) {
 }
 template<class T>
 int XVRemoteWindowX<T>::drawLine( int x1, int y1, int x2, int y2,
-				  XVDrawColor c ) {
+				  XVDrawColor c,int line_width ) {
   Drawing d( Drawing::DrawLine, c );
   d.x1 = (int)rint( x1 * factorX );
   d.y1 = (int)rint( y1 * factorY );

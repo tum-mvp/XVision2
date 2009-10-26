@@ -158,7 +158,7 @@ class XVRemoteWindowX : virtual public XVDrawWindow<T> {
 
   virtual int drawPoint( int x, int y, XVDrawColor c = DEFAULT_COLOR );
   virtual int drawLine( int x1, int y1, int x2, int y2, 
-			XVDrawColor c = DEFAULT_COLOR );
+			XVDrawColor c = DEFAULT_COLOR,int line_width=0 );
   virtual int drawRectangle( int x, int y, int w, int h,
 			     XVDrawColor c = DEFAULT_COLOR );
   virtual int fillRectangle( int x, int y, int w, int h,

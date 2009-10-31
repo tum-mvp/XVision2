@@ -65,7 +65,7 @@
 #define HAVE_DV 1
 
 /* Define if you have the Firewire as directory*/
-#define HAVE_VIDEO1394_DIR 1
+/* #undef HAVE_VIDEO1394_DIR */
 #define HAVE_VIDEO1394_NEW 1
 
 /* Define if you want to include PNG image handling (from system libpng) */
@@ -73,4 +73,4 @@
  
 #define HAVE_REMAP 1
 
-/* #undef HAVE_IPP */
+#define HAVE_IPP 1

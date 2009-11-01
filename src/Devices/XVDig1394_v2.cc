@@ -15,6 +15,11 @@
 #include <XVDig1394.h>
 #include <XVMacros.h>
 
+//if Marlin
+#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_1
+//if Guppy
+//#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_0
+
 using namespace std ;
 
 extern int debug;
@@ -34,10 +39,10 @@ namespace {
      {1280,960,YUV422},{1280,960,RGB8},{1280,960,MONO8},
      {1600,1200,YUV422},{1600,1200,RGB8},{1600,1200,MONO8},
      {1280,960,MONO16},{1600,1200,MONO16}};
-    
+
   // manually initialize the YUB<->RGB conversion tables since we are going
   // to use these tables directly.
-  void init_tab(void) { 
+  void init_tab(void) {
     if( ! bRGB2YUVTableBuilt ) {
       buildRGB2YUVTable();
     }
@@ -109,7 +114,7 @@ namespace {
          return;
       default: // do it the old way?
          break;
-         
+
     }
 #endif
     XVImageWIterator<PIXELTYPE>  iTarg(targ);
@@ -128,7 +133,7 @@ namespace {
 
   // convert a buffer of YUV411 image into an IMTYPE (assume XVImageRGB)
   // YUV8 4:1:1 format:  U Y1 Y2 V Y3 Y4, so buffer size = # pixels / 4 * 6
-    static 
+    static
   void yuv411_f( const unsigned char * buf, IMTYPE& targ, int numPixels ) {
     const unsigned char * ptr = buf, * ptrEnd = buf + numPixels*3/2 ;
     unsigned char pg ;
@@ -355,8 +360,8 @@ namespace {
   }; // struct Convert<XVImageYUV>
 
   enum Color { mono8, yuv411, yuv422, yuv444, rgb8, mono16, rgb16 } ;
-  const char * strColor[] = 
-    { "Mono8", "YUV8 4:1:1", "YUV8 4:2:2", "YUV8 4:4:4", 
+  const char * strColor[] =
+    { "Mono8", "YUV8 4:1:1", "YUV8 4:2:2", "YUV8 4:4:4",
       "RGB8", "Mono16", "RGB16" } ;
 
   // returns the correpsonding color-space conversion function
@@ -409,26 +414,26 @@ namespace {
     return getLineSize( width, c ) * height ;
   }
 
-  const char * strFrameRates[] = 
+  const char * strFrameRates[] =
     { "1.875", "3.75", "7.5", "15", "30", "60" };
 
   }
-  /* note: the logic of the code artificially limits the selection of 
-     pixel color encoding and image size (scale) in format 7 into 
+  /* note: the logic of the code artificially limits the selection of
+     pixel color encoding and image size (scale) in format 7 into
      those avaible in format 0-2 because these information
      is still carried in format and mode data members from
      set_params() to the class constructor.
    */
 
-  /* The following code is to deal with the the change of prototype of 
-     dc1394_query_format7_total_bytes between different versions of 
-     dc1394_control.h . The fourth parameter has been changed from 
-     unsigned int * to unsigned long long int * . 
+  /* The following code is to deal with the the change of prototype of
+     dc1394_query_format7_total_bytes between different versions of
+     dc1394_control.h . The fourth parameter has been changed from
+     unsigned int * to unsigned long long int * .
      Ideally this should be resolved in autoconf level instead of .cc level
      however I (Donald) don't have time to investigate which version is which
      so here is just a quick dirty fix using template partial specialization.
    */
-  
+
 
 template <class IMTYPE>
 int XVDig1394<IMTYPE>::initiate_acquire(int i_frame)
@@ -440,8 +445,8 @@ int XVDig1394<IMTYPE>::initiate_acquire(int i_frame)
 }
 
 
-template <class PIXELTYPE> 
-void    BayerNearestNeighbor(unsigned char *src, 
+template <class PIXELTYPE>
+void    BayerNearestNeighbor(unsigned char *src,
                  XVImageRGB<PIXELTYPE> & targ, int sx, int sy,
 		 dc1394color_filter_t optical_filter)
 {
@@ -476,20 +481,20 @@ void    BayerNearestNeighbor(unsigned char *src,
       }
     }
     // using lower direction for G channel
-      
+
     // G channel
     for (i=0;i<sy-1;i+=2)//every two lines
       for (j=1;j<sx;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-      
+
     for (i=1;i<sy-2;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-    
+
     // copy it for the next line
     for (j=0;j<sx-1;j+=2)
       data[((sy-1)*sx+j)].setG(data[((sy-2)*sx+j)].G());
-    
+
     break;
 
   case DC1394_COLOR_FILTER_GBRG:
@@ -519,20 +524,20 @@ void    BayerNearestNeighbor(unsigned char *src,
       }
     }
     // using lower direction for G channel
-      
+
     // G channel
     for (i=0;i<sy-1;i+=2)//every two lines
       for (j=1;j<sx;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-      
+
     for (i=1;i<sy-2;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-    
+
     // copy it for the next line
     for (j=0;j<sx-1;j+=2)
       data[((sy-1)*sx+j)].setG(data[((sy-2)*sx+j)].G());
-    
+
     break;
   case DC1394_COLOR_FILTER_RGGB:
     // copy original data
@@ -561,22 +566,22 @@ void    BayerNearestNeighbor(unsigned char *src,
       }
     }
     // using lower direction for G channel
-    
+
     // G channel
     for (i=0;i<sy-1;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-    
+
     for (i=1;i<sy-2;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j+1)].setG(data[((i+1)*sx+j+1)].G());
-    
+
     // copy it for the next line
     for (j=0;j<sx-1;j+=2)
       data[((sy-1)*sx+j+1)].setG(data[((sy-2)*sx+j+1)].G());
-    
+
     break;
-    
+
   case DC1394_COLOR_FILTER_BGGR: //-------------------------------------------
     // copy original data
     for (i=0;i<sy;i+=2) {
@@ -604,22 +609,22 @@ void    BayerNearestNeighbor(unsigned char *src,
       }
     }
     // using lower direction for G channel
-    
+
     // G channel
     for (i=0;i<sy-1;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-    
+
     for (i=1;i<sy-2;i+=2)//every two lines
       for (j=0;j<sx-1;j+=2)
 	data[(i*sx+j+1)].setG(data[((i+1)*sx+j+1)].G());
-    
+
     // copy it for the next line
     for (j=0;j<sx-1;j+=2)
       data[((sy-1)*sx+j+1)].setG(data[((sy-2)*sx+j+1)].G());
-    
+
     break;
-    
+
   default:  //-------------------------------------------
     break;
   }
@@ -627,7 +632,7 @@ void    BayerNearestNeighbor(unsigned char *src,
 }
 
 #ifdef HAVE_IPP
-void BayerNearestNeighbor(unsigned char *src, 
+void BayerNearestNeighbor(unsigned char *src,
         XVImageRGB<XV_RGB24>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter)
 {
@@ -658,7 +663,7 @@ void BayerNearestNeighbor(unsigned char *src,
 	   grid,0);
 }
 
-void BayerNearestNeighbor(unsigned char *src, 
+void BayerNearestNeighbor(unsigned char *src,
         XVImageRGB<XV_RGBA32>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter)
 {
@@ -667,13 +672,13 @@ void BayerNearestNeighbor(unsigned char *src,
    IppiSize roi={tmpimg.Width(),tmpimg.Height()};
    int dstOrder[4]={0,1,2,3};
    ippiSwapChannels_8u_C3C4R((const Ipp8u*) tmpimg.data(),
-        tmpimg.Width()*3,(Ipp8u*)targ.lock(), 
+        tmpimg.Width()*3,(Ipp8u*)targ.lock(),
         targ.Width()*sizeof(XV_RGBA32),roi,dstOrder,0);
    targ.unlock();
 }
 #endif
-template <class PIXELTYPE> 
-void BayerNearestNeighbor(unsigned char *src, 
+template <class PIXELTYPE>
+void BayerNearestNeighbor(unsigned char *src,
         XVImageYUV<PIXELTYPE>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter){cerr << "Bayer decoder does not support YUV"<<
 	endl;};
@@ -681,7 +686,7 @@ void BayerNearestNeighbor(unsigned char *src,
 template <class IMTYPE>
 int XVDig1394<IMTYPE>::wait_for_completion(int i_frame)
 {
-           
+
    pthread_mutex_lock(&wait_grab[i_frame]);
    pthread_mutex_unlock(&wait_grab[i_frame]);
    return 1;
@@ -690,7 +695,7 @@ int XVDig1394<IMTYPE>::wait_for_completion(int i_frame)
 template <class IMTYPE>
 int XVDig1394<IMTYPE>::set_params(char *paramstring) {
 
-   XVParser	parse_result;  
+   XVParser	parse_result;
 
    bool direct = false ;
    n_buffers = DIG_DEF_NUMFRAMES;
@@ -775,7 +780,7 @@ int XVDig1394<IMTYPE>::set_params(char *paramstring) {
        optical_flag=true;
        break;
      default:
-       if (verbose) cerr << parse_result.c << "=" << parse_result.val 
+       if (verbose) cerr << parse_result.c << "=" << parse_result.val
 	    << " is not supported by XVDig1394 (skipping)" << endl;
        break;
      }
@@ -797,14 +802,14 @@ void XVDig1394<IMTYPE>::close(void)
 
 template <class IMTYPE> int XVDig1394<IMTYPE>::open(const char *dev_name) {
   // first, empty DMA FiFo buffer
-        
+
   dc1394_video_set_transmission(camera_node,DC1394_ON);
   return 1;
 }
 
 template <class IMTYPE>
 void *XVDig1394<IMTYPE>::grab_thread(void *obj) {
-   
+
  XVDig1394<IMTYPE> *me=reinterpret_cast<XVDig1394<IMTYPE>*>(obj);
  int i_frame;
 
@@ -897,7 +902,7 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
   verbose=true;optical_flag=false;reset_ieee=false;
   format = 0 ; mode = 3 ; framerate = 1 ; scale=1;
   format7 = false ; grab_center = false ; ext_trigger = 0 ;
-  gain = -1 ; saturation = -1 ; uv[0] = uv[1] = -1 ; 
+  gain = -1 ; saturation = -1 ; uv[0] = uv[1] = -1 ;
   sharpness = -1 ; shutter = -1 ; gamma = -1 ; exposure = -1 ;
   camera_node=NULL;rgb_pixel=-1;
   if(parm_string) set_params((char *)parm_string);
@@ -918,12 +923,12 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
   else if(~camera_id<num_cameras)
      camera_node=dc1394_camera_new(fd,list->ids[~camera_id].guid),
      		 channel=~camera_id;
-  else 
+  else
     for(int i=0;i<num_cameras;i++)
     {
       if(verbose) cout << "Found camera ID 0x"<< hex
              << list->ids[i].guid << endl;
-      if(camera_id && camera_id==list->ids[i].guid)    
+      if(camera_id && camera_id==list->ids[i].guid)
              camera_node=dc1394_camera_new(fd,list->ids[i].guid), channel=i;
     }
   dc1394_camera_free_list(list);
@@ -937,7 +942,7 @@ re_init:
   if(reset_ieee) dc1394_camera_reset(camera_node);
     if(dc1394_video_get_transmission(camera_node,&bOn) != DC1394_SUCCESS)
     {
-        if (verbose) 
+        if (verbose)
 	   cerr << "XVision2: Unable to query transmission mode" << endl;
       throw(3);
     }
@@ -945,7 +950,7 @@ re_init:
         if(dc1394_video_set_transmission(camera_node,DC1394_OFF) !=
 							DC1394_SUCCESS)
         {
- 	  if (verbose) 
+ 	  if (verbose)
 	     cerr << "XVision2: Unable to stop iso transmission" << endl;
 	  throw(4);
         }
@@ -969,7 +974,7 @@ re_init:
 	    if(modes.modes[mode_index]<DC1394_VIDEO_MODE_FORMAT7_0&&
 	       mode_descr[modes.modes[mode_index]-
 	        DC1394_VIDEO_MODE_160x120_YUV444].mode==RGB8) scale--;
-	    if(scale) mode_index--; 
+	    if(scale) mode_index--;
 	 }
 	 if(mode_index<0)
 	 {
@@ -1029,7 +1034,7 @@ re_init:
        throw(1);
     }
 
-    if(verbose && 
+    if(verbose &&
         mode_descr[modes.modes[mode_index]-
 	   DC1394_VIDEO_MODE_160x120_YUV444].mode==RGB8)
       cout << "Running RGB mode" <<endl;
@@ -1038,7 +1043,7 @@ re_init:
     dc1394framerates_t rates;
     dc1394_video_get_supported_framerates(camera_node,
            modes.modes[mode_index], &rates);
-    if(rates.num==0) 
+    if(rates.num==0)
     {
       if(verbose)
         cerr << "No possible rates" << endl;
@@ -1055,13 +1060,13 @@ re_init:
     }
     dc1394_video_set_framerate(camera_node,rates.framerates[rate_index]);
   }else{ // format7
-   if(dc1394_video_set_mode(camera_node,DC1394_VIDEO_MODE_FORMAT7_0)!=DC1394_SUCCESS)
+   if(dc1394_video_set_mode(camera_node,FORMAT7_MODE)!=DC1394_SUCCESS)
    {
      if(verbose) cerr << "Couldn't switch Format 7" << endl;
      throw(8);
    }
    if( dc1394_format7_set_color_coding(camera_node,
-             DC1394_VIDEO_MODE_FORMAT7_0, DC1394_COLOR_CODING_MONO8)!=
+		   FORMAT7_MODE, DC1394_COLOR_CODING_MONO8)!=
 	     		DC1394_SUCCESS)
    {
      if(verbose) cerr << "Couldn't switch Format 7 Bayer" << endl;
@@ -1070,11 +1075,11 @@ re_init:
 
    {
      unsigned int hmax, vmax;
-     dc1394_format7_get_max_image_size(camera_node,DC1394_VIDEO_MODE_FORMAT7_0,
+     dc1394_format7_get_max_image_size(camera_node,FORMAT7_MODE,
      		&hmax,&vmax);
 
-     		
-      if(framerate==1) 
+
+      if(framerate==1)
       {
           framerate=250;
           cerr << "Setting framerate to " << framerate/10.0 <<endl;
@@ -1083,11 +1088,11 @@ re_init:
       int ceilbytesPerPacket= static_cast<int>(ceil(fbytesPerPacket));
       int bytesPerPacket= (ceilbytesPerPacket+3)/4*4;
 
-      dc1394_format7_set_packet_size(camera_node,DC1394_VIDEO_MODE_FORMAT7_0,
+      dc1394_format7_set_packet_size(camera_node,FORMAT7_MODE,
    		bytesPerPacket);
       XVSize sized(hmax,vmax);
       init_map(sized,4);
-      dc1394_format7_set_roi(camera_node,DC1394_VIDEO_MODE_FORMAT7_0,
+      dc1394_format7_set_roi(camera_node,FORMAT7_MODE,
    		DC1394_COLOR_CODING_MONO8,DC1394_QUERY_FROM_CAMERA,
 		0,0,hmax,vmax);
    }
@@ -1095,7 +1100,7 @@ re_init:
     //if(dc1394_format7_get_color_filter(camera_node,DC1394_VIDEO_MODE_FORMAT7_0,
     //					&optical_filter) !=DC1394_SUCCESS)
     //{
-     // if (verbose) cerr << "Unable to set optical Bayer filter selected " << 
+     // if (verbose) cerr << "Unable to set optical Bayer filter selected " <<
       //       optical_filter<< endl;
       //if (verbose) cerr<< "switching function off." << endl;
       //optical_flag=false;
@@ -1107,7 +1112,7 @@ re_init:
        reset_ieee=true;
        goto re_init;
     }
-  // setting the gain 
+  // setting the gain
   if( gain != -1 ) {
     unsigned int min_gain_val, max_gain_val;
     dc1394_feature_get_boundaries(camera_node,DC1394_FEATURE_GAIN,
@@ -1120,7 +1125,7 @@ re_init:
       throw(1);
     }
   }
-  
+
   // set the saturation
   if( saturation != -1 ) {
     unsigned int min_sat_val, max_sat_val;
@@ -1190,7 +1195,7 @@ re_init:
   // setting u and v components
   if(uv[0] >-1 || uv[1] > -1)
   {
-    if(uv[0]*uv[1]<0) 
+    if(uv[0]*uv[1]<0)
     {
       if (verbose) cerr << "just one of the white balance components set!!" << endl;
       throw(1);

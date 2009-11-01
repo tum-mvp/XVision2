@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <XVImageScalar.h> //jcorso for monochrome operation
-#include <XVImageYCbCr.h> 
+#include <XVImageYCbCr.h>
 #include "XVPwc.h"
 #include "pwc-ioctl.h"
 
@@ -48,7 +48,7 @@ int XVPwc<T>::initiate_acquire(int i_frame)
     cerr << "scheduled invalid frame number " << i_frame<< endl;
     return 0;
   }
- 
+
   vidbuf[i_frame].index=i_frame;
   vidbuf[i_frame].type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   vidbuf[i_frame].memory=V4L2_MEMORY_MMAP;
@@ -74,8 +74,8 @@ int XVPwc<T>::wait_for_completion(int i_frame)
     cerr << "invalid frame number " << i_frame<< endl;
     return 0;
   }
- 
-  
+
+
   //memset(&(vidbuf[i_frame]),0,sizeof(struct v4l2_buffer));
   vidbuf[i_frame].index = i_frame;
   vidbuf[i_frame].type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -86,6 +86,14 @@ int XVPwc<T>::wait_for_completion(int i_frame)
     return 0;
   }
   return 1;
+}
+
+template <class T>
+int	XVPwc<T>::get_acquisitionTime(int i_frame, struct timeval &time)
+{
+	time = vidbuf[i_frame].timestamp;
+
+	return 0;
 }
 
 template <class T>
@@ -112,12 +120,12 @@ int XVPwc<T>::set_params(char *paramstring)
 
    int 		num_frames=2;
    int		input=1;
-   XVParser	parse_result;  
+   XVParser	parse_result;
    static long norms[3]={V4L2_STD_NTSC_M,V4L2_STD_PAL_D,V4L2_STD_SECAM_D};
 
    norm=norms[1];
    rate=15;
-   while(parse_param(paramstring,parse_result)>0) 
+   while(parse_param(paramstring,parse_result)>0)
      switch(parse_result.c)
      {
        case 'I':
@@ -136,11 +144,11 @@ int XVPwc<T>::set_params(char *paramstring)
            norm=norms[parse_result.val];
          break;
        default:
-	 cerr << parse_result.c << "=" << parse_result.val 
+	 cerr << parse_result.c << "=" << parse_result.val
 	      << " is not supported by V4L2 (skipping)" << endl;
      }
 
-   if(fd<0) 
+   if(fd<0)
    {
      cerr << "Device is not open ...." << endl;
      exit(1);
@@ -170,14 +178,14 @@ void XVPwc<T>::close(void)
   fd=-1;
 }
 
-template <class T>  
+template <class T>
 int XVPwc<T>::open(const char *dev_name,const char *parm_string)
 {
   struct v4l2_streamparm parm;
   static char parameter[200];
   int i;
 
-  if(parm_string) 
+  if(parm_string)
     strcpy(parameter,parm_string);
   else
     parameter[0]=0;
@@ -200,7 +208,7 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
 
   //if((ioctl (fd, VIDIOC_G_STD, &norm)))
   //  perror ("G_STD in capture_init");
-    
+
   int agc=-1;                        // gain - negative is auto
   ioctl(fd, VIDIOCPWCSAGC, &agc);
   int shutter=40000;
@@ -240,11 +248,11 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
        perror ("QUERYBUF in capture_start");
        return 0;
     }
-  
+
     mm_buf[j]=(typename T::PIXELTYPE *)mmap((void *)0,vidbuf[j].length,
   			PROT_READ,MAP_SHARED,fd,vidbuf[j].m.offset);
   }
-  //if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
+  //if(figure_out_type(*frame(0).data())==XVImage_YCbCr)
   //				size.resize(size.Width(),size.Height());
   init_map(size,n_buffers);
   remap(mm_buf,n_buffers);
@@ -287,7 +295,7 @@ XVPwc<T>::XVPwc(const XVSize & in_size, char const *dev_name,char const *parm_st
 {
 
   size=in_size;
-  fd=-1; 
+  fd=-1;
   open(dev_name,parm_string);
   cerr << "finished" << endl;
 }

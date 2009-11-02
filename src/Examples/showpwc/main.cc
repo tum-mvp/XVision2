@@ -30,6 +30,7 @@ int main (int argc, char **argv) {
    signal(SIGINT, sighndl);
    signal(SIGSEGV, sighndl);
    struct timeval time1, time2;
+   struct timeval time_acq;
    XVSize  size(320,240);
    XVWindowX<XV_RGB>      window1(size.Width(),size.Height());
    XVImageRGB<XV_RGB> image_col(size.Width(),size.Height());
@@ -52,6 +53,8 @@ int main (int argc, char **argv) {
 
       grabber->initiate_acquire(index^1);
       grabber->wait_for_completion(index);
+      grabber->get_acquisitionTime(index, time_acq);
+      cout << "sec: " << time_acq.tv_sec << ", usec: " << time_acq.tv_usec << endl;
       window1.CopySubImage(ScalartoRGB(grabber->frame(index),image_col));     
  
       window1.swap_buffers();

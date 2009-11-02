@@ -16,11 +16,11 @@
 #include <pthread.h>
 
 #include <sys/types.h>
-#include <asm/types.h> 
+#include <asm/types.h>
 //#include <linux/fs.h>
 #include <linux/kernel.h>
 //#include <linux/videodev.h>
-//#define __user  
+//#define __user
 #include <linux/videodev.h>
 #include <XVVideo.h>
 
@@ -35,7 +35,7 @@
 #define V4L2_DEF_NORM      NORM_NTSC
 
 #ifndef XV_VIDEO_ENUM_COMPOSITE
-#define XV_VIDEO_ENUM_COMPOSITE 
+#define XV_VIDEO_ENUM_COMPOSITE
 enum{Composite1=1,SVIDEO};
 
 struct STRTAB {
@@ -78,6 +78,7 @@ class XVV4L2 : public XVVideo<IMTYPE> {
    void		close(void);
    int		initiate_acquire(int frame);
    int		wait_for_completion(int frame);
+   int	get_acquisitionTime(int i_frame, struct timeval &time);
    using XVVideo<IMTYPE>::frame ;
 };
 

@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <XVImageScalar.h> //jcorso for monochrome operation
-#include <XVImageYCbCr.h> 
+#include <XVImageYCbCr.h>
 #include "XVV4L2.h"
 
 #ifdef HAVE_IPP
@@ -47,7 +47,7 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
     cerr << "scheduled invalid frame number " << i_frame<< endl;
     return 0;
   }
- 
+
   vidbuf[i_frame].index=i_frame;
   vidbuf[i_frame].type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   vidbuf[i_frame].memory=V4L2_MEMORY_MMAP;
@@ -57,6 +57,14 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
     return 0;
   }
   return 1;
+}
+
+template <class T>
+int	XVV4L2<T>::get_acquisitionTime(int i_frame, struct timeval &time)
+{
+	time = vidbuf[i_frame].timestamp;
+
+	return 0;
 }
 
 static void copy_pixels(XVImageYCbCr &frame,char *mm_buf)
@@ -95,8 +103,8 @@ int XVV4L2<T>::wait_for_completion(int i_frame)
     cerr << "invalid frame number " << i_frame<< endl;
     return 0;
   }
- 
-  
+
+
   //memset(&(vidbuf[i_frame]),0,sizeof(struct v4l2_buffer));
   vidbuf[i_frame].index = i_frame;
   vidbuf[i_frame].type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -129,11 +137,11 @@ int XVV4L2<T>::set_params(char *paramstring)
 {
    int 		num_frames=2;
    int		input=1;
-   XVParser	parse_result;  
+   XVParser	parse_result;
    static long norms[3]={V4L2_STD_NTSC_M,V4L2_STD_PAL_D,V4L2_STD_SECAM_D};
 
    norm=norms[1];
-   while(parse_param(paramstring,parse_result)>0) 
+   while(parse_param(paramstring,parse_result)>0)
      switch(parse_result.c)
      {
        case 'I':
@@ -152,11 +160,11 @@ int XVV4L2<T>::set_params(char *paramstring)
            norm=norms[parse_result.val];
          break;
        default:
-	 cerr << parse_result.c << "=" << parse_result.val 
+	 cerr << parse_result.c << "=" << parse_result.val
 	      << " is not supported by V4L2 (skipping)" << endl;
      }
 
-   if(fd<0) 
+   if(fd<0)
    {
      cerr << "Device is not open ...." << endl;
      exit(1);
@@ -186,14 +194,14 @@ void XVV4L2<T>::close(void)
   fd=-1;
 }
 
-template <class T>  
+template <class T>
 int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
 {
   struct v4l2_streamparm parm;
   static char parameter[200];
   int i;
 
-  if(parm_string) 
+  if(parm_string)
     strcpy(parameter,parm_string);
   else
     parameter[0]=0;
@@ -216,7 +224,7 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
 
   //if((ioctl (fd, VIDIOC_G_STD, &norm)))
   //  perror ("G_STD in capture_init");
-    
+
   struct v4l2_streamparm setfps;
   memset(&setfps,0,sizeof(struct v4l2_streamparm));
   setfps.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -254,14 +262,14 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
        perror ("QUERYBUF in capture_start");
        return 0;
     }
-  
+
     mm_buf[j]=(typename T::PIXELTYPE *)mmap((void *)0,vidbuf[j].length,
   			PROT_READ,MAP_SHARED,fd,vidbuf[j].m.offset);
   }
-  if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
+  if(figure_out_type(*frame(0).data())==XVImage_YCbCr)
   				size.resize(size.Width()/2,size.Height());
   init_map(size,n_buffers);
-  if(figure_out_type(*frame(0).data())==XVImage_YCbCr) 
+  if(figure_out_type(*frame(0).data())==XVImage_YCbCr)
   			remap(mm_buf,n_buffers);
   int type=V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl( fd, VIDIOC_STREAMON, &type );

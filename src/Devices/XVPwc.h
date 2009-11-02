@@ -84,7 +84,7 @@ class XVPwc : public XVVideo<IMTYPE> {
    int          set_brightness(int brightness);
    int          set_contrast(int contrast);
    int		wait_for_completion(int frame);
-   int	get_acquisitionTime(int i_frame, struct timeval &time);
+   int	get_acquisition_time(int i_frame, struct timeval &time);
    using XVVideo<IMTYPE>::frame ;
 };
 

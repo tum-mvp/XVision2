@@ -78,7 +78,7 @@ class XVV4L2 : public XVVideo<IMTYPE> {
    void		close(void);
    int		initiate_acquire(int frame);
    int		wait_for_completion(int frame);
-   int	get_acquisitionTime(int i_frame, struct timeval &time);
+   int	get_acquisition_time(int i_frame, struct timeval &time);
    using XVVideo<IMTYPE>::frame ;
 };
 

@@ -60,7 +60,7 @@ int XVV4L2<T>::initiate_acquire(int i_frame)
 }
 
 template <class T>
-int	XVV4L2<T>::get_acquisitionTime(int i_frame, struct timeval &time)
+int	XVV4L2<T>::get_acquisition_time(int i_frame, struct timeval &time)
 {
 	time = vidbuf[i_frame].timestamp;
 

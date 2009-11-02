@@ -89,7 +89,7 @@ int XVPwc<T>::wait_for_completion(int i_frame)
 }
 
 template <class T>
-int	XVPwc<T>::get_acquisitionTime(int i_frame, struct timeval &time)
+int	XVPwc<T>::get_acquisition_time(int i_frame, struct timeval &time)
 {
 	time = vidbuf[i_frame].timestamp;
 

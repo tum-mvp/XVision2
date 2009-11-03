@@ -26,8 +26,8 @@
 
 #define DEVICE_NAME	"/dev/video0"
 
-#ifndef MAX_INPUT
-#define MAX_INPUT  4
+#ifndef XV_MAX_INPUT
+#define XV_MAX_INPUT  4
 #endif
 
 #define V4L2_DEF_NUMFRAMES 8
@@ -54,7 +54,7 @@ class XVV4L2 : public XVVideo<IMTYPE> {
   private:
    bool		raw_mode;
    int		fd;
-   struct 	v4l2_input        inp[MAX_INPUT];
+   struct 	v4l2_input        inp[XV_MAX_INPUT];
    struct       v4l2_buffer       vidbuf[V4L2_DEF_NUMFRAMES];
    struct       v4l2_capability   capability;
    v4l2_std_id 	  		  norm;

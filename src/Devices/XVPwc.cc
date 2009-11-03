@@ -230,7 +230,7 @@ int XVPwc<T>::open(const char *dev_name,const char *parm_string)
   if(( ioctl (fd, VIDIOC_S_FMT, &fmt))==-1)
     perror("S_FMT in capture_init");
 
-  for(ninputs=0;ninputs<MAX_INPUT;ninputs++)
+  for(ninputs=0;ninputs<XV_MAX_INPUT_PWC;ninputs++)
   {
      inp[ninputs].index=ninputs;
      if(ioctl(fd,VIDIOC_ENUMINPUT,&(inp[ninputs]))==-1) break;

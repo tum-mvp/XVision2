@@ -26,8 +26,8 @@
 
 #define DEVICE_NAME	"/dev/video0"
 
-#ifndef MAX_INPUT
-#define MAX_INPUT  4
+#ifndef XV_MAX_INPUT_PWC
+#define XV_MAX_INPUT_PWC  4
 #endif
 
 #define V4L2_DEF_NUMFRAMES 8
@@ -54,7 +54,7 @@ class XVPwc : public XVVideo<IMTYPE> {
   private:
    int		rate;
    int		fd;
-   struct 	v4l2_input        inp[MAX_INPUT];
+   struct 	v4l2_input        inp[XV_MAX_INPUT_PWC];
    struct       v4l2_buffer       vidbuf[V4L2_DEF_NUMFRAMES];
    struct       v4l2_capability   capability;
    v4l2_std_id 	  		  norm;

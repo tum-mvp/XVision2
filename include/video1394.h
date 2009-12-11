@@ -1,1 +1,0 @@
-../src/Devices/video1394.h

@@ -1,1 +1,0 @@
-../src/Devices/XVImageSeq.h

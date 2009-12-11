@@ -1,1 +1,0 @@
-../src/drivers/jpeg-6b/jpeglib.h

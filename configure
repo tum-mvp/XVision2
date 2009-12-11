@@ -642,6 +642,7 @@ PROSILICA_LIBS
 PROSILICA_INCS
 PROSILICA_OBJS
 CXXFLAGS
+IPPOBJS
 IPPLIBS
 IPPINC
 DVFIRE_LIB
@@ -5786,6 +5787,7 @@ done
 
 
 
+
 if test ! -z $PVROOT
 then
          PROSILICA_OBJS="XVPv.o"
@@ -6377,7 +6379,7 @@ _ACEOF
 fi
 
 
-CXXFLAGS="-O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops"
+CXXFLAGS="-O3 -pipe -DDEBUG_LEVEL=0"
 
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
@@ -6406,6 +6408,7 @@ $as_echo "$ac_try_echo") >&5
        }; then
   IPPINC='-I$(IPPROOT)/include'
    IPPLIBS='-L$(IPPROOT)/sharedlib -lippi -lippcc'
+   IPPOBJS='XVAVI.o'
    cat >>confdefs.h <<\_ACEOF
 #define HAVE_IPP 1
 _ACEOF

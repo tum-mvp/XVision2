@@ -5,8 +5,8 @@ CPPFLAGS	= @VIDERE_INC@ @BTTV_HEAD@ @IPPINC@ @PROSILICA_INCS@ \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\
 		  -I/lib/modules/`uname -r`/build/drivers/media/video
 OBJS		= @FRAMEGR_OBJS@ @DVFIRE_OBJS@ @VIDERE_OBJS@\
-                  @PROSILICA_OBJS@ XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
-
+                  @PROSILICA_OBJS@ XVImageSeq.o XVVideo.o XVMpeg.o @IPPOBJS@
+#XVAVI.o is element of IPPOBJS if HAVE_IPP is set
 
 all: .depend $(OBJS)
 	ar rv libXVDevs.a $(OBJS)

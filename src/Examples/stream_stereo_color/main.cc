@@ -53,12 +53,12 @@ int main (int argc, char **argv) {
       //window1.CopySubImage(*(stereo_images[0]));     
       //window2.CopySubImage(*(stereo_images[1]));     
  
-      /*sprintf(filename, "image_left_%04d.ppm", frame_counter);
+      sprintf(filename, "image_left_%04d.ppm", frame_counter);
       XVWritePPM(grabber->get_color_left(),filename);
       sprintf(filename, "image_right_%04d.ppm", frame_counter);
       XVWritePPM(grabber->get_color_right(),filename);
       frame_counter++;
-*/
+
       window1.CopySubImage(grabber->get_color_left());     
       window2.CopySubImage(grabber->get_color_right());     
 

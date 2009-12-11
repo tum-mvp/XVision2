@@ -16,9 +16,9 @@
 #include <XVMacros.h>
 
 //if Marlin
-#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_1
+//#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_1
 //if Guppy
-//#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_0
+#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_0
 
 using namespace std ;
 

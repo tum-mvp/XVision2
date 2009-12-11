@@ -31,12 +31,12 @@ int main (int argc, char **argv) {
    signal(SIGSEGV, sighndl);
    struct timeval time1, time2;
    struct timeval time_acq;
-   XVSize  size(320,240);
+   XVSize  size(640,480);
    XVWindowX<XV_RGB>      window1(size.Width(),size.Height());
    XVImageRGB<XV_RGB> image_col(size.Width(),size.Height());
    //grabber = new XVPwc<XVImageScalar<u_char> >(window1);
    // r is the framerate... 30 seems to work only with 320x240??
-   grabber = new XVPwc<XVImageScalar<u_char> >(window1,DEVICE_NAME,"r30");
+   grabber = new XVPwc<XVImageScalar<u_char> >(window1,DEVICE_NAME,"r15");
    grabber->set_agc(-1);  // -1 = default is auto  0...65535
    //grabber->set_shutter(40000);
    window1.map();
@@ -53,7 +53,7 @@ int main (int argc, char **argv) {
 
       grabber->initiate_acquire(index^1);
       grabber->wait_for_completion(index);
-      grabber->get_acquisitionTime(index, time_acq);
+      grabber->get_acquisition_time(index, time_acq);
       cout << "sec: " << time_acq.tv_sec << ", usec: " << time_acq.tv_usec << endl;
       window1.CopySubImage(ScalartoRGB(grabber->frame(index),image_col));     
  

@@ -1,7 +1,7 @@
 
 CUR_DEPTH	= ../../
-CXXFLAGS	= -O6 -pipe -DDEBUG_LEVEL=1 
-CPPFLAGS	= -I$(CUR_DEPTH)/include 
+CXXFLAGS	= -O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops -I$(IPPROOT)/include
+CPPFLAGS	= -I$(CUR_DEPTH)/include -I$(IPPROOT)/include
 OBJS		= XVPixel.o XVColorBase.o XVImageBase.o XVImageScalar.o \
 		  XVImageRGB.o XVImageYUV.o XVImageHSV.o XVImageYUV422.o \
 		XVImageYCbCr.o	XVMaskedImage.o

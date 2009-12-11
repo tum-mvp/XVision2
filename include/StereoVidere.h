@@ -1,0 +1,1 @@
+../src/Devices/StereoVidere.h

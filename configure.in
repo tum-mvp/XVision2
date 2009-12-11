@@ -72,7 +72,7 @@ dnl Check for video1394_dir
 AC_CHECK_FILE("/dev/video1394/0",AC_DEFINE(HAVE_VIDEO1394_DIR),)
 AC_CHECK_FILE("/usr/include/dc1394/control.h",AC_DEFINE(HAVE_VIDEO1394_NEW) DVFIRE_LIB="-lraw1394 -ldc1394" DVFILES="v2",)
 
-CXXFLAGS="-O6 -pipe -DDEBUG_LEVEL=1"
+CXXFLAGS="-O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops"
 
 dnl Check for IPP
 AC_TRY_CPP([#include <$IPPROOT/include/ippversion.h>],

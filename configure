@@ -6377,7 +6377,7 @@ _ACEOF
 fi
 
 
-CXXFLAGS="-O6 -pipe -DDEBUG_LEVEL=1"
+CXXFLAGS="-O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops"
 
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */

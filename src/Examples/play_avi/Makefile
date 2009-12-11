@@ -1,12 +1,12 @@
 PROG		= play_avi
 CUR_DEPTH	= ../../../
-CPPFLAGS	=  -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
+CPPFLAGS	= -I$(IPPROOT)/include -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
                   
 
 
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons  -lXVImages\
-		  -lavcodec -lavformat -lswscale  \
+		  -lavcodec -lavformat -lswscale  -L$(IPPROOT)/sharedlib -lippi -lippcc\
 		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
 
 # if you want to set the screen depth explicitly,

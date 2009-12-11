@@ -1,5 +1,5 @@
 CUR_DEPTH	= ../../
-CXXFLAGS        = -O6 -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H
+CXXFLAGS        = -O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops -DHAVE_CONFIG_H
 CPPFLAGS	= -I$(CUR_DEPTH)/include 
 DIRS            = Edges Blobs SSD
 OBJS		= Edges/XVEdgeFeature.o Edges/XVPattern.o \

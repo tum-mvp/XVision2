@@ -1,11 +1,11 @@
 CUR_DEPTH  = ../../
-CXXFLAGS=-O3 -mmmx -msse -msse2 -msse3 -pipe -DDEBUG_LEVEL=1 -DHAVE_CONFIG_H -I$(IPPROOT)/include
+CXXFLAGS=-O6 -pipe -DDEBUG_LEVEL=1 -mtune=cortex-a8 -march=armv7-a -ftree-vectorize -mfpu=neon -mfloat-abi=softfp -ffast-math -fomit-frame-pointer -funroll-loops -DHAVE_CONFIG_H -I$(IPPROOT)/include
 CPPFLAGS	= -I$(SVS_PATH)/src  -I$(IPPROOT)/include  \
                   -I$(CUR_DEPTH)/include \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\
 		  -I/lib/modules/`uname -r`/build/drivers/media/video
-OBJS		= XVPwc.o XVV4L2.o XVBt8x8.o Meteor.o XVDig1394.o Videre.o StereoVidere.o\
-                   XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
+OBJS		= XVPwc.o XVV4L2.o XVBt8x8.o\
+                   XVImageSeq.o XVVideo.o XVMpeg.o
 
 
 all: .depend $(OBJS)

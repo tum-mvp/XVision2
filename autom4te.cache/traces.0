@@ -212,12 +212,6 @@ m4trace:configure.in:10: -1- m4_pattern_allow([^CPP$])
 m4trace:configure.in:10: -1- AC_SUBST([GREP])
 m4trace:configure.in:10: -1- AC_SUBST_TRACE([GREP])
 m4trace:configure.in:10: -1- m4_pattern_allow([^GREP$])
-m4trace:configure.in:10: -1- AC_SUBST([GREP])
-m4trace:configure.in:10: -1- AC_SUBST_TRACE([GREP])
-m4trace:configure.in:10: -1- m4_pattern_allow([^GREP$])
-m4trace:configure.in:10: -1- AC_SUBST([EGREP])
-m4trace:configure.in:10: -1- AC_SUBST_TRACE([EGREP])
-m4trace:configure.in:10: -1- m4_pattern_allow([^EGREP$])
 m4trace:configure.in:10: -1- AC_SUBST([EGREP])
 m4trace:configure.in:10: -1- AC_SUBST_TRACE([EGREP])
 m4trace:configure.in:10: -1- m4_pattern_allow([^EGREP$])
@@ -363,7 +357,7 @@ m4trace:configure.in:39: -1- m4_pattern_allow([^PROSILICA_APPL$])
 m4trace:configure.in:56: -2- AC_DEFINE_TRACE_LITERAL([HAVE_DV])
 m4trace:configure.in:56: -2- m4_pattern_allow([^HAVE_DV$])
 m4trace:configure.in:51: -1- _m4_warn([obsolete], [The macro `AC_TRY_CPP' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2296: AC_TRY_CPP is expanded from...
+You should run autoupdate.], [../../lib/autoconf/general.m4:2399: AC_TRY_CPP is expanded from...
 configure.in:51: the top level])
 m4trace:configure.in:59: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BTTV])
 m4trace:configure.in:59: -1- m4_pattern_allow([^HAVE_BTTV$])
@@ -396,20 +390,20 @@ m4trace:configure.in:67: -1- AH_OUTPUT([TIME_WITH_SYS_TIME], [/* Define to 1 if 
 m4trace:configure.in:69: -2- AC_DEFINE_TRACE_LITERAL([HAVE_REMAP])
 m4trace:configure.in:69: -2- m4_pattern_allow([^HAVE_REMAP$])
 m4trace:configure.in:69: -1- _m4_warn([obsolete], [The macro `AC_TRY_CPP' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2296: AC_TRY_CPP is expanded from...
+You should run autoupdate.], [../../lib/autoconf/general.m4:2399: AC_TRY_CPP is expanded from...
 configure.in:69: the top level])
 m4trace:configure.in:72: -2- AC_DEFINE_TRACE_LITERAL([HAVE_VIDEO1394_DIR])
 m4trace:configure.in:72: -2- m4_pattern_allow([^HAVE_VIDEO1394_DIR$])
-m4trace:configure.in:72: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [../../lib/autoconf/general.m4:2491: AC_CHECK_FILE is expanded from...
+m4trace:configure.in:72: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [../../lib/autoconf/general.m4:2605: AC_CHECK_FILE is expanded from...
 configure.in:72: the top level])
 m4trace:configure.in:73: -2- AC_DEFINE_TRACE_LITERAL([HAVE_VIDEO1394_NEW])
 m4trace:configure.in:73: -2- m4_pattern_allow([^HAVE_VIDEO1394_NEW$])
-m4trace:configure.in:73: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [../../lib/autoconf/general.m4:2491: AC_CHECK_FILE is expanded from...
+m4trace:configure.in:73: -1- _m4_warn([cross], [cannot check for file existence when cross compiling], [../../lib/autoconf/general.m4:2605: AC_CHECK_FILE is expanded from...
 configure.in:73: the top level])
 m4trace:configure.in:81: -2- AC_DEFINE_TRACE_LITERAL([HAVE_IPP])
 m4trace:configure.in:81: -2- m4_pattern_allow([^HAVE_IPP$])
 m4trace:configure.in:78: -1- _m4_warn([obsolete], [The macro `AC_TRY_CPP' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2296: AC_TRY_CPP is expanded from...
+You should run autoupdate.], [../../lib/autoconf/general.m4:2399: AC_TRY_CPP is expanded from...
 configure.in:78: the top level])
 m4trace:configure.in:94: -2- AC_DEFINE_TRACE_LITERAL([HAVE_LIBPTHREAD])
 m4trace:configure.in:94: -2- m4_pattern_allow([^HAVE_LIBPTHREAD$])
@@ -482,6 +476,8 @@ src/Examples/tracking/Makefile
 src/Examples/warp/Makefile
 src/Examples/play_avi/Makefile
 src/Examples/show_v4l/Makefile
+src/Examples/stream_stereo/Makefile
+src/Examples/stream_stereo_color/Makefile
 ])
 m4trace:configure.in:106: -1- _m4_warn([obsolete], [AC_OUTPUT should be used without arguments.
 You should run autoupdate.], [])
@@ -492,6 +488,7 @@ m4trace:configure.in:106: -1- AC_SUBST([LTLIBOBJS], [$ac_ltlibobjs])
 m4trace:configure.in:106: -1- AC_SUBST_TRACE([LTLIBOBJS])
 m4trace:configure.in:106: -1- m4_pattern_allow([^LTLIBOBJS$])
 m4trace:configure.in:106: -1- AC_SUBST_TRACE([top_builddir])
+m4trace:configure.in:106: -1- AC_SUBST_TRACE([top_build_prefix])
 m4trace:configure.in:106: -1- AC_SUBST_TRACE([srcdir])
 m4trace:configure.in:106: -1- AC_SUBST_TRACE([abs_srcdir])
 m4trace:configure.in:106: -1- AC_SUBST_TRACE([top_srcdir])

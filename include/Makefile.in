@@ -18,7 +18,7 @@ DEVICES      = XVVideo.h DVFrame.h \
 	       VideoManager.h Meteor.h \
 	       StereoVidere.h Videre.h Videre.icc XVPv.h XVAVI.h\
                XVVideo.h XVImageSeq.h XVMpeg.h XVBt8x8.h XVV4L2.h\
-	       video1394.h ieee1394-ioctl.h
+	       XVPwc.h video1394.h ieee1394-ioctl.h
 
 DRIVERS      = jpeglib.h jconfig.h jmorecfg.h tiffio.h tiff.h mpeg.h \
 	       ioctl_meteor.h

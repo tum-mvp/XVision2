@@ -278,6 +278,34 @@ int XVPwc<T>::set_contrast(int contrast)
 }
 
 template <class T>
+int XVPwc<T>::set_exposure(int exposure)
+{
+   control.id =   V4L2_CID_EXPOSURE;
+   control.value =exposure;
+   return ioctl (fd, VIDIOC_S_CTRL, &control);
+}
+
+template <class T>
+int XVPwc<T>::set_gain(int gain)
+{
+   if(gain==-1)
+   {
+	   control.id =   V4L2_CID_AUTOGAIN;
+	   control.value = (bool)1;
+	   return ioctl (fd, VIDIOC_S_CTRL, &control);
+   }
+   else
+   {
+	   control.id =   V4L2_CID_AUTOGAIN;
+	   control.value = (bool)0;
+	   ioctl (fd, VIDIOC_S_CTRL, &control);
+	   control.id =   V4L2_CID_GAIN;
+	   control.value = gain;
+	   return ioctl (fd, VIDIOC_S_CTRL, &control);
+   }
+}
+
+template <class T>
 XVPwc<T>::XVPwc(char const *dev_name,char const *parm_string):
 				XVVideo<T>(dev_name,parm_string)
 {

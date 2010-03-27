@@ -631,7 +631,6 @@ void    BayerNearestNeighbor(unsigned char *src,
   targ.unlock();
 }
 
-#ifdef HAVE_IPP
 void BayerNearestNeighbor(unsigned char *src,
         XVImageRGB<XV_RGB24>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter)
@@ -656,13 +655,14 @@ void BayerNearestNeighbor(unsigned char *src,
 	break;
    }
 
-   IppiRect roi={0,0,sx-1,sy-1};
-   IppiSize imsize={sx,sy};
-   ippiCFAToRGB_8u_C1C3R((const Ipp8u *) src,roi,imsize,
-           sx,(Ipp8u *) targ.lock(),targ.Width()*sizeof(XV_RGB24),
-	   grid,0);
+   dc1394_bayer_decoding_8bit((const uint8_t*)src, 
+                             (uint8_t*)targ.lock(),targ.Width(),
+   		              targ.Height(),optical_filter,
+			      DC1394_BAYER_METHOD_NEAREST);
+    targ.unlock();
 }
 
+#ifdef HAVE_IPP
 void BayerNearestNeighbor(unsigned char *src,
         XVImageRGB<XV_RGBA32>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter)
@@ -672,8 +672,8 @@ void BayerNearestNeighbor(unsigned char *src,
    IppiSize roi={tmpimg.Width(),tmpimg.Height()};
    int dstOrder[4]={0,1,2,3};
    ippiSwapChannels_8u_C3C4R((const Ipp8u*) tmpimg.data(),
-        tmpimg.Width()*3,(Ipp8u*)targ.lock(),
-        targ.Width()*sizeof(XV_RGBA32),roi,dstOrder,0);
+       tmpimg.Width()*3,(Ipp8u*)targ.lock(),
+      targ.Width()*sizeof(XV_RGBA32),roi,dstOrder,0);
    targ.unlock();
 }
 #endif
@@ -855,10 +855,12 @@ void *XVDig1394<IMTYPE>::grab_thread(void *obj) {
    else
    {
     if(me->optical_flag)
+    {
      BayerNearestNeighbor(cur_frame->image,me->frame(i_frame),
      		me->frame(i_frame).Width(),me->frame(i_frame).Height(),
 		me->optical_filter);
 
+    }
     else
     {
       memcpy(me->frame(i_frame).lock(),cur_frame->image,

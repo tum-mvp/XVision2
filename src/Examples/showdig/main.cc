@@ -50,7 +50,7 @@ int main (int argc, char **argv) {
 
   //const char *param="i1V1", * files=0;
   //const char *param="i1V1", * files=0;
-  const char * param = "i1V1f7r450", * files = 0 ;
+  const char * param = "i1V1f7o3r450", * files = 0 ;
   //const char * param = "i1V1f7o3r300", * files = 0 ;
   //const char * param = "h200f2m2o2", * files = 0 ;//1280x960
   //const char * param = "h200m5o2", * files = 0 ;// 640x480

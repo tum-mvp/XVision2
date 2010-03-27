@@ -1,4 +1,4 @@
-MODULES	   = Images Tools Devices Consoles 
+MODULES	   = Images Tools Devices Consoles Tracking Segmentation drivers drivers/mpeg_lib-1.3.1 frp Examples 
 #HOST="--host=i686-pc-cygwin"  
 all: ;	@for i in  $(MODULES); \
 	do (cd src/$$i; $(MAKE) install); done

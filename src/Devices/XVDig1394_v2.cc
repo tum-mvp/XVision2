@@ -450,184 +450,21 @@ void    BayerNearestNeighbor(unsigned char *src,
                  XVImageRGB<PIXELTYPE> & targ, int sx, int sy,
 		 dc1394color_filter_t optical_filter)
 {
-  PIXELTYPE  *data=targ.lock();
-  register int i,j;
+  XVImageRGB<XV_RGB24> tmp_img(sx,sy);
+  dc1394_bayer_decoding_8bit((const uint8_t*)src, 
+                             (uint8_t*)tmp_img.lock(),tmp_img.Width(),
+   		              tmp_img.Height(),optical_filter,
+			      DC1394_BAYER_METHOD_NEAREST);
+  tmp_img.unlock();
+  PIXELTYPE        *data=targ.lock();
+  const XV_RGB24   *src_ptr=tmp_img.data();
 
-  switch (optical_filter) {
-  case DC1394_COLOR_FILTER_GRBG: //-------------------------------------------
-    // copy original RGB data to output images
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx;j+=2) {
-	data[(i*sx+j)].setG(src[i*sx+j]);
-	data[((i+1)*sx+(j+1))].setG(src[(i+1)*sx+(j+1)]);
-	data[(i*sx+j+1)].setB(src[i*sx+j+1]);
-	data[((i+1)*sx+j)].setR(src[(i+1)*sx+j]);
-      }
-    }
-    // B channel
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setB(data[(i*sx+j+1)].B());
-	data[((i+1)*sx+j+1)].setB(data[(i*sx+j+1)].B());
-	data[((i+1)*sx+j)].setB(data[(i*sx+j+1)].B());
-      }
-    }
-      // R channel
-    for (i=0;i<sy-1;i+=2)  { //every two lines
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setR(data[((i+1)*sx+j)].R());
-	data[(i*sx+j+1)].setR(data[((i+1)*sx+j)].R());
-	data[((i+1)*sx+j+1)].setR(data[((i+1)*sx+j)].R());
-      }
-    }
-    // using lower direction for G channel
+  for(int y=0;y<sy;y++)
+    for(int x=0;x<sx;x++,src_ptr++,data++)
+       data->setG(src_ptr->G()),
+       data->setR(src_ptr->R()),
+       data->setB(src_ptr->B());
 
-    // G channel
-    for (i=0;i<sy-1;i+=2)//every two lines
-      for (j=1;j<sx;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    for (i=1;i<sy-2;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    // copy it for the next line
-    for (j=0;j<sx-1;j+=2)
-      data[((sy-1)*sx+j)].setG(data[((sy-2)*sx+j)].G());
-
-    break;
-
-  case DC1394_COLOR_FILTER_GBRG:
-    // copy original RGB data to output images
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx;j+=2) {
-	data[(i*sx+j)].setG(src[i*sx+j]);
-	data[((i+1)*sx+(j+1))].setG(src[(i+1)*sx+(j+1)]);
-	data[(i*sx+j+1)].setR(src[i*sx+j+1]);
-	data[((i+1)*sx+j)].setB(src[(i+1)*sx+j]);
-      }
-    }
-    // R channel
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setR(data[(i*sx+j+1)].R());
-	data[((i+1)*sx+j+1)].setR(data[(i*sx+j+1)].R());
-	data[((i+1)*sx+j)].setR(data[(i*sx+j+1)].R());
-      }
-    }
-      // B channel
-    for (i=0;i<sy-1;i+=2)  { //every two lines
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setB(data[((i+1)*sx+j)].B());
-	data[(i*sx+j+1)].setB(data[((i+1)*sx+j)].B());
-	data[((i+1)*sx+j+1)].setB(data[((i+1)*sx+j)].B());
-      }
-    }
-    // using lower direction for G channel
-
-    // G channel
-    for (i=0;i<sy-1;i+=2)//every two lines
-      for (j=1;j<sx;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    for (i=1;i<sy-2;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    // copy it for the next line
-    for (j=0;j<sx-1;j+=2)
-      data[((sy-1)*sx+j)].setG(data[((sy-2)*sx+j)].G());
-
-    break;
-  case DC1394_COLOR_FILTER_RGGB:
-    // copy original data
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx;j+=2) {
-	data[(i*sx+j)].setR(src[i*sx+j]);
-	data[((i+1)*sx+(j+1))].setB(src[(i+1)*sx+(j+1)]);
-	data[(i*sx+j+1)].setG(src[i*sx+j+1]);
-	data[((i+1)*sx+j)].setG(src[(i+1)*sx+j]);
-      }
-    }
-    // B channel
-    for (i=0;i<sy;i+=2){
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setB(data[((i+1)*sx+j+1)].B());
-	data[(i*sx+j+1)].setB(data[((i+1)*sx+j+1)].B());
-	data[((i+1)*sx+j)].setB(data[((i+1)*sx+j+1)].B());
-      }
-    }
-    // R channel
-    for (i=0;i<sy-1;i+=2) { //every two lines
-      for (j=0;j<sx-1;j+=2) {
-	data[((i+1)*sx+j)].setR(data[(i*sx+j)].R());
-	data[(i*sx+j+1)].setR(data[(i*sx+j)].R());
-	data[((i+1)*sx+j+1)].setR(data[(i*sx+j)].R());
-      }
-    }
-    // using lower direction for G channel
-
-    // G channel
-    for (i=0;i<sy-1;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    for (i=1;i<sy-2;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j+1)].setG(data[((i+1)*sx+j+1)].G());
-
-    // copy it for the next line
-    for (j=0;j<sx-1;j+=2)
-      data[((sy-1)*sx+j+1)].setG(data[((sy-2)*sx+j+1)].G());
-
-    break;
-
-  case DC1394_COLOR_FILTER_BGGR: //-------------------------------------------
-    // copy original data
-    for (i=0;i<sy;i+=2) {
-      for (j=0;j<sx;j+=2) {
-	data[(i*sx+j)].setB(src[i*sx+j]);
-	data[((i+1)*sx+(j+1))].setR(src[(i+1)*sx+(j+1)]);
-	data[(i*sx+j+1)].setG(src[i*sx+j+1]);
-	data[((i+1)*sx+j)].setG(src[(i+1)*sx+j]);
-      }
-    }
-    // R channel
-    for (i=0;i<sy;i+=2){
-      for (j=0;j<sx-1;j+=2) {
-	data[(i*sx+j)].setR(data[((i+1)*sx+j+1)].R());
-	data[(i*sx+j+1)].setR(data[((i+1)*sx+j+1)].R());
-	data[((i+1)*sx+j)].setR(data[((i+1)*sx+j+1)].R());
-      }
-    }
-    // B channel
-    for (i=0;i<sy-1;i+=2) { //every two lines
-      for (j=0;j<sx-1;j+=2) {
-	data[((i+1)*sx+j)].setB(data[(i*sx+j)].B());
-	data[(i*sx+j+1)].setB(data[(i*sx+j)].B());
-	data[((i+1)*sx+j+1)].setB(data[(i*sx+j)].B());
-      }
-    }
-    // using lower direction for G channel
-
-    // G channel
-    for (i=0;i<sy-1;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j)].setG(data[((i+1)*sx+j)].G());
-
-    for (i=1;i<sy-2;i+=2)//every two lines
-      for (j=0;j<sx-1;j+=2)
-	data[(i*sx+j+1)].setG(data[((i+1)*sx+j+1)].G());
-
-    // copy it for the next line
-    for (j=0;j<sx-1;j+=2)
-      data[((sy-1)*sx+j+1)].setG(data[((sy-2)*sx+j+1)].G());
-
-    break;
-
-  default:  //-------------------------------------------
-    break;
-  }
   targ.unlock();
 }
 
@@ -635,25 +472,6 @@ void BayerNearestNeighbor(unsigned char *src,
         XVImageRGB<XV_RGB24>& targ, int sx, int sy,dc1394color_filter_t
 	optical_filter)
 {
-   IppiBayerGrid grid;
-
-   switch(optical_filter)
-   {
-      case DC1394_COLOR_FILTER_GRBG:
-        grid=ippiBayerGRBG;
-	break;
-      case DC1394_COLOR_FILTER_BGGR:
-        grid=ippiBayerBGGR;
-	break;
-      case DC1394_COLOR_FILTER_GBRG:
-        grid=ippiBayerGBRG;
-	break;
-      default:
-        cerr << "Unknown filter defaulting to RGGB" <<endl;
-      case DC1394_COLOR_FILTER_RGGB:
-        grid=ippiBayerRGGB;
-	break;
-   }
 
    dc1394_bayer_decoding_8bit((const uint8_t*)src, 
                              (uint8_t*)targ.lock(),targ.Width(),

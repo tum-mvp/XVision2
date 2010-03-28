@@ -14,10 +14,10 @@ Y *StereoVidere<T,Y>::calc_display(void)
   int   shift=(s_image->GetSP()->ndisp*4);
 
   cerr << shift;
-  XVImageIterator<u_short> image_r(disp_image);
-  XVImageWIterator<u_short> image_w(disp_image);
+  XVImageIterator<short> image_r(disp_image);
+  XVImageWIterator<short> image_w(disp_image);
   for(;!image_w.end();++image_w,++image_r)
-     *image_w=(*image_r<60000)? *image_r>>shift : 0;
+     *image_w=*image_r>0? *image_r>>shift : 0;
   return &disp_image;
 }
 
@@ -51,7 +51,7 @@ Y *StereoVidere<T,Y>::calc_stereo(char *dispfile_name)
   {
     dispInitialized=true;
   }
-  disp_image.remap((u_short*)s_image->disparity,false);
+  disp_image.remap((short*)s_image->disparity,false);
   //disp_image=image;
   //cerr << "cropping " << s_image->dp.dleft << " " << s_image->dp.dtop <<endl;
   //disp_image.setSubImage(s_image->dp.dleft,s_image->dp.dtop,
@@ -262,9 +262,9 @@ StereoVidere<T,Y>::~StereoVidere()
   */
 };
 
-template class StereoVidere<XVImageRGB<XV_RGB16>,XVImageScalar<u_short>  >;
-template class StereoVidere<XVImageRGB<XV_RGB15> ,XVImageScalar<u_short> >;
-template class StereoVidere<XVImageRGB<XV_RGB24> ,XVImageScalar<u_short> >;
-template class StereoVidere<XVImageRGB<XV_TRGB24> ,XVImageScalar<u_short> >;
-template class StereoVidere<XVImageRGB<XV_RGBA32> ,XVImageScalar<u_short> >;
-template class StereoVidere<XVImageRGB<XV_GLRGBA32> ,XVImageScalar<u_short> >;
+template class StereoVidere<XVImageRGB<XV_RGB16>,XVImageScalar<short>  >;
+template class StereoVidere<XVImageRGB<XV_RGB15> ,XVImageScalar<short> >;
+template class StereoVidere<XVImageRGB<XV_RGB24> ,XVImageScalar<short> >;
+template class StereoVidere<XVImageRGB<XV_TRGB24> ,XVImageScalar<short> >;
+template class StereoVidere<XVImageRGB<XV_RGBA32> ,XVImageScalar<short> >;
+template class StereoVidere<XVImageRGB<XV_GLRGBA32> ,XVImageScalar<short> >;

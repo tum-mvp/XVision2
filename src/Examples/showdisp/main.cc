@@ -13,7 +13,7 @@
 #define VIDEO   //show grayscale image
 
 
-typedef StereoVidere<XVImageRGB<XV_RGB>, XVImageScalar<u_short> > VID;
+typedef StereoVidere<XVImageRGB<XV_RGB>, XVImageScalar<short> > VID;
 typedef XVRemoteWindowX<XV_RGB>                                     WIN;
 
 static VID* vid;
@@ -31,19 +31,19 @@ void sighndl2(int ws) {
 }
 
 static void
-calc_display(XVImageScalar<u_short> &disp_image,
+calc_display(XVImageScalar<short> &disp_image,
                                 XVImageRGB<XV_RGB> &im)
 {
   int size=disp_image.Width()*disp_image.Height();
   int   shift=2;
 
-  XVImageIterator<u_short>  rptr(disp_image);
+  XVImageIterator<short>  rptr(disp_image);
   XV_RGB*  wptr=im.lock() ;
   unsigned char value;
 
   for(int count=0;count<size;++rptr,wptr++,count++)
   {
-     value=( *rptr < 60000)? (*rptr)>>shift : 0;
+     value= *rptr >0? (*rptr)>>shift : 0;
      wptr->setR(value);
      wptr->setB(value);
      wptr->setG(value);
@@ -65,8 +65,8 @@ int main(int argc, char* argv[]) {
     vid = new VID();
   }
   
-  XVImageScalar<u_short> *disp_image, *win_image;
-  const u_short *r_ptr;
+  XVImageScalar<short> *disp_image, *win_image;
+  const short *r_ptr;
 
   vid->set_stoc(true);
   vid->next_frame_continuous();

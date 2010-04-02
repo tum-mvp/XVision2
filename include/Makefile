@@ -14,7 +14,7 @@ CONSOLES     = XVWindow.h XVDrawable.h XVInteractive.h XVWindowX.h \
                XVRemoteWindowX.h
 
 DEVICES      = XVVideo.h DVFrame.h \
-	       DV1394.h XVDig1394.h  \
+	       DV1394.h XVDig1394.h XVFlea2G.h \
 	       VideoManager.h Meteor.h \
 	       StereoVidere.h Videre.h Videre.icc XVPv.h XVAVI.h\
                XVVideo.h XVImageSeq.h XVMpeg.h XVBt8x8.h XVV4L2.h\

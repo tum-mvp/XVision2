@@ -5821,7 +5821,7 @@ $as_echo "$ac_try_echo") >&5
 	 test -z "$ac_c_preproc_warn_flag$ac_c_werror_flag" ||
 	 test ! -s conftest.err
        }; then
-  DVFIRE_OBJS="XVDig1394.o"
+  DVFIRE_OBJS="XVDig1394.o XVFlea2G.o"
 	   DVFIRE_APPL="showdig"
 	   DVFIRE_LIB="-lraw1394 -ldc1394_control"
 	   DVFILES="v1"

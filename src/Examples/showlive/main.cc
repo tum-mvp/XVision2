@@ -13,7 +13,7 @@
 #include <XVV4L2.h>
 
 
-static  XVV4L2<XVImageYCbCr >         *grabber;
+static  XVV4L2<XVImageRGB<XV_RGB> >         *grabber;
 
 void sighndl(int ws) {
   cerr << "SIGINT called" << endl;
@@ -28,8 +28,9 @@ int main (int argc, char **argv) {
    signal(SIGSEGV, sighndl);
    const int rate=10;
    struct timeval time1, time2;
-   grabber = new XVV4L2<XVImageYCbCr >(DEVICE_NAME,"B2");
+   grabber = new XVV4L2<XVImageRGB<XV_RGB> >(DEVICE_NAME,"B2");
    XVWindowX<XV_RGB>      window1(640,480);
+   XVImageRGB<XV_RGB>     im;
 
    window1.map();
     //grabber -> set_params ("I1N0B2");
@@ -44,7 +45,8 @@ int main (int argc, char **argv) {
     for (int i=0; i<rate; i++) {
 
 
-      window1.CopySubImage(grabber->next_frame_continuous());     
+      im=grabber->next_frame_continuous();     
+      window1.CopySubImage(im);     
  
       window1.swap_buffers();
       window1.flush();

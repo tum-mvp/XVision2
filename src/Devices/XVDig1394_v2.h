@@ -11,7 +11,7 @@
 #define __user 
 #include <sys/types.h>
 #include <video1394.h>
-#include <libraw1394/raw1394.h>
+//#include <libraw1394/raw1394.h>
 #include "dc1394/dc1394.h"
 #include "config.h"
 #include <XVVideo.h>
@@ -44,7 +44,7 @@
   R : pixel format from camera, 0 = YUV422, 1 = RGB, 2 = MONO8,
                                 3 = MONO16, 4 = YUV411, 5 = YUV444
 				default = 0 
-  S : scale, 0 = any, 1 = 640x480, 2 = 320x200, 3 = 160x120, 
+  S : scale, 0 = any, 1 = 640x480, 2 = 320x200, 3 = 160x120,
              4 = 800x600, 5 = 1024x768, 6 = 1280x960, 7 = 1600x1200
 	     default = 0
   M : scale (obsolete), M0 = S4, M1 = S5, M2 = S6, M3 = S7

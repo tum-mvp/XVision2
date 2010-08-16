@@ -683,6 +683,17 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 									me->frame(i_frame).Width() * me->frame(
 											i_frame).Height());
 							break;
+						/*case MONO8:
+							memcpy(me->frame(i_frame).lock(), cur_frame->image,
+									(me->frame(i_frame).Width()) * (me->frame(
+											i_frame).Height()));
+							me->frame(i_frame).unlock();
+							break;*/
+						case MONO8: //Firefly Hack by Elmar
+							BayerNearestNeighbor(cur_frame->image, me->frame(i_frame),
+									me->frame(i_frame).Width(),me->frame(i_frame).Height(),
+																me->optical_filter);
+							break;
 						default:
 							cerr << "unknown color format: " << me->mode_type << endl;
 							break;
@@ -1122,10 +1133,20 @@ re_init:
 				dc1394_video_set_mode(camera_node, modes.modes[mode_index]);
 				mode_type = mode_descr[modes.modes[mode_index]
 						- DC1394_VIDEO_MODE_160x120_YUV444].mode;
+
+				if(verbose)
+				{
+					dc1394video_mode_t video_mode;
+					dc1394_video_get_mode(camera_node, &video_mode);
+					cout << "video mode: " << video_mode-DC1394_VIDEO_MODE_160x120_YUV444 << endl;
+				}
+
 				XVSize sized(mode_descr[modes.modes[mode_index]
 						- DC1394_VIDEO_MODE_160x120_YUV444].width,
 						mode_descr[modes.modes[mode_index]
 								- DC1394_VIDEO_MODE_160x120_YUV444].height);
+				if(verbose)
+					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
 				init_map(sized, 4);
 //				if (optical_flag) {
 //					if (verbose)
@@ -1221,6 +1242,9 @@ re_init:
 				unsigned int hmax, vmax;
 				dc1394_format7_get_max_image_size(camera_node,
 						mode, &hmax, &vmax);
+
+				if(verbose)
+					cout << "hmax: " << hmax << ", vmax: " << vmax << endl;
 
 				if(roi_x<0)
 					roi_x=0;

@@ -15,10 +15,10 @@
 #include <XVDig1394.h>
 #include <XVMacros.h>
 
-//if Marlin
-//#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_1
+//if Marlin or Pointgrey Chameleon
+#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_1
 //if Guppy
-#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_0
+//#define FORMAT7_MODE DC1394_VIDEO_MODE_FORMAT7_0
 
 using namespace std ;
 
@@ -784,6 +784,8 @@ re_init:
   if(!format7)
   {
     dc1394_video_get_supported_modes(camera_node,&modes);
+	if(verbose)
+		cout << "number of modes: " << modes.num << endl;
     mode_index=modes.num-1;
     if(rgb_pixel>-1)
     {
@@ -898,6 +900,8 @@ re_init:
      dc1394_format7_get_max_image_size(camera_node,FORMAT7_MODE,
      		&hmax,&vmax);
 
+	if(verbose)
+		cout << "hmax: " << hmax << ", vmax: " << vmax << endl;
 
       if(framerate==1)
       {

@@ -721,7 +721,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 		}
 
 		template<class IMTYPE>
-		XVFlea2G<IMTYPE>::~XVDig1394() {
+		XVFlea2G<IMTYPE>::~XVFlea2G() {
 			if (threadded) {
 				stop_flag=true;
 				pthread_join(grabber_thread, 0);
@@ -1141,13 +1141,6 @@ re_init:
 					cout << "video mode: " << video_mode-DC1394_VIDEO_MODE_160x120_YUV444 << endl;
 				}
 
-				XVSize sized(mode_descr[modes.modes[mode_index]
-						- DC1394_VIDEO_MODE_160x120_YUV444].width,
-						mode_descr[modes.modes[mode_index]
-								- DC1394_VIDEO_MODE_160x120_YUV444].height);
-				if(verbose)
-					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
-				init_map(sized, 4);
 //				if (optical_flag) {
 //					if (verbose)
 //						cerr << "Bayer filter selection only in Format7"
@@ -1164,6 +1157,14 @@ re_init:
 
 			if(format!=7)
 			{
+
+				XVSize sized(mode_descr[modes.modes[mode_index]
+							- DC1394_VIDEO_MODE_160x120_YUV444].width,
+							mode_descr[modes.modes[mode_index]
+									- DC1394_VIDEO_MODE_160x120_YUV444].height);
+				if(verbose)
+					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
+				init_map(sized, 4);
 
 				//set framerate
 				dc1394framerates_t rates;
@@ -1284,7 +1285,7 @@ re_init:
 						break;
 				}
 
-				cerr << "Setting framerate to " << fbytesPerPacket << endl;
+				cout << "Setting framerate to " << fbytesPerPacket << endl;
 
 				switch(color)
 				{
@@ -1324,6 +1325,8 @@ re_init:
 				dc1394_format7_set_packet_size(camera_node, mode,
 						bytesPerPacket);
 				XVSize sized(roi_width, roi_height);
+				if(verbose)
+					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
 				init_map(sized, 4);
 				if(dc1394_format7_set_roi(camera_node, mode,
 						color_coding,

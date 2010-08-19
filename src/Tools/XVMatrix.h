@@ -211,7 +211,7 @@ public:
   XVMatrix& operator-=(const XVMatrix &mat);
   XVMatrix& operator*=(FrReal x);
   XVMatrix& operator/=(FrReal x);
-  XVMatrix operator*(FrReal x) const;
+  XVMatrix  operator*(FrReal x);
   XVMatrix operator*(const XVMatrix &mat) const;
   XVColVector operator*(XVColVector &mat) const;
   XVRowVector operator*(XVRowVector &mat) const;

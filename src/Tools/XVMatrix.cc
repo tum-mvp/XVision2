@@ -297,12 +297,13 @@ XVMatrix::operator/=(FrReal x)
 }
 
 XVMatrix
-XVMatrix::operator*(FrReal x) const
+XVMatrix::operator*(FrReal x) 
 {
+  
   XVMatrix v(rowNum,colNum);
   int i;int j;
   for (i=0;i<rowNum;i++)
-    for(j=0;j<colNum;j++)  v.rowPtrs[i][j] = rowPtrs[i][j]*x;
+    for(j=0;j<colNum;j++)  v.rowPtrs[i][j] =x*rowPtrs[i][j];
   return v;
 }
 

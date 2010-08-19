@@ -1,7 +1,10 @@
 CUR_DEPTH	= ../../
 CXXFLAGS	= @CXXFLAGS@ @DEFS@ 
-CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@
-OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o XVLookupTable.o
+CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ -I$(IPPROOT)/include\
+                  -I$(CUDA_STEREO)
+
+OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
+		  XVLookupTable.o @IPPTOOLS@
 
 SDSRC           = sd.cc
 SDBIN           = screendepth

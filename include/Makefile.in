@@ -2,7 +2,8 @@ CUR_DEPTH = ..
 
 TOOLS        = XVMatrix.h XVMatrix.icc XVList.h XVTools.h XVException.h \
 	       XVMacros.h XVAffineWarp.h XVAffineWarp.icc XVGeometry.h \
-	       XVOmniWarper.h XVRectRaster.h XVLookupTable.h XVLookupTable.icc
+	       XVOmniWarper.h XVRectRaster.h XVLookupTable.h XVLookupTable.icc\
+	       camera_config.h XVStereoRectify.h
 
 IMAGES       = XVImageBase.h XVImageRGB.h XVImageRGB.icc XVImageScalar.h \
 	       XVImageIterator.h XVImageFilters.icc XVPixel.h XVColorImage.h \

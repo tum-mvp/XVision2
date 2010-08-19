@@ -80,6 +80,7 @@ AC_TRY_CPP([#include <$IPPROOT/include/ippversion.h>],
    IPPINC='-I$(IPPROOT)/include'
    IPPLIBS='-L$(IPPROOT)/sharedlib -lippi -lippcc'
    IPPOBJS='XVAVI.o'
+   IPPTOOLS='XVStereoRectify.o'
    AC_DEFINE(HAVE_IPP),)
    
 dnl Checks for libraries.

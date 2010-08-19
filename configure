@@ -599,6 +599,7 @@ PROSILICA_LIBS
 PROSILICA_INCS
 PROSILICA_OBJS
 CXXFLAGS
+IPPTOOLS
 IPPOBJS
 IPPLIBS
 IPPINC
@@ -4535,6 +4536,7 @@ done
 
 
 
+
 if test ! -z $PVROOT
 then
          PROSILICA_OBJS="XVPv.o"
@@ -4548,7 +4550,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 #include <dc1394/control.h>
 _ACEOF
 if ac_fn_c_try_cpp "$LINENO"; then :
-  DVFIRE_OBJS="XVDig1394.o"
+  DVFIRE_OBJS="XVDig1394.o XVFlea2G.o"
 	   DVFIRE_APPL="showdig"
 	   DVFIRE_LIB="-lraw1394 -ldc1394_control"
 	   DVFILES="v1"

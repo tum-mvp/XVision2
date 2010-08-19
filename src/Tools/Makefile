@@ -1,9 +1,9 @@
 CUR_DEPTH	= ../../
 CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
-CPPFLAGS	= -I$(CUR_DEPTH)/include -I$(IPPROOT)/include\
-		  -I$(HOME)/project/parser -I/usr/local/src/Stereo
+CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include\
+
 OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
-		  XVLookupTable.o XVStereoRectify.o
+		  XVLookupTable.o @IPPTOOLS@
 
 SDSRC           = sd.cc
 SDBIN           = screendepth

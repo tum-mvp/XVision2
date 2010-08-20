@@ -1,11 +1,11 @@
 CUR_DEPTH  = ../../
 CXXFLAGS=-O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H -I$(IPPROOT)/include
-CPPFLAGS	= -I$(SVS_PATH)/src  -I$(IPPROOT)/include  \
+CPPFLAGS	=   -I$(IPPROOT)/include  \
                   -I$(CUR_DEPTH)/include \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\
 		  -I/lib/modules/`uname -r`/build/drivers/media/video
-OBJS		= XVPwc.o XVV4L2.o XVBt8x8.o Meteor.o XVDig1394.o XVFlea2G.o Videre.o StereoVidere.o\
-                   XVImageSeq.o XVVideo.o XVMpeg.o
+OBJS		= XVPwc.o XVV4L2.o XVBt8x8.o Meteor.o XVDig1394.o XVFlea2G.o \
+                   XVImageSeq.o XVVideo.o XVMpeg.o XVAVI.o
 #XVAVI.o is element of IPPOBJS if HAVE_IPP is set
 
 all: .depend $(OBJS)

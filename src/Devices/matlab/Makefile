@@ -4,10 +4,10 @@ MEX = $(MATLAB)/bin/mex
 MYCFLAGS = -I$(XVISION)/include\
 	   -I/usr/src/linux-2.4/drivers/ieee1394\
            -I$(MATLAB)/extern/include 
-LIBS = -L$(XVISION)/lib -lXVDevs -lXVImages -L$(SVS_PATH)/bin -lsvs -lsvscalc -lsvscap
+LIBS = -L$(XVISION)/lib -lXVDevs -lXVImages 
 
 # files to generate
-FILES=grab_videre.mexglx grab_analog.mexglx grab_digit.mexglx
+FILES= grab_analog.mexglx grab_digit.mexglx
 SUFFIXES+=.mexglx
 
 all: 	print $(FILES)

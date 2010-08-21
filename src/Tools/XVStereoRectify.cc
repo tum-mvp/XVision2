@@ -106,7 +106,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
        if(*r_ptr==255 && *r_ptr==0) continue; //invalid pixel?
        vec[0]=x,vec[1]=y,vec[2]=1.0;
        vec=Kinv*vec;
-       vec= R_ltransp*vec*(B/(*r_ptr));
+       vec= R_ltransp*(vec*(B/(*r_ptr)));
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
        point_ptr->coord[2]=vec[2];

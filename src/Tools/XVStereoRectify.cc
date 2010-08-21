@@ -94,6 +94,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   Stereo_3DPoint	*point_ptr=PointBuffer;
   XVMatrix		CorrMat=R_l.t()*K_ideal.i()*B;
 
+  cerr << B << endl;
   num_points=MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT;
   Points3D=PointBuffer;
 

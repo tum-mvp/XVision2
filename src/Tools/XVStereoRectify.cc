@@ -1,4 +1,6 @@
 #include "config.h"
+#include <string.h>
+#include <float.h>
 #include "XVStereoRectify.h"
 
 #define Sqr(a) ((a)*(a))
@@ -39,14 +41,15 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 temp_image2.Width(),roi1,coeffs_l,
 				 IPPI_INTER_NN);
        temp_image2.unlock();
-       IppiSize dst_roi={640,480};
+       IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
        IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
        //XVWritePGM(gray_image_l,"im_left.pgm");
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
 				 (Ipp8u *)gray_image_l.lock(),
 				 gray_image_l.Width(),
-				 dst_roi,640.0/width,480.0/height,IPPI_INTER_NN);
+				 dst_roi,(float)MAX_STEREO_WIDTH/width,
+				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_l.unlock();
 
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_r.data(), image_r.Width(),
@@ -71,7 +74,8 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
                                  temp_image2.Width(), roi_rect,
 				 (Ipp8u *)gray_image_r.lock(),
 				 gray_image_r.Width(),
-				 dst_roi,640.0/width,480.0/height,IPPI_INTER_NN);
+				 dst_roi,(float)MAX_STEREO_WIDTH/width,
+				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_r.unlock();
 
        stereoUpload(gray_image_l.data(),gray_image_r.data());
@@ -83,21 +87,55 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        return left_image? dispLeft : dispRight;
 }
 
+bool
+XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
+{
+  const float 		*r_ptr=dispLeft.data();
+  Stereo_3DPoint	*point_ptr=PointBuffer;
+  XVMatrix		Kinv=K_ideal.i(),R_ltransp=R_l.t();
+
+  num_points=MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT;
+  Points3D=PointBuffer;
+
+  memset(PointBuffer,0,MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT*sizeof(Stereo_3DPoint));
+  XVColVector vec(3);
+
+  for(int y=0;y<MAX_STEREO_HEIGHT;y++)
+    for(int x=0;x<MAX_STEREO_WIDTH;x++,r_ptr++,point_ptr++)
+    {
+       if(*r_ptr==255) continue; //invalid pixel?
+       vec[0]=x,vec[1]=y,vec[2]=1.0;
+       vec=Kinv*vec;
+       if(*r_ptr==0.0)
+         vec=R_ltransp*vec*(FLT_MAX);
+       else
+         vec= R_ltransp*vec*(B/(*r_ptr));
+       point_ptr->coord[0]=vec[0],
+       point_ptr->coord[1]=vec[1],
+       point_ptr->coord[2]=vec[2];
+    }
+
+  return true;
+}
+
+
 XVStereoRectify::XVStereoRectify(Config & _config)
 {
   
   config=_config;
   int width=config.width,height=config.height;
-  XVMatrix R_l(3,3),R_r(3,3);
   IppiSize roi={width,height};
   int dist_buf_size;
 
-   stereoInit(640,480);
+   R_l.resize(3,3), R_r.resize(3,3);
+   stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
+   if(!PointBuffer) throw 1;
 
-   dispLeft.resize(640,480);
-   dispRight.resize(640,480);
-   gray_image_l.resize(640,480);
-   gray_image_r.resize(640,480);
+   dispLeft.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   dispRight.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   gray_image_l.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   gray_image_r.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
    temp_image1.resize(width,height);
    temp_image2.resize(width,height);
    ippiUndistortGetSize(roi,&dist_buf_size);
@@ -149,7 +187,7 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    // camera matrix
    K=0.0;
    K[0][0]=config.camera_params[0].f[0];
-   K[1][1]=config.camera_params[0].f[1];
+   K[1][1]=config.camera_params[0].f[0];
    K[2][2]=1.0;
    // ideal stereo camera
    K_ideal=K;
@@ -174,4 +212,5 @@ XVStereoRectify::XVStereoRectify(Config & _config)
 XVStereoRectify::~XVStereoRectify()
 {
   delete [] DistortBuffer;
+  delete [] PointBuffer;
 }

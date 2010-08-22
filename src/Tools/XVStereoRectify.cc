@@ -92,9 +92,8 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
 {
   const float 		*r_ptr=dispLeft.data();
   Stereo_3DPoint	*point_ptr=PointBuffer;
-  XVMatrix		CorrMat=R_l.t()*K_ideal.i()*B;
+  XVMatrix		CorrMat=R_l.t()*K_ideal.i()*B*K_ideal[0][0];
 
-  cerr << B << endl;
   num_points=MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT;
   Points3D=PointBuffer;
 
@@ -106,7 +105,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
     {
        if(*r_ptr==255 && *r_ptr==0) continue; //invalid pixel?
        vec[0]=x,vec[1]=y,vec[2]=1.0;
-       vec=CorrMat*vec/(*r_ptr);
+       vec=(CorrMat*vec)/(*r_ptr);
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
        point_ptr->coord[2]=vec[2];

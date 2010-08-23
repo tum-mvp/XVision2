@@ -114,28 +114,11 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   return true;
 }
 
-
-XVStereoRectify::XVStereoRectify(Config & _config)
+void 
+XVStereoRectify::calc_rectification(Config &config)
 {
-  
-  config=_config;
   int width=config.width,height=config.height;
   IppiSize roi={width,height};
-  int dist_buf_size;
-
-   R_l.resize(3,3), R_r.resize(3,3);
-   stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
-   if(!PointBuffer) throw 1;
-
-   dispLeft.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   dispRight.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   gray_image_l.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   gray_image_r.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   temp_image1.resize(width,height);
-   temp_image2.resize(width,height);
-   ippiUndistortGetSize(roi,&dist_buf_size);
-   DistortBuffer=new Ipp8u[dist_buf_size];
 
 
    XVMatrix ext(3,3);
@@ -203,6 +186,32 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    for(int i=0;i<3;i++)
       for(int j=0;j<3;j++)
 	coeffs_r[i][j]=H[i][j];
+}
+
+
+XVStereoRectify::XVStereoRectify(Config & _config)
+{
+  
+   int width=config.width,height=config.height;
+   IppiSize roi={width,height};
+   int dist_buf_size;
+
+   config=_config;
+   stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
+   if(!PointBuffer) throw 1;
+   R_l.resize(3,3), R_r.resize(3,3);
+
+   dispLeft.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   dispRight.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   gray_image_l.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   gray_image_r.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   temp_image1.resize(width,height);
+   temp_image2.resize(width,height);
+   ippiUndistortGetSize(roi,&dist_buf_size);
+   DistortBuffer=new Ipp8u[dist_buf_size];
+
+   calc_rectification(config);
 }
 
 XVStereoRectify::~XVStereoRectify()

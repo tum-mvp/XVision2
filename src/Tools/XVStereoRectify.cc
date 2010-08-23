@@ -134,7 +134,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    ext[2][2]=_config.extrinsics[10];
    T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
    T[2]=_config.extrinsics[11];
-   T=ext*T;
+   T=ext.t()*T;
    
    XVColVector v1(3);
    XVColVector v2(3);

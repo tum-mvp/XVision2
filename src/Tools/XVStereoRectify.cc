@@ -36,7 +36,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 
        temp_image1.unlock();
        ippiWarpPerspective_8u_C1R((Ipp8u*)temp_image1.data(),
-      				 roi,temp_image1.Width(),roi1,
+     				 roi,temp_image1.Width(),roi1,
 				 (Ipp8u*)temp_image2.lock(),
 				 temp_image2.Width(),roi1,coeffs_l,
 				 IPPI_INTER_NN);
@@ -115,25 +115,25 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
 }
 
 void 
-XVStereoRectify::calc_rectification(Config &config)
+XVStereoRectify::calc_rectification(Config &_config)
 {
-  int width=config.width,height=config.height;
+  int width=_config.width,height=_config.height;
   IppiSize roi={width,height};
 
 
    XVMatrix ext(3,3);
    XVColVector T(3);
-   ext[0][0]=config.extrinsics[0],
-   ext[0][1]=config.extrinsics[1],
-   ext[0][2]=config.extrinsics[2],
-   ext[1][0]=config.extrinsics[4],
-   ext[1][1]=config.extrinsics[5],
-   ext[1][2]=config.extrinsics[6],
-   ext[2][0]=config.extrinsics[8],
-   ext[2][1]=config.extrinsics[9],
-   ext[2][2]=config.extrinsics[10];
-   T[0]=config.extrinsics[3],T[1]=config.extrinsics[7],
-   T[2]=config.extrinsics[11];
+   ext[0][0]=_config.extrinsics[0],
+   ext[0][1]=_config.extrinsics[1],
+   ext[0][2]=_config.extrinsics[2],
+   ext[1][0]=_config.extrinsics[4],
+   ext[1][1]=_config.extrinsics[5],
+   ext[1][2]=_config.extrinsics[6],
+   ext[2][0]=_config.extrinsics[8],
+   ext[2][1]=_config.extrinsics[9],
+   ext[2][2]=_config.extrinsics[10];
+   T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
+   T[2]=_config.extrinsics[11];
    T=ext*T;
    
    XVColVector v1(3);
@@ -165,23 +165,23 @@ XVStereoRectify::calc_rectification(Config &config)
    XVMatrix K(3,3),H;
    // camera matrix
    K=0.0;
-   K[0][0]=config.camera_params[0].f[0];
-   K[1][1]=config.camera_params[0].f[0];
+   K[0][0]=_config.camera_params[0].f[0];
+   K[1][1]=_config.camera_params[0].f[0];
    K[2][2]=1.0;
    // ideal stereo camera
    K_ideal=K;
-   K[0][2]=config.camera_params[0].C[0];
-   K[1][2]=config.camera_params[0].C[1];
+   K[0][2]=_config.camera_params[0].C[0];
+   K[1][2]=_config.camera_params[0].C[1];
    K_ideal[0][2]=width/2;
    K_ideal[1][2]=height/2;
    H=K_ideal*R_l*K.i();
    for(int i=0;i<3;i++)
       for(int j=0;j<3;j++)
 	coeffs_l[i][j]=H[i][j];
-   K[0][0]=config.camera_params[1].f[0];
-   K[1][1]=config.camera_params[1].f[1];
-   K[0][2]=config.camera_params[1].C[0];
-   K[1][2]=config.camera_params[1].C[1];
+   K[0][0]=_config.camera_params[1].f[0];
+   K[1][1]=_config.camera_params[1].f[1];
+   K[0][2]=_config.camera_params[1].C[0];
+   K[1][2]=_config.camera_params[1].C[1];
    H=K_ideal*R_r*K.i();
    for(int i=0;i<3;i++)
       for(int j=0;j<3;j++)
@@ -192,11 +192,11 @@ XVStereoRectify::calc_rectification(Config &config)
 XVStereoRectify::XVStereoRectify(Config & _config)
 {
   
+   config=_config;
    int width=config.width,height=config.height;
    IppiSize roi={width,height};
    int dist_buf_size;
 
-   config=_config;
    stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
    PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
    if(!PointBuffer) throw 1;
@@ -211,7 +211,7 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    ippiUndistortGetSize(roi,&dist_buf_size);
    DistortBuffer=new Ipp8u[dist_buf_size];
 
-   calc_rectification(config);
+   calc_rectification(_config);
 }
 
 XVStereoRectify::~XVStereoRectify()

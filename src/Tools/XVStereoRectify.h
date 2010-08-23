@@ -39,8 +39,8 @@ class XVStereoRectify
 					  bool left_image=true) ;
      bool		   calc_3Dpoints(int &num_points,
      					Stereo_3DPoint * &Points3D);
-     void		   calc_rectification(Config &config);
-     XVStereoRectify(Config & config);
+     void		   calc_rectification(Config &_config);
+     XVStereoRectify(Config & _config);
      ~XVStereoRectify();
 };
 #endif

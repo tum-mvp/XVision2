@@ -4,6 +4,7 @@
 #include "ippcv.h"
 #include "XVMatrix.h"
 #include "XVImageScalar.h"
+#include "XVStereoRectifyTypes.h"
 #include "Stereo.h"
 #include "camera_config.h"
 
@@ -11,11 +12,6 @@
 #define MAX_STEREO_HEIGHT  480
 
 using namespace std;
-
-typedef struct
-{
-  float coord[3];
-} Stereo_3DPoint;
 
 class XVStereoRectify
 {

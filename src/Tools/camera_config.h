@@ -30,6 +30,7 @@ typedef struct{
   FileStream	  file[2];
   FirewireStream  camera[2];
   float		  extrinsics[12];
+  int		  offset;
   int		  num_points;
   int		  num_cameras;
   float		  *point;

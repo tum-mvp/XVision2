@@ -44,6 +44,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
        IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
        //XVWritePGM(gray_image_l,"im_left.pgm");
+       roi_rect.x=config.offset;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
 				 (Ipp8u *)gray_image_l.lock(),
@@ -70,6 +71,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 IPPI_INTER_NN);
        temp_image2.unlock();
        //XVWritePGM(gray_image_r,"im_right.pgm");
+       roi_rect.x=0;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
 				 (Ipp8u *)gray_image_r.lock(),
@@ -105,7 +107,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
     {
        if(*r_ptr==255 && *r_ptr==0) continue; //invalid pixel?
        vec[0]=x,vec[1]=y,vec[2]=1.0;
-       vec=(CorrMat*vec)/(*r_ptr);
+       vec=(CorrMat*vec)/(*r_ptr+config.offset);
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
        point_ptr->coord[2]=vec[2];
@@ -134,7 +136,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    ext[2][2]=_config.extrinsics[10];
    T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
    T[2]=_config.extrinsics[11];
-   T=ext.t()*T;
+   //T=ext.t()*T;
    
    XVColVector v1(3);
    XVColVector v2(3);

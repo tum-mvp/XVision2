@@ -22,5 +22,5 @@ install: $(SDBIN) all
 
 include .depend
 
-$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC)  -lXxf86vm -lXxf86dga -lXext -lX11 -lpng ;
+$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC)  -lXext -lX11 -lpng ;
 	  	install -c $(SDBIN) $(CUR_DEPTH)/bin

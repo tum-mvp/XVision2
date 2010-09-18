@@ -1,6 +1,7 @@
 #include "config.h"
 #include <string.h>
 #include <float.h>
+#include "XVImageIO.h"
 #include "XVStereoRectify.h"
 
 #define Sqr(a) ((a)*(a))
@@ -43,7 +44,8 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        temp_image2.unlock();
        IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
        IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
-       //XVWritePGM(gray_image_l,"im_left.pgm");
+       XVWritePGM(temp_image2,"im_left.pgm");
+       roi_rect.x=config.offset*width/MAX_STEREO_WIDTH;
        roi_rect.x=config.offset;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
@@ -52,6 +54,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_l.unlock();
+       roi_rect.x=0;
 
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_r.data(), image_r.Width(),
 				 temp_image1.lock(),temp_image1.Width(),
@@ -70,7 +73,8 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 temp_image2.Width(),roi1,coeffs_r,
 				 IPPI_INTER_NN);
        temp_image2.unlock();
-       //XVWritePGM(gray_image_r,"im_right.pgm");
+       XVWritePGM(temp_image2,"im_right.pgm");
+       roi_rect.x=0;
        roi_rect.x=0;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
@@ -121,6 +125,7 @@ XVStereoRectify::calc_rectification(Config &_config)
 {
   int width=_config.width,height=_config.height;
   IppiSize roi={width,height};
+  IppiRect roi_rect={0,0,width,height};
 
 
    XVMatrix ext(3,3);
@@ -161,8 +166,9 @@ XVStereoRectify::calc_rectification(Config &_config)
    R_r[1][0]=v2[2],R_r[1][1]=0,R_r[1][2]=-v2[0];
    R_r[2][0]=-v2[1],R_r[2][1]=v2[0],R_r[2][2]=0;
    R_l=u_out +(R_l-u_out)*cos(alph)+R_r*sin(alph);
-   //cerr << R_l << endl;
-   R_r=R_l*ext;
+   cerr << R_l << endl;
+   R_r=R_l*ext.t();
+   cerr << R_r << endl;
    // rectification matrices H
    XVMatrix K(3,3),H;
    // camera matrix
@@ -174,20 +180,61 @@ XVStereoRectify::calc_rectification(Config &_config)
    K_ideal=K;
    K[0][2]=_config.camera_params[0].C[0];
    K[1][2]=_config.camera_params[0].C[1];
+   K[1][1]=_config.camera_params[0].f[1];
    K_ideal[0][2]=width/2;
    K_ideal[1][2]=height/2;
-   H=K_ideal*R_l*K.i();
-   for(int i=0;i<3;i++)
-      for(int j=0;j<3;j++)
-	coeffs_l[i][j]=H[i][j];
+   H=R_l*K.i();
+   double quad[4][2];
+   XVColVector coord(3);
+   //project the four boundary corners
+   coord[0]=0,coord[1]=0,coord[2]=1;
+   coord=H*coord;
+   coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[0][0]=coord[0],quad[0][1]=coord[1];
+   coord[0]=_config.width,coord[1]=0,coord[2]=1;
+   coord=H*coord;
+   coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[1][0]=coord[0],quad[1][1]=coord[1];
+   coord[0]=_config.width,coord[1]=_config.height,coord[2]=1;
+   coord=H*coord;
+   coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[2][0]=coord[0],quad[2][1]=coord[1];
+   coord[0]=0,coord[1]=_config.height,coord[2]=1;
+   coord=H*coord;
+   coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[3][0]=coord[0],quad[3][1]=coord[1];
+   ippiGetPerspectiveTransform(roi_rect,quad,coeffs_l);
    K[0][0]=_config.camera_params[1].f[0];
    K[1][1]=_config.camera_params[1].f[1];
    K[0][2]=_config.camera_params[1].C[0];
    K[1][2]=_config.camera_params[1].C[1];
-   H=K_ideal*R_r*K.i();
-   for(int i=0;i<3;i++)
-      for(int j=0;j<3;j++)
-	coeffs_r[i][j]=H[i][j];
+   H=R_r*K.i();
+   //project the four boundary corners
+   coord[0]=0,coord[1]=0,coord[2]=1;
+   coord=H*coord;
+   coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[0][0]=coord[0],quad[0][1]=coord[1];
+   coord[0]=_config.width,coord[1]=0,coord[2]=1;
+   coord=H*coord;
+   coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[1][0]=coord[0],quad[1][1]=coord[1];
+   coord[0]=_config.width,coord[1]=_config.height,coord[2]=1;
+   coord=H*coord;
+   coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[2][0]=coord[0],quad[2][1]=coord[1];
+   coord[0]=0,coord[1]=_config.height,coord[2]=1;
+   coord=H*coord;
+   coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
+   coord=K_ideal*coord;
+   quad[3][0]=coord[0],quad[3][1]=coord[1];
+   ippiGetPerspectiveTransform(roi_rect,quad,coeffs_r);
 }
 
 

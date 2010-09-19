@@ -62,6 +62,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        //XVWritePGM(temp_image2,"im_left.pgm");
        roi_rect.x=config.offset*width/MAX_STEREO_WIDTH;
        roi_rect.x=config.offset;
+       XVImageScalar<u_char> im(gray_image_l.Width(),gray_image_l.Height());
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
 				 (Ipp8u *)gray_image_l.lock(),
@@ -69,6 +70,10 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_l.unlock();
+       //ippiFilterGauss_8u_C1R((const Ipp8u*)im.data(),im.Width(),
+        //                     (Ipp8u*)gray_image_l.lock(),gray_image_l.Width(),
+	//		     dst_roi,ippMskSize5x5);
+       //gray_image_l.unlock();
        //XVWritePGM(gray_image_l,"im_left.pgm");
        roi_rect.x=0;
        bzero(temp_image1.lock(),temp_image1.Width()*temp_image1.Height());
@@ -111,6 +116,10 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_r.unlock();
+       //ippiFilterGauss_8u_C1R((const Ipp8u*)im.data(),im.Width(),
+        //                     (Ipp8u*)gray_image_r.lock(),gray_image_r.Width(),
+	//		     dst_roi,ippMskSize5x5);
+       //gray_image_r.unlock();
 #ifdef NEVER
        if(min_vr < min_vl)
        {  
@@ -165,7 +174,13 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
     for(int x=0;x<MAX_STEREO_WIDTH;x++,r_ptr++,point_ptr++)
     {
 #ifndef OPENCV_STEREO
-       if(*r_ptr==255 && *r_ptr==0) continue; //invalid pixel?
+       if(*r_ptr>200 && *r_ptr==0)
+       {
+         point_ptr->coord[0]=0,
+	 point_ptr->coord[1]=0,
+	 point_ptr->coord[2]=0;
+         continue; //invalid pixel?
+       }
 #endif
        vec[0]=x,vec[1]=y,vec[2]=1.0;
 #ifndef OPENCV_STEREO
@@ -333,7 +348,8 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    temp_image2.resize(width,height);
    ippiUndistortGetSize(roi,&dist_buf_size);
    DistortBuffer=new Ipp8u[dist_buf_size];
-
+   IppiSize roi_gauss={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
+   int gauss_size; 
    calc_rectification(_config);
 }
 

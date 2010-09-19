@@ -24,11 +24,11 @@ class XVStereoRectify
      XVImageScalar<float>  dispLeft, dispRight;
      Stereo_3DPoint	   *PointBuffer;
      Ipp8u  		   *DistortBuffer;
-     XVImageScalar<u_char> temp_image1,temp_image2;
      Config		   config;
      XVMatrix 	           K_ideal;
      XVColVector           cross(XVColVector &v1,XVColVector &v2);
    public:
+     XVImageScalar<u_char> temp_image1,temp_image2;
      XVImageScalar<u_char> gray_image_l,gray_image_r;
      XVImageScalar<float>  calc_disparity(XVImageScalar<u_char> &image_l,
      					  XVImageScalar<u_char> &image_r,

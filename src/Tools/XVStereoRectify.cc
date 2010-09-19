@@ -44,7 +44,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        temp_image2.unlock();
        IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
        IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
-       XVWritePGM(temp_image2,"im_left.pgm");
+       //XVWritePGM(temp_image2,"im_left.pgm");
        roi_rect.x=config.offset*width/MAX_STEREO_WIDTH;
        roi_rect.x=config.offset;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
@@ -54,6 +54,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_l.unlock();
+       //XVWritePGM(gray_image_l,"im_left.pgm");
        roi_rect.x=0;
 
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_r.data(), image_r.Width(),
@@ -73,7 +74,6 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 temp_image2.Width(),roi1,coeffs_r,
 				 IPPI_INTER_NN);
        temp_image2.unlock();
-       XVWritePGM(temp_image2,"im_right.pgm");
        roi_rect.x=0;
        roi_rect.x=0;
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
@@ -83,6 +83,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_r.unlock();
+       XVWritePGM(gray_image_r,"im_right.pgm");
 
        stereoUpload(gray_image_l.data(),gray_image_r.data());
        stereoProcess();
@@ -166,9 +167,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    R_r[1][0]=v2[2],R_r[1][1]=0,R_r[1][2]=-v2[0];
    R_r[2][0]=-v2[1],R_r[2][1]=v2[0],R_r[2][2]=0;
    R_l=u_out +(R_l-u_out)*cos(alph)+R_r*sin(alph);
-   cerr << R_l << endl;
    R_r=R_l*ext.t();
-   cerr << R_r << endl;
    // rectification matrices H
    XVMatrix K(3,3),H;
    // camera matrix
@@ -183,7 +182,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    K[1][1]=_config.camera_params[0].f[1];
    K_ideal[0][2]=width/2;
    K_ideal[1][2]=height/2;
-   H=R_l*K.i();
+   H=K.i();
    double quad[4][2];
    XVColVector coord(3);
    //project the four boundary corners

@@ -125,11 +125,25 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
          gray_image_l.unlock();
        }
 #endif
+#ifdef OPENCV_STEREO
+       cv::Mat img1(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
+       cv::Mat img2(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
+       memcpy(img1.data,gray_image_l.data(),
+			gray_image_l.Width()*gray_image_l.Height());
+       memcpy(img2.data,gray_image_r.data(),
+			gray_image_r.Width()*gray_image_r.Height());
+       sgbm(img1,img2,disp);
+       short *rptr=(short*)disp.data;
+       float *wptr=dispLeft.lock();
+       for(int i=0;i<gray_image_l.Width()*gray_image_l.Height();i++)
+           *wptr++=(float)*rptr++;
+       dispLeft.unlock();
+#else
        stereoUpload(gray_image_l.data(),gray_image_r.data());
        stereoProcess();
        stereoDownload(dispLeft.lock(),dispRight.lock());
        dispLeft.unlock(),dispRight.unlock();
-
+#endif
        
        return left_image? dispLeft : dispRight;
 }
@@ -285,7 +299,22 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    IppiSize roi={width,height};
    int dist_buf_size;
 
+#ifdef OPENCV_STEREO
+   sgbm.preFilterCap = 63;
+   sgbm.SADWindowSize = 5;
+   sgbm.P1 = 8*sgbm.SADWindowSize*sgbm.SADWindowSize;
+   sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
+   sgbm.minDisparity = 0;
+   sgbm.numberOfDisparities = 128;
+   sgbm.uniquenessRatio = 10;
+   sgbm.speckleWindowSize = 100;
+   sgbm.speckleRange = 32;
+   sgbm.disp12MaxDiff = 1;
+   sgbm.fullDP = true;
+#else
    stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+#endif
+
    PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
    if(!PointBuffer) throw 1;
    R_l.resize(3,3), R_r.resize(3,3);

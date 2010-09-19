@@ -8,6 +8,16 @@
 #include "Stereo.h"
 #include "camera_config.h"
 
+
+#define OPENCV_STEREO
+
+#ifdef OPENCV_STEREO
+#include <cv.h>
+#include <highgui.h>
+#include <stdio.h>
+#endif
+
+
 #define MAX_STEREO_WIDTH   640
 #define MAX_STEREO_HEIGHT  480
 
@@ -28,6 +38,10 @@ class XVStereoRectify
      XVMatrix 	           K_ideal;
      XVColVector           cross(XVColVector &v1,XVColVector &v2);
      XVImageScalar<u_char> temp_image1,temp_image2;
+#ifdef OPENCV_STEREO
+     cv::StereoSGBM 	   sgbm;
+     cv::Mat 		   disp;
+#endif
    public:
      XVImageScalar<u_char> gray_image_l,gray_image_r;
      XVImageScalar<float>  calc_disparity(XVImageScalar<u_char> &image_l,

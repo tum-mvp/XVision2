@@ -164,9 +164,15 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   for(int y=0;y<MAX_STEREO_HEIGHT;y++)
     for(int x=0;x<MAX_STEREO_WIDTH;x++,r_ptr++,point_ptr++)
     {
+#ifndef OPENCV_STEREO
        if(*r_ptr==255 && *r_ptr==0) continue; //invalid pixel?
+#endif
        vec[0]=x,vec[1]=y,vec[2]=1.0;
+#ifndef OPENCV_STEREO
        vec=(CorrMat*vec)/(*r_ptr+config.offset);
+#else
+       vec=(CorrMat*vec)/(*r_ptr/16+config.offset);
+#endif
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
        point_ptr->coord[2]=vec[2];
@@ -301,11 +307,11 @@ XVStereoRectify::XVStereoRectify(Config & _config)
 
 #ifdef OPENCV_STEREO
    sgbm.preFilterCap = 63;
-   sgbm.SADWindowSize = 5;
+   sgbm.SADWindowSize = 3;
    sgbm.P1 = 8*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.minDisparity = 0;
-   sgbm.numberOfDisparities = 128;
+   sgbm.numberOfDisparities = 64;
    sgbm.uniquenessRatio = 10;
    sgbm.speckleWindowSize = 100;
    sgbm.speckleRange = 32;

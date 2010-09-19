@@ -60,8 +60,9 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
        IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
        //XVWritePGM(temp_image2,"im_left.pgm");
+#ifndef OPENCV_STEREO
        roi_rect.x=config.offset*width/MAX_STEREO_WIDTH;
-       roi_rect.x=config.offset;
+#endif
        XVImageScalar<u_char> im(gray_image_l.Width(),gray_image_l.Height());
        ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
                                  temp_image2.Width(), roi_rect,
@@ -186,7 +187,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
 #ifndef OPENCV_STEREO
        vec=(CorrMat*vec)/(*r_ptr+config.offset);
 #else
-       vec=(CorrMat*vec)/(*r_ptr/16+config.offset);
+       vec=(CorrMat*vec)/(*r_ptr/16);
 #endif
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
@@ -309,6 +310,10 @@ XVStereoRectify::calc_rectification(Config &_config)
    coord=K_ideal*coord;
    quad[3][0]=coord[0],quad[3][1]=coord[1];
    ippiGetPerspectiveTransform(roi_rect,quad,coeffs_r);
+   K_ideal[0][0]*=(float)MAX_STEREO_WIDTH/width;
+   K_ideal[1][1]*=(float)MAX_STEREO_WIDTH/width;
+   K_ideal[0][2]*=(float)MAX_STEREO_WIDTH/width;
+   K_ideal[1][2]*=(float)MAX_STEREO_WIDTH/width;
 }
 
 
@@ -325,7 +330,7 @@ XVStereoRectify::XVStereoRectify(Config & _config)
    sgbm.SADWindowSize = 3;
    sgbm.P1 = 8*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
-   sgbm.minDisparity = 0;
+   sgbm.minDisparity = _config.offset;
    sgbm.numberOfDisparities = 64;
    sgbm.uniquenessRatio = 10;
    sgbm.speckleWindowSize = 100;

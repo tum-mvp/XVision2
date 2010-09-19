@@ -26,6 +26,8 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        int height=config.height;
        IppiSize roi={temp_image1.Width(),temp_image1.Height()};
        IppiRect roi1={0,0,temp_image1.Width(),temp_image1.Height()};
+       bzero(temp_image1.lock(),temp_image1.Width()*temp_image1.Height());
+       temp_image1.unlock();
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_l.data(), image_l.Width(),
 				 temp_image1.lock(),temp_image1.Width(),
 				 roi,config.camera_params[0].f[0], 
@@ -36,6 +38,19 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				config.camera_params[0].kappa[1], DistortBuffer);
 
        temp_image1.unlock();
+       u_char min_vl,max_vl;
+       u_char *ptr;
+       min_vl=255,max_vl=0;
+       ptr=temp_image1.lock();
+       for(int i=0;i<temp_image1.Height();i++)
+       {
+         if(min_vl>ptr[i*width+i]) min_vl=ptr[i*width+i];
+         if(max_vl<ptr[i*width+i]) max_vl=ptr[i*width+i];
+       }
+      
+       temp_image1.unlock();
+       bzero(temp_image2.lock(),temp_image2.Width()*temp_image2.Height());
+       temp_image2.unlock();
        ippiWarpPerspective_8u_C1R((Ipp8u*)temp_image1.data(),
      				 roi,temp_image1.Width(),roi1,
 				 (Ipp8u*)temp_image2.lock(),
@@ -56,7 +71,8 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        gray_image_l.unlock();
        //XVWritePGM(gray_image_l,"im_left.pgm");
        roi_rect.x=0;
-
+       bzero(temp_image1.lock(),temp_image1.Width()*temp_image1.Height());
+       temp_image1.unlock();
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_r.data(), image_r.Width(),
 				 temp_image1.lock(),temp_image1.Width(),
 				 roi,config.camera_params[1].f[0], 
@@ -67,7 +83,19 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 			 	 config.camera_params[1].kappa[1], DistortBuffer);
 
        temp_image1.unlock();
+       u_char min_vr,max_vr;
+       min_vr=255,max_vr=0;
+       ptr=temp_image1.lock();
+       for(int i=0;i<temp_image1.Height();i++)
+       {
+         if(min_vr>ptr[i*width+i]) min_vr=ptr[i*width+i];
+         if(max_vr<ptr[i*width+i]) max_vr=ptr[i*width+i];
+       }
+      
+       temp_image1.unlock();
        //rectify rotation
+       bzero(temp_image2.lock(),temp_image2.Width()*temp_image2.Height());
+       temp_image2.unlock();
        ippiWarpPerspective_8u_C1R((Ipp8u*)temp_image1.data(),
       				 roi,temp_image1.Width(),roi1,
 				 (Ipp8u*)temp_image2.lock(),
@@ -83,8 +111,20 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				 dst_roi,(float)MAX_STEREO_WIDTH/width,
 				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_r.unlock();
-       XVWritePGM(gray_image_r,"im_right.pgm");
-
+#ifdef NEVER
+       if(min_vr < min_vl)
+       {  
+         ippiAddC_8u_C1IRSfs(min_vl-min_vr,(Ipp8u*)gray_image_r.lock(),
+	        gray_image_r.Width(), dst_roi,1);
+         gray_image_r.unlock();
+       }
+       else
+       {
+         ippiAddC_8u_C1IRSfs(min_vr-min_vl,(Ipp8u*)gray_image_l.lock(),
+	        gray_image_l.Width(), dst_roi,1);
+         gray_image_l.unlock();
+       }
+#endif
        stereoUpload(gray_image_l.data(),gray_image_r.data());
        stereoProcess();
        stereoDownload(dispLeft.lock(),dispRight.lock());

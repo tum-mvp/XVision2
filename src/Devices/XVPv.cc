@@ -291,7 +291,7 @@ XVPv<IMTYPE>::XVPv(unsigned long u_id,char*param,bool in_verbose):
    unsigned long          num_cameras;
    bool			  found=false;
    int i,found_i;
-   XVSize		  size(640,480);
+   XVSize		  size(782,582);
    static bool		   system_initialized=false;
 
 
@@ -320,39 +320,42 @@ XVPv<IMTYPE>::XVPv(unsigned long u_id,char*param,bool in_verbose):
     }
    else
    {
-      if(num_cameras>0) i=0,found=true;
+      if(num_cameras>0) found_i=0,found=true;
    }
+   //found=PvCameraInfoByAddrEx((192<<24)|(168<<16)|(1<<8)|(101),
+    //              &(camera_list[found_i]),NULL,sizeof(tPvCameraInfoEx));
    if(!found) {cerr << "Couldn't find camera"<< endl;throw 12;}
    if(verbose)
    {
         cout << "UniqueId " << camera_list[found_i].UniqueId << endl;
-        cout << "SerialString " << camera_list[found_i].SerialString 
-	     << endl;
-        cout << "DisplayName " << camera_list[found_i].DisplayName << endl;
    }
-   CameraStruct.UID= camera_list[found_i].UniqueId;
-   if(PvCameraOpen(camera_list[found_i].UniqueId,ePvAccessMaster,
+  CameraStruct.UID= camera_list[found_i].UniqueId;
+  if(PvCameraOpen(camera_list[found_i].UniqueId,ePvAccessMaster,
+   //if(found_i=PvCameraOpenByAddr(u_id,ePvAccessMaster,
                    &CameraStruct.Handle))
    {
-      cerr << "Couldn't open camera" << endl;
+      cerr << "Couldn't open camera "<< found_i<< endl;
       throw 13;
    }
+
    //if(verbose) AttrList(CameraStruct.Handle);
    tPvUint32 nBytesMax;
    // get the last packet size set on the camera
    if(PvAttrUint32Get( CameraStruct.Handle, "PacketSize", &nBytesMax )) throw 19;
    cerr << "PacketSize " << nBytesMax  <<endl;
-   if(PvCaptureAdjustPacketSize( CameraStruct.Handle, 1518 ))        throw 19;
-   if(AttrWrite(CameraStruct.Handle,"PixelFormat","Bgra32")) throw 21;
-   //if(AttrWrite(CameraStruct.Handle,"FrameRate","30")) throw 21;
+   if(PvCaptureAdjustPacketSize( CameraStruct.Handle, 8228 ))     throw 19;
+   //if(AttrWrite(CameraStruct.Handle,"PixelFormat","Rgba32")) throw 21;
    if(PvAttrEnumSet(CameraStruct.Handle,"FrameStartTriggerMode","Freerun")) throw 21;
    if(PvAttrUint32Set(CameraStruct.Handle,"Width",size.Width())) throw 20;
    if(PvAttrUint32Set(CameraStruct.Handle,"Height",size.Height())) throw 20;
-   if(PvAttrUint32Set(CameraStruct.Handle,"Height",size.Height())) throw 20;
+   if(AttrWrite(CameraStruct.Handle,"FrameRate","30")) throw 21;
+   if(PvAttrEnumSet(CameraStruct.Handle,"FrameStartTriggerMode",
+	                    "FixedRate")) throw 21;
+
 
    init_map(size,2);
    PvCaptureStart(CameraStruct.Handle);
-   set_params(param);
+   //set_params(param);
    PvCommandRun(CameraStruct.Handle,"AcquisitionStart");;
    CameraStruct.pv_buffers=new tPvFrame[n_buffers];
    PvAttrUint32Get(CameraStruct.Handle,"TotalBytesPerFrame",&frame_size);
@@ -377,4 +380,5 @@ XVPv<IMTYPE>::~XVPv()
 }
 
 template class XVPv<XVImageRGB<XV_RGBA32> >;
+template class XVPv<XVImageScalar<unsigned char> >;
 

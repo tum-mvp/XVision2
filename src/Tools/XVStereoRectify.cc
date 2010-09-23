@@ -175,7 +175,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
     for(int x=0;x<MAX_STEREO_WIDTH;x++,r_ptr++,point_ptr++)
     {
 #ifndef OPENCV_STEREO
-       if(*r_ptr>200 && *r_ptr==0)
+       if(*r_ptr>200 || *r_ptr==0)
        {
          point_ptr->coord[0]=0,
 	 point_ptr->coord[1]=0,

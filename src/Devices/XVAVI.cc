@@ -2,9 +2,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <ippcc.h>
-#ifndef UINT64_C
-#define UINT64_C(value) __CONCAT(value, ULL) 
-#endif
 
 #include "XVAVI.h"
 

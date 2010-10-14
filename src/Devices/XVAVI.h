@@ -8,10 +8,15 @@
 
 extern "C"{
 #include <stdint.h>
+#ifndef UINT64_C
+#define UINT64_C(value) __CONCAT(value, ULL) 
+#endif
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 }
+
+
 
 #include <stdio.h>
 

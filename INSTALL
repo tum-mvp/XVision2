@@ -1,14 +1,22 @@
-make sure that a link to the correct Linux kernel exists
-Call 
-  uname -r
+Install
+   IPP and set IPPROOT shell environment to the root
 
-make sure that there is a link
-  ln -s <your current active kernel source> /usr/src/linux-`uname -r`
+install
+   libX11-devel
+   libXau-devel
+   ffmpeg-devel
+   libXpm
+   libXi
+   libXmu-devel
 
 call 
   make config
   make
 
+
+you can set
+  IPPROOT - to your local IPP installation
+  CUDASTEREO - to your cuda stereo implementation
 That's it!!
 
 Windows User (Cygwin) - uncomment the HOST statement in Makefile and Makefile.in

@@ -30,6 +30,7 @@ class XVStereoRectify
      double 		   coeffs_l[3][3];
      double 		   coeffs_r[3][3];
      float       	   B;
+     bool		   rot_flag;
 
      XVImageScalar<float>  dispLeft, dispRight;
      Stereo_3DPoint	   *PointBuffer;
@@ -46,11 +47,12 @@ class XVStereoRectify
      XVImageScalar<u_char> gray_image_l,gray_image_r;
      XVImageScalar<float>  calc_disparity(XVImageScalar<u_char> &image_l,
      					  XVImageScalar<u_char> &image_r,
-					  bool left_image=true) ;
+					  bool left_image=true,
+					  int offset=0) ;
      bool		   calc_3Dpoints(int &num_points,
      					Stereo_3DPoint * &Points3D);
      void		   calc_rectification(Config &_config);
-     XVStereoRectify(Config & _config);
+     XVStereoRectify(Config & _config, bool rotate=false);
      ~XVStereoRectify();
 };
 #endif

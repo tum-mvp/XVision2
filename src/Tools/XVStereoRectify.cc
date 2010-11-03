@@ -20,12 +20,13 @@ XVStereoRectify::cross(XVColVector &v1,XVColVector &v2)
 
 XVImageScalar<float>
 XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
-		                XVImageScalar<u_char> &image_r, bool left_image)
+		                XVImageScalar<u_char> &image_r, 
+				bool left_image,int offset)
 {
        int width=config.width;
        int height=config.height;
        IppiSize roi={temp_image1.Width(),temp_image1.Height()};
-       IppiRect roi1={0,0,temp_image1.Width(),temp_image1.Height()};
+       IppiRect roi1={0,offset,temp_image1.Width(),temp_image1.Height()};
        bzero(temp_image1.lock(),temp_image1.Width()*temp_image1.Height());
        temp_image1.unlock();
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_l.data(), image_l.Width(),
@@ -204,7 +205,11 @@ XVStereoRectify::calc_rectification(Config &_config)
   IppiSize roi={width,height};
   IppiRect roi_rect={0,0,width,height};
 
-
+   XVMatrix rot_90(3,3);
+   rot_90=0;
+   rot_90[0][1]=-1;
+   rot_90[1][0]=1;
+   rot_90[2][2]=1;
    XVMatrix ext(3,3);
    XVColVector T(3);
    ext[0][0]=_config.extrinsics[0],
@@ -244,6 +249,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    R_r[2][0]=-v2[1],R_r[2][1]=v2[0],R_r[2][2]=0;
    R_l=u_out +(R_l-u_out)*cos(alph)+R_r*sin(alph);
    R_r=R_l*ext.t();
+   if(rot_flag) R_l=rot_90*R_l,R_r=rot_90*R_r;
    // rectification matrices H
    XVMatrix K(3,3),H;
    // camera matrix
@@ -317,9 +323,10 @@ XVStereoRectify::calc_rectification(Config &_config)
 }
 
 
-XVStereoRectify::XVStereoRectify(Config & _config)
+XVStereoRectify::XVStereoRectify(Config & _config, bool rotate)
 {
   
+   rot_flag=rotate;
    config=_config;
    int width=config.width,height=config.height;
    IppiSize roi={width,height};

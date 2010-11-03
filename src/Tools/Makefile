@@ -1,5 +1,5 @@
 CUR_DEPTH	= ../../
-CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
+CXXFLAGS	= -g -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
 CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include \
 		  -I/usr/local/include/opencv
 

@@ -434,7 +434,8 @@ void * XVRemoteWindowX<T>::supervising( void * obj ) {
       pthread_cond_wait (&(data->worker_signal), &(data->signal_mutex));
       pthread_mutex_unlock (&(data->signal_mutex));
     }
-    data->unlock_next();
+    else
+    	data->unlock_next();
 
   }
   return 0 ;

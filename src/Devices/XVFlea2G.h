@@ -8,14 +8,15 @@
 #include <ippcc.h>
 #endif
 
-#define __user 
+#define __user
 #include <sys/types.h>
 #include <video1394.h>
-#include <libraw1394/raw1394.h>
-#include "dc1394/dc1394.h"
+//#include <libraw1394/raw1394.h>
+#include <dc1394/dc1394.h>
 #include "config.h"
 #include <XVVideo.h>
 #include <list>
+#include <pthread.h>
 
 #ifdef HAVE_VIDEO1394_NEW
 #define DC_DEVICE_NAME	"/dev/video1394/0"
@@ -43,7 +44,7 @@
   B : number of buffers ( same as defined in XVVideo.h )
   R : pixel format from camera, 0 = YUV422, 1 = RGB, 2 = MONO8,
                                 3 = MONO16, 4 = YUV411, 5 = YUV444
-				default = 0 
+				default = 0
   S : scale, 0 = any, 1 = 160x120, 2 = 320x240, 3 = 640x480,
              4 = 800x600, 5 = 1024x768, 6 = 1280x960, 7 = 1600x1200
 	     default = 0
@@ -78,6 +79,10 @@
 
 typedef std::list<int> Jobs;
 
+
+void BayerNearestNeighbor_RGB24(unsigned char *src,
+				XVImageRGB<XV_RGB24>& targ, int sx, int sy,
+				dc1394color_filter_t optical_filter);
 
 template <class IMTYPE>
 class XVFlea2G : public XVVideo<IMTYPE> {
@@ -128,8 +133,9 @@ class XVFlea2G : public XVVideo<IMTYPE> {
    bool			 threadded;
    static void			 *grab_thread(void *obj);
    dc1394video_mode_t get_camera_mode();
-   Jobs			  requests; 
-  public:
+   Jobs			  requests;
+   pthread_mutex_t job_mutex;
+ public:
    using XVVideo<IMTYPE>::frame ;
    // camera_id can either be the 64-bit id of the camera, or one
    // of the DIG1394_*_CAMERA macro defined above
@@ -147,11 +153,14 @@ class XVFlea2G : public XVVideo<IMTYPE> {
    virtual int		wait_for_completion(int frame);
    int         get_buffer_index(){return buffer_index;}
 
+   //dc1394color_filter_t
+   dc1394color_filter_t get_optical_filter(){return this->optical_filter;}
+
    // Wrappers for online control of camera parameters
-   inline int  set_optical_filter(int f) 
+   inline int  set_optical_filter(int f)
                  {return dc1394_feature_set_value(camera_node,
 		 DC1394_FEATURE_OPTICAL_FILTER,f);}
-   inline int  set_feature_manual(dc1394feature_t f) 
+   inline int  set_feature_manual(dc1394feature_t f)
                  {return dc1394_feature_set_mode(camera_node,
 		 f,DC1394_FEATURE_MODE_MANUAL);}
    inline int  set_feature_auto(dc1394feature_t f)

@@ -372,25 +372,25 @@ const char * strColor[] = { "Mono8", "YUV8 4:1:1", "YUV8 4:2:2", "YUV8 4:4:4",
 // returns the correpsonding color-space conversion function
 template<class T>
 void (*color_f(Color c))( const unsigned char *, T&, int ) {
-			switch (c) {
-			case mono8:
-				return &Convert<T>::mono8_f;
-			case mono16:
-				return &Convert<T>::mono16_f;
-			case rgb8:
-				return &Convert<T>::rgb8_f;
-			case rgb16:
-				return &Convert<T>::rgb16_f;
-			case yuv411:
-				return &Convert<T>::yuv411_f;
-			case yuv422:
-				return &Convert<T>::yuv422_f;
-			case yuv444:
-				return &Convert<T>::yuv444_f;
-			default:
-				return 0; // invalid or unimplemented
-			}
-		}
+	switch (c) {
+	case mono8:
+		return &Convert<T>::mono8_f;
+	case mono16:
+		return &Convert<T>::mono16_f;
+	case rgb8:
+		return &Convert<T>::rgb8_f;
+	case rgb16:
+		return &Convert<T>::rgb16_f;
+	case yuv411:
+		return &Convert<T>::yuv411_f;
+	case yuv422:
+		return &Convert<T>::yuv422_f;
+	case yuv444:
+		return &Convert<T>::yuv444_f;
+	default:
+		return 0; // invalid or unimplemented
+	}
+}
 
 		// returns the size of a line of pixels
 		int getLineSize(int width, Color c) {
@@ -444,7 +444,9 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 			if (i_frame < 0 || i_frame >= n_buffers)
 				return 0;
 			pthread_mutex_lock(&wait_grab[i_frame]);
+			pthread_mutex_lock (&job_mutex);
 			requests.push_front(i_frame);
+			pthread_mutex_unlock (&job_mutex);
 			return 1;
 		}
 
@@ -469,7 +471,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 			targ.unlock();
 		}
 
-		void BayerNearestNeighbor(unsigned char *src,
+		void BayerNearestNeighbor_RGB24(unsigned char *src,
 				XVImageRGB<XV_RGB24>& targ, int sx, int sy,
 				dc1394color_filter_t optical_filter) {
 
@@ -656,7 +658,9 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 						DC1394_CAPTURE_POLICY_WAIT, &cur_frame);
 				if (!me->requests.empty()) {
 					i_frame = me->requests.back();
+					pthread_mutex_lock(&(me->job_mutex));
 					me->requests.pop_back();
+					pthread_mutex_unlock(&(me->job_mutex));
 					if (me->mode_type>=0/*me->format!=7*/) {
 						switch (me->mode_type) {
 						case RGB8:
@@ -683,17 +687,17 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 									me->frame(i_frame).Width() * me->frame(
 											i_frame).Height());
 							break;
-						/*case MONO8:
+						case MONO8:
 							memcpy(me->frame(i_frame).lock(), cur_frame->image,
 									(me->frame(i_frame).Width()) * (me->frame(
 											i_frame).Height()));
 							me->frame(i_frame).unlock();
-							break;*/
-						case MONO8: //Firefly Hack by Elmar
-							BayerNearestNeighbor(cur_frame->image, me->frame(i_frame),
-									me->frame(i_frame).Width(),me->frame(i_frame).Height(),
-																me->optical_filter);
 							break;
+//						case MONO8: //Firefly Hack by Elmar
+//							BayerNearestNeighbor(cur_frame->image, me->frame(i_frame),
+//									me->frame(i_frame).Width(),me->frame(i_frame).Height(),
+//																me->optical_filter);
+//							break;
 						default:
 							cerr << "unknown color format: " << me->mode_type << endl;
 							break;
@@ -722,14 +726,26 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 
 		template<class IMTYPE>
 		XVFlea2G<IMTYPE>::~XVFlea2G() {
-			if (threadded) {
-				stop_flag=true;
-				pthread_join(grabber_thread, 0);
-				pthread_detach(grabber_thread);
-				for (int i = 0; i < n_buffers; i++)
-					pthread_mutex_destroy(&wait_grab[i]);
+			cerr << "(XVFlea2G::~XVFlea2G) Notice: destructor called.\n";
+			static volatile bool first=true;
+			if(first)
+			{
+				first=false;
+				if (threadded) {
+					stop_flag=true;
+					pthread_join(grabber_thread, 0);
+					pthread_detach(grabber_thread);
+					for (int i = 0; i < n_buffers; i++)
+						pthread_mutex_destroy(&wait_grab[i]);
+					cerr << "(XVFlea2G::~XVFlea2G) Notice: closing interface.\n";
+				}
+				close();
+				cerr << "(XVFlea2G::~XVFlea2G) Notice: interface closed.\n";
 			}
-			close();
+			else
+				cerr << "(XVFlea2G::~XVFlea2G) Notice: interface already at closing.\n";
+
+			pthread_mutex_destroy( &job_mutex );
 		}
 
 		template<class IMTYPE>
@@ -992,6 +1008,12 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 			roi_height=-1;
 			if (parm_string)
 				set_params((char *) parm_string);
+
+			pthread_mutexattr_t job_attr ;
+			pthread_mutexattr_init( &job_attr );
+			//pthread_mutexattr_setkind_np( &attr, PTHREAD_MUTEX_ERRORCHECK_NP );
+			pthread_mutex_init( &job_mutex, &job_attr );
+			pthread_mutexattr_destroy( &job_attr );
 
 			dc1394video_mode_t mode=get_camera_mode();
 
@@ -1303,27 +1325,78 @@ re_init:
 						break;
 					case 4: //RGB8
 						mode_type=RGB8;
-						fbytesPerPacket*=3;
+//						fbytesPerPacket*=3;
 						break;
 					case 5: //MONO16
 					case 7: //MONO16S
 						mode_type=MONO16;
 					case 10: //RAW16
-						fbytesPerPacket*=2;
+//						fbytesPerPacket*=2;
 						break;
 					case 6: //RGB16
 					case 8: //RGB16S
 						mode_type=RGB16;
-						fbytesPerPacket*=6;
+//						fbytesPerPacket*=6;
 						break;
 				}
 
-				fbytesPerPacket*=roi_width*roi_height;
+//				fbytesPerPacket*=roi_width*roi_height;
+				cerr << "ROI: " << roi_width << "x" << roi_height << endl;
 
-				int bytesPerPacket = static_cast<int>(ceil(fbytesPerPacket));
+//				if(dc1394_format7_set_packet_size(camera_node, mode, 183.0))// bytesPerPacket))
+//				{
+//					cerr << "Failed to set packet size (framerate)" << endl;
+//										throw(13);
+//				}
 
-				dc1394_format7_set_packet_size(camera_node, mode,
-						bytesPerPacket);
+				if (dc1394_feature_set_power(camera_node, DC1394_FEATURE_FRAME_RATE, DC1394_ON)!=DC1394_SUCCESS)
+					cerr << "Could not set feature on";
+
+				//Manual mode is necessary to activate absolute mode on Fireflies
+				//if(dc1394_feature_set_absolute_control(camera_node, DC1394_FEATURE_FRAME_RATE, DC1394_ON)!=DC1394_SUCCESS)
+				{
+				    //cerr << "Could not toggle absolute setting control\n";
+				    //following lines may be used to hack a framerate in case the absolute mode is not supported
+				    if (dc1394_feature_set_mode(camera_node, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_MANUAL)!=DC1394_SUCCESS)
+				    	cerr << "Could not set manual mode";
+				    if (dc1394_feature_set_value(camera_node,DC1394_FEATURE_FRAME_RATE,472.0)!=DC1394_SUCCESS)
+				        cerr << "Could not set feature";
+				    unsigned int value=0;
+				    if (dc1394_feature_get_value(camera_node,DC1394_FEATURE_FRAME_RATE,&value)!=DC1394_SUCCESS)
+				        cerr << "Could not set feature";
+				    cout << "Set camera framerate to " << value << endl;
+				}
+				if(dc1394_feature_set_absolute_control(camera_node, DC1394_FEATURE_FRAME_RATE, DC1394_ON)==DC1394_SUCCESS)
+				{
+
+					dc1394switch_t h;
+					if(dc1394_feature_get_absolute_control(camera_node, DC1394_FEATURE_FRAME_RATE, &h)!=DC1394_SUCCESS)
+						cerr << "Can't get absolute control!";
+					cout << "Set camera to " << (int)h << endl;
+					float value=-1;
+					cout << "Try to set camera framerate to " << fbytesPerPacket << endl;
+					//do{
+					for(int j=0;j<10;j++)
+					{
+					if(dc1394_feature_set_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, fbytesPerPacket)!=DC1394_SUCCESS)
+					    cerr << "Can't set absolute value!";
+					if (dc1394_feature_get_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, &value)!=DC1394_SUCCESS)
+					    cerr << "Can't get absolute value!";
+					cout << "Camera framerate set to " << value << endl;
+					}
+					//}while(value!=100.0);
+				}
+				else
+					cerr << "Could not toggle absolute setting control\n";
+
+//				unsigned int bytesPerPacket = static_cast<int>(ceil(fbytesPerPacket));
+//				uint32_t unit_bytes; uint32_t max_bytes;
+//				if(dc1394_format7_get_packet_parameters(camera_node, mode, &unit_bytes, &max_bytes))
+//					cerr << "error1" << endl;
+//				if(dc1394_format7_get_packet_size(camera_node, mode, &bytesPerPacket))
+//					cerr << "error2" << endl;
+//				cerr << unit_bytes << " " << max_bytes << " " << bytesPerPacket << endl;
+
 				XVSize sized(roi_width, roi_height);
 				if(verbose)
 					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
@@ -1407,10 +1480,12 @@ re_init:
 			// setting the shutter
 			if (shutter != -1) {
 				unsigned int min_shutter_val, max_shutter_val;
+				cout << "Setting shutter to " << shutter << endl;
 				dc1394_feature_get_boundaries(camera_node,
 						DC1394_FEATURE_SHUTTER, &min_shutter_val,
 						&max_shutter_val);
 				if (shutter <= max_shutter_val && shutter >= min_shutter_val) {
+					set_shutter_manual();
 					set_shutter( shutter);
 				} else {
 					if (verbose)
@@ -1439,11 +1514,13 @@ re_init:
 			// setting the exposure
 			if (exposure != -1) {
 				unsigned int min_exposure_val, max_exposure_val;
+				cout << "Setting exposure to " << exposure << endl;
 				dc1394_feature_get_boundaries(camera_node,
 						DC1394_FEATURE_EXPOSURE, &min_exposure_val,
 						&max_exposure_val);
 				if (exposure <= max_exposure_val && exposure
 						>= min_exposure_val) {
+					set_exposure_manual();
 					set_exposure( exposure);
 				} else {
 					if (verbose)
@@ -1464,6 +1541,8 @@ re_init:
 				}
 				dc1394_feature_whitebalance_set_value(camera_node, uv[0], uv[1]);
 			}
+			else
+				dc1394_feature_whitebalance_set_auto(camera_node);
 
 			buffer_index = 0;
 			nowait_flag = false;
@@ -1512,6 +1591,7 @@ re_init:
 
 			return frame(buffer_index);
 		}
+
 		template class XVFlea2G<XVImageRGB<XV_RGB15> > ;
 		template class XVFlea2G<XVImageRGB<XV_RGB16> > ;
 		template class XVFlea2G<XVImageRGB<XV_RGB24> > ;

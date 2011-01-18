@@ -440,7 +440,9 @@ int XVDig1394<IMTYPE>::initiate_acquire(int i_frame)
 {
    if(i_frame<0 || i_frame>=n_buffers) return 0;
    pthread_mutex_lock(&wait_grab[i_frame]);
+   pthread_mutex_lock (&job_mutex);
    requests.push_front(i_frame);
+   pthread_mutex_unlock (&job_mutex);
    return 1;
 }
 
@@ -640,7 +642,9 @@ void *XVDig1394<IMTYPE>::grab_thread(void *obj) {
   if(!me->requests.empty())
   {
    i_frame=me->requests.back();
-   me->requests.pop_back();
+	pthread_mutex_lock(&(me->job_mutex));
+	me->requests.pop_back();
+	pthread_mutex_unlock(&(me->job_mutex));
    if(!me->format7)
    {
      switch(me->mode_type)
@@ -703,6 +707,7 @@ XVDig1394<IMTYPE>::~XVDig1394()
       pthread_mutex_destroy(&wait_grab[i]);
   }
   close();
+  pthread_mutex_destroy( &job_mutex );
 }
 
 template <class IMTYPE>
@@ -717,6 +722,12 @@ XVDig1394<IMTYPE>::XVDig1394( const char *dev_name, const char *parm_string,
   dc1394video_modes_t modes;
   int		      mode_index;
   threadded=false;
+
+  pthread_mutexattr_t job_attr ;
+  pthread_mutexattr_init( &job_attr );
+  //pthread_mutexattr_setkind_np( &attr, PTHREAD_MUTEX_ERRORCHECK_NP );
+  pthread_mutex_init( &job_mutex, &job_attr );
+  pthread_mutexattr_destroy( &job_attr );
 
   // parsing parameters
   verbose=true;optical_flag=false;reset_ieee=false;

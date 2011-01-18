@@ -1542,7 +1542,7 @@ re_init:
 				dc1394_feature_whitebalance_set_value(camera_node, uv[0], uv[1]);
 			}
 			else
-				dc1394_feature_whitebalance_set_auto(camera_node);
+				set_whitebalance_auto();
 
 			buffer_index = 0;
 			nowait_flag = false;

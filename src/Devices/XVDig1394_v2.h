@@ -16,6 +16,7 @@
 #include "config.h"
 #include <XVVideo.h>
 #include <list>
+#include <pthread.h>
 
 #ifdef HAVE_VIDEO1394_NEW
 #define DC_DEVICE_NAME	"/dev/video1394/0"
@@ -117,6 +118,7 @@ class XVDig1394 : public XVVideo<IMTYPE> {
    bool			 threadded;
    static void			 *grab_thread(void *obj);
    Jobs			  requests; 
+   pthread_mutex_t job_mutex;
   public:
    using XVVideo<IMTYPE>::frame ;
    // camera_id can either be the 64-bit id of the camera, or one

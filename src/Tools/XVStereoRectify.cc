@@ -40,6 +40,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 
        temp_image1.unlock();
        u_char min_vl,max_vl;
+       int sum_l=0;
        u_char *ptr;
        min_vl=255,max_vl=0;
        ptr=temp_image1.lock();
@@ -47,8 +48,9 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        {
          if(min_vl>ptr[i*width+i]) min_vl=ptr[i*width+i];
          if(max_vl<ptr[i*width+i]) max_vl=ptr[i*width+i];
+	 sum_l+=ptr[i*width+i];
        }
-      
+       sum_l/=temp_image1.Height();
        temp_image1.unlock();
        bzero(temp_image2.lock(),temp_image2.Width()*temp_image2.Height());
        temp_image2.unlock();
@@ -90,6 +92,7 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 			 	 config.camera_params[1].kappa[1], DistortBuffer);
 
        temp_image1.unlock();
+       int sum_r=0;
        u_char min_vr,max_vr;
        min_vr=255,max_vr=0;
        ptr=temp_image1.lock();
@@ -97,7 +100,9 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
        {
          if(min_vr>ptr[i*width+i]) min_vr=ptr[i*width+i];
          if(max_vr<ptr[i*width+i]) max_vr=ptr[i*width+i];
+	 sum_r+=ptr[i*width+i];
        }
+       sum_r/=temp_image1.Height();
       
        temp_image1.unlock();
        //rectify rotation
@@ -122,7 +127,6 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
         //                     (Ipp8u*)gray_image_r.lock(),gray_image_r.Width(),
 	//		     dst_roi,ippMskSize5x5);
        //gray_image_r.unlock();
-#ifdef NEVER
        if(min_vr < min_vl)
        {  
          ippiAddC_8u_C1IRSfs(min_vl-min_vr,(Ipp8u*)gray_image_r.lock(),
@@ -135,7 +139,6 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 	        gray_image_l.Width(), dst_roi,1);
          gray_image_l.unlock();
        }
-#endif
 #ifdef OPENCV_STEREO
        cv::Mat img1(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
        cv::Mat img2(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
@@ -223,31 +226,23 @@ XVStereoRectify::calc_rectification(Config &_config)
    ext[2][2]=_config.extrinsics[10];
    T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
    T[2]=_config.extrinsics[11];
-   //T=ext.t()*T;
+   T=ext.t()*T;
    
-   XVColVector v1(3);
-   XVColVector v2(3);
+   XVColVector v1(3),v2(3),v3(3);
    B=sqrt(Sqr(T[0])+Sqr(T[1])+Sqr(T[2]));
    //calculate new Baseline alignment
    v1[0]=T[0]/B,v1[1]=T[1]/B,v1[2]=T[2]/B;
-   v2[0]=1,v2[1]=0,v2[2]=0;
-   v2=cross(v1,v2);
+   v2[0]=0,v2[1]=0,v2[2]=1;
+   v2=cross(v2,v1);
    float norm=sqrt(Sqr(v2[0])+Sqr(v2[1])+Sqr(v2[2]));
-   float alph=asin(norm);
    if(norm>1e-7) v2/=norm;
-   XVMatrix u_out(3,3);
-
-   u_out[0][0]=v2[0]*v2[0],u_out[0][1]=v2[0]*v2[1],u_out[0][2]=v2[0]*v2[2];
-   u_out[1][0]=v2[1]*v2[0],u_out[1][1]=v2[1]*v2[1],u_out[1][2]=v2[1]*v2[2];
-   u_out[2][0]=v2[2]*v2[0],u_out[2][1]=v2[2]*v2[1],u_out[2][2]=v2[2]*v2[2];
-   R_l[0][0]=1.0,R_l[0][1]=0.0,R_l[0][2]=0.0;
-   R_l[1][0]=0.0,R_l[1][1]=1.0,R_l[1][2]=0.0;
+   v3=cross(v1,v2);
+   norm=sqrt(Sqr(v3[0])+Sqr(v3[1])+Sqr(v3[2]));
+   if(norm>1e-7) v3/=norm;
+   R_l[0][0]=v1[0],R_l[0][1]=v1[1],R_l[0][2]=v1[2];
+   R_l[1][0]=v2[0],R_l[1][1]=v2[1],R_l[1][2]=v2[2];
+   R_l[2][0]=v3[0],R_l[2][1]=v3[1],R_l[2][2]=v3[2];
    R_l[2][0]=0.0,R_l[2][1]=0.0,R_l[2][2]=1.0;
-   //abusing R_r for the skew matrix
-   R_r[0][0]=0.0,R_r[0][1]=-v2[2],R_r[0][2]=v2[1];
-   R_r[1][0]=v2[2],R_r[1][1]=0,R_r[1][2]=-v2[0];
-   R_r[2][0]=-v2[1],R_r[2][1]=v2[0],R_r[2][2]=0;
-   R_l=u_out +(R_l-u_out)*cos(alph)+R_r*sin(alph);
    R_r=R_l*ext.t();
    if(rot_flag) R_l=rot_90*R_l,R_r=rot_90*R_r;
    // rectification matrices H
@@ -339,10 +334,10 @@ XVStereoRectify::XVStereoRectify(Config & _config, bool rotate)
    sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.minDisparity = _config.offset;
    sgbm.numberOfDisparities = 64;
-   sgbm.uniquenessRatio = 10;
+   sgbm.uniquenessRatio = 20;
    sgbm.speckleWindowSize = 100;
    sgbm.speckleRange = 32;
-   sgbm.disp12MaxDiff = 1;
+   sgbm.disp12MaxDiff = 3;
    sgbm.fullDP = true;
 #else
    stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);

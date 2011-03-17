@@ -12,8 +12,9 @@
 #define OPENCV_STEREO
 
 #ifdef OPENCV_STEREO
-#include <cv.h>
-#include <highgui.h>
+#include <core/core.hpp>
+#include <highgui/highgui.hpp>
+#include <calib3d/calib3d.hpp>
 #include <stdio.h>
 #endif
 

@@ -1,7 +1,7 @@
 CUR_DEPTH	= ../../
-CXXFLAGS	= -g -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
+CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
 CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include \
-		  -I/usr/local/include/opencv
+		  -I/usr/local/include/opencv2
 
 OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
 		  XVLookupTable.o XVStereoRectify.o

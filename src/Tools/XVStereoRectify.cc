@@ -270,12 +270,12 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    double quad[4][2];
    XVColVector coord(3);
    //project the four boundary corners
-   coord[0]=0,coord[1]=0,coord[2]=1;
+   coord[0]=0,coord[1]=-400,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
    quad[0][0]=coord[0],quad[0][1]=coord[1];
-   coord[0]=_config.width,coord[1]=0,coord[2]=1;
+   coord[0]=_config.width,coord[1]=-400,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
@@ -297,12 +297,12 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    K[1][2]=_config.camera_params[1].C[1];
    H=R_r*K.i();
    //project the four boundary corners
-   coord[0]=0,coord[1]=0,coord[2]=1;
+   coord[0]=0,coord[1]=-400,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
    quad[0][0]=coord[0],quad[0][1]=coord[1];
-   coord[0]=_config.width,coord[1]=0,coord[2]=1;
+   coord[0]=_config.width,coord[1]=-400,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;

@@ -219,19 +219,38 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    XVColVector v1(3),v2(3),v3(3);
    B=sqrt(Sqr(T[0])+Sqr(T[1])+Sqr(T[2]));
    //calculate new Baseline alignment
-   v1[0]=T[0]/B,v1[1]=T[1]/B,v1[2]=T[2]/B;
-   v2[0]=0,v2[1]=0,v2[2]=1;
-   v2=cross(v2,v1);
-   float norm=sqrt(Sqr(v2[0])+Sqr(v2[1])+Sqr(v2[2]));
-   if(norm>1e-7) v2/=norm;
-   v3=cross(v1,v2);
-   norm=sqrt(Sqr(v3[0])+Sqr(v3[1])+Sqr(v3[2]));
-   if(norm>1e-7) v3/=norm;
-   R_l[0][0]=v1[0],R_l[0][1]=v1[1],R_l[0][2]=v1[2];
-   R_l[1][0]=v2[0],R_l[1][1]=v2[1],R_l[1][2]=v2[2];
-   R_l[2][0]=v3[0],R_l[2][1]=v3[1],R_l[2][2]=v3[2];
-   R_l[2][0]=0.0,R_l[2][1]=0.0,R_l[2][2]=1.0;
+   if(rot_flag)
+   {
+     v2[0]=T[0]/B,v2[1]=T[1]/B,v2[2]=T[2]/B;
+     v3[0]=0,v3[1]=0,v3[2]=1;
+     v1=cross(v3,v2);
+     float norm=sqrt(Sqr(v1[0])+Sqr(v1[1])+Sqr(v1[2]));
+     if(norm>1e-7) v1/=norm;
+     v3=cross(v1,v2);
+     norm=sqrt(Sqr(v3[0])+Sqr(v3[1])+Sqr(v3[2]));
+     if(norm>1e-7) v3/=norm;
+     R_l[0][0]=v1[0],R_l[0][1]=v1[1],R_l[0][2]=v1[2];
+     R_l[1][0]=v2[0],R_l[1][1]=v2[1],R_l[1][2]=v2[2];
+     R_l[2][0]=v3[0],R_l[2][1]=v3[1],R_l[2][2]=v3[2];
+   }
+   else
+   {
+     v1[0]=T[0]/B,v1[1]=T[1]/B,v1[2]=T[2]/B;
+     v2[0]=0,v2[1]=0,v2[2]=1;
+     v2=cross(v2,v1);
+     float norm=sqrt(Sqr(v2[0])+Sqr(v2[1])+Sqr(v2[2]));
+     if(norm>1e-7) v2/=norm;
+     v3=cross(v1,v2);
+     norm=sqrt(Sqr(v3[0])+Sqr(v3[1])+Sqr(v3[2]));
+     if(norm>1e-7) v3/=norm;
+     R_l[0][0]=v1[0],R_l[0][1]=v1[1],R_l[0][2]=v1[2];
+     R_l[1][0]=v2[0],R_l[1][1]=v2[1],R_l[1][2]=v2[2];
+     R_l[2][0]=v3[0],R_l[2][1]=v3[1],R_l[2][2]=v3[2];
+   }
    R_r=R_l*ext.t();
+   
+   cerr << R_l << endl;
+   cerr << R_r << endl;
    if(rot_flag) R_l=rot_90*R_l,R_r=rot_90*R_r;
    // rectification matrices H
    XVMatrix K(3,3),H;
@@ -247,7 +266,7 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    K[1][1]=_config.camera_params[0].f[1];
    K_ideal[0][2]=width/2;
    K_ideal[1][2]=height/2;
-   H=K.i();
+   H=R_l*K.i();
    double quad[4][2];
    XVColVector coord(3);
    //project the four boundary corners
@@ -340,7 +359,7 @@ XVStereoRectify::XVStereoRectify(Config & _config, bool rotate)
    sgbm.P1 = 8*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.minDisparity = _config.offset;
-   sgbm.numberOfDisparities = 64;
+   sgbm.numberOfDisparities = 128;
    sgbm.uniquenessRatio = 20;
    sgbm.speckleWindowSize = 100;
    sgbm.speckleRange = 32;

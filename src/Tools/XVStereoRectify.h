@@ -53,6 +53,9 @@ class XVStereoRectify
      bool		   calc_3Dpoints(int &num_points,
      					Stereo_3DPoint * &Points3D);
      void		   calc_rectification(Config &_config);
+     void		   calc_rectification_matrix(XVMatrix &ext,
+                                                     XVColVector &T,
+     				Config &config);
      XVStereoRectify(Config & _config, bool rotate=false);
      ~XVStereoRectify();
 };

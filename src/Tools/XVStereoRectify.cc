@@ -201,8 +201,9 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   return true;
 }
 
-void 
-XVStereoRectify::calc_rectification(Config &_config)
+void
+XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T, 
+                                          Config &_config)
 {
   int width=_config.width,height=_config.height;
   IppiSize roi={width,height};
@@ -213,19 +214,6 @@ XVStereoRectify::calc_rectification(Config &_config)
    rot_90[0][1]=-1;
    rot_90[1][0]=1;
    rot_90[2][2]=1;
-   XVMatrix ext(3,3);
-   XVColVector T(3);
-   ext[0][0]=_config.extrinsics[0],
-   ext[0][1]=_config.extrinsics[1],
-   ext[0][2]=_config.extrinsics[2],
-   ext[1][0]=_config.extrinsics[4],
-   ext[1][1]=_config.extrinsics[5],
-   ext[1][2]=_config.extrinsics[6],
-   ext[2][0]=_config.extrinsics[8],
-   ext[2][1]=_config.extrinsics[9],
-   ext[2][2]=_config.extrinsics[10];
-   T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
-   T[2]=_config.extrinsics[11];
    T=ext.t()*T;
    
    XVColVector v1(3),v2(3),v3(3);
@@ -315,6 +303,25 @@ XVStereoRectify::calc_rectification(Config &_config)
    K_ideal[1][1]*=(float)MAX_STEREO_WIDTH/width;
    K_ideal[0][2]*=(float)MAX_STEREO_WIDTH/width;
    K_ideal[1][2]*=(float)MAX_STEREO_WIDTH/width;
+}
+
+void 
+XVStereoRectify::calc_rectification(Config &_config)
+{
+  int width=_config.width,height=_config.height;
+   XVMatrix ext(3,3);
+   XVColVector T(3);
+   ext[0][0]=_config.extrinsics[0],
+   ext[0][1]=_config.extrinsics[1],
+   ext[0][2]=_config.extrinsics[2],
+   ext[1][0]=_config.extrinsics[4],
+   ext[1][1]=_config.extrinsics[5],
+   ext[1][2]=_config.extrinsics[6],
+   ext[2][0]=_config.extrinsics[8],
+   ext[2][1]=_config.extrinsics[9],
+   ext[2][2]=_config.extrinsics[10];
+   T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
+   T[2]=_config.extrinsics[11];
 }
 
 

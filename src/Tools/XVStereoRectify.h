@@ -19,8 +19,8 @@
 #endif
 
 
-#define MAX_STEREO_WIDTH   640
-#define MAX_STEREO_HEIGHT  480
+#define MAX_STEREO_WIDTH   1288
+#define MAX_STEREO_HEIGHT  964
 
 using namespace std;
 
@@ -39,7 +39,7 @@ class XVStereoRectify
      Config		   config;
      XVMatrix 	           K_ideal;
      XVColVector           cross(XVColVector &v1,XVColVector &v2);
-     XVImageScalar<u_char> temp_image1,temp_image2;
+     XVImageScalar<u_char> temp_image1;
 #ifdef OPENCV_STEREO
      cv::StereoSGBM 	   sgbm;
      cv::Mat 		   disp;

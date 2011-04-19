@@ -39,48 +39,20 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 				config.camera_params[0].kappa[1], DistortBuffer);
 
        temp_image1.unlock();
-       u_char min_vl,max_vl;
-       int sum_l=0;
-       u_char *ptr;
-       min_vl=255,max_vl=0;
-       ptr=temp_image1.lock();
-       for(int i=0;i<temp_image1.Height();i++)
-       {
-         if(min_vl>ptr[i*width+i]) min_vl=ptr[i*width+i];
-         if(max_vl<ptr[i*width+i]) max_vl=ptr[i*width+i];
-	 sum_l+=ptr[i*width+i];
-       }
-       sum_l/=temp_image1.Height();
-       temp_image1.unlock();
-       bzero(temp_image2.lock(),temp_image2.Width()*temp_image2.Height());
-       temp_image2.unlock();
+       bzero(gray_image_l.lock(),gray_image_l.Width()*gray_image_l.Height());
+       gray_image_l.unlock();
        ippiWarpPerspective_8u_C1R((Ipp8u*)temp_image1.data(),
      				 roi,temp_image1.Width(),roi1,
-				 (Ipp8u*)temp_image2.lock(),
-				 temp_image2.Width(),roi1,coeffs_l,
+				 (Ipp8u*)gray_image_l.lock(),
+				 gray_image_l.Width(),roi1,coeffs_l,
 				 IPPI_INTER_NN);
-       temp_image2.unlock();
-       IppiSize dst_roi={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
-       IppiRect roi_rect={0,0,temp_image2.Width(),temp_image2.Height()};
-       //XVWritePGM(temp_image2,"im_left.pgm");
-#ifndef OPENCV_STEREO
-       roi_rect.x=config.offset*width/MAX_STEREO_WIDTH;
-#endif
-       XVImageScalar<u_char> im(gray_image_l.Width(),gray_image_l.Height());
-       ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
-                                 temp_image2.Width(), roi_rect,
-				 (Ipp8u *)gray_image_l.lock(),
-				 gray_image_l.Width(),
-				 dst_roi,(float)MAX_STEREO_WIDTH/width,
-				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_l.unlock();
        //ippiFilterGauss_8u_C1R((const Ipp8u*)im.data(),im.Width(),
         //                     (Ipp8u*)gray_image_l.lock(),gray_image_l.Width(),
 	//		     dst_roi,ippMskSize5x5);
        //gray_image_l.unlock();
        //XVWritePGM(gray_image_l,"im_left.pgm");
-       roi_rect.x=0;
-       bzero(temp_image1.lock(),temp_image1.Width()*temp_image1.Height());
+       bzero(gray_image_r.lock(),gray_image_r.Width()*gray_image_r.Height());
        temp_image1.unlock();
        ippiUndistortRadial_8u_C1R((Ipp8u*)image_r.data(), image_r.Width(),
 				 temp_image1.lock(),temp_image1.Width(),
@@ -92,56 +64,22 @@ XVStereoRectify::calc_disparity(XVImageScalar<u_char> &image_l,
 			 	 config.camera_params[1].kappa[1], DistortBuffer);
 
        temp_image1.unlock();
-       int sum_r=0;
-       u_char min_vr,max_vr;
-       min_vr=255,max_vr=0;
-       ptr=temp_image1.lock();
-       for(int i=0;i<temp_image1.Height();i++)
-       {
-         if(min_vr>ptr[i*width+i]) min_vr=ptr[i*width+i];
-         if(max_vr<ptr[i*width+i]) max_vr=ptr[i*width+i];
-	 sum_r+=ptr[i*width+i];
-       }
-       sum_r/=temp_image1.Height();
-      
-       temp_image1.unlock();
        //rectify rotation
-       bzero(temp_image2.lock(),temp_image2.Width()*temp_image2.Height());
-       temp_image2.unlock();
+       bzero(gray_image_r.lock(),gray_image_r.Width()*gray_image_r.Height());
+       gray_image_r.unlock();
        ippiWarpPerspective_8u_C1R((Ipp8u*)temp_image1.data(),
       				 roi,temp_image1.Width(),roi1,
-				 (Ipp8u*)temp_image2.lock(),
-				 temp_image2.Width(),roi1,coeffs_r,
+				 (Ipp8u*)gray_image_r.lock(),
+				 gray_image_r.Width(),roi1,coeffs_r,
 				 IPPI_INTER_NN);
-       temp_image2.unlock();
-       roi_rect.x=0;
-       roi_rect.x=0;
-       ippiResize_8u_C1R((const Ipp8u*)temp_image2.data(),roi,
-                                 temp_image2.Width(), roi_rect,
-				 (Ipp8u *)gray_image_r.lock(),
-				 gray_image_r.Width(),
-				 dst_roi,(float)MAX_STEREO_WIDTH/width,
-				 (float)MAX_STEREO_HEIGHT/height,IPPI_INTER_NN);
        gray_image_r.unlock();
        //ippiFilterGauss_8u_C1R((const Ipp8u*)im.data(),im.Width(),
         //                     (Ipp8u*)gray_image_r.lock(),gray_image_r.Width(),
 	//		     dst_roi,ippMskSize5x5);
        //gray_image_r.unlock();
-       if(min_vr < min_vl)
-       {  
-         ippiAddC_8u_C1IRSfs(min_vl-min_vr,(Ipp8u*)gray_image_r.lock(),
-	        gray_image_r.Width(), dst_roi,1);
-         gray_image_r.unlock();
-       }
-       else
-       {
-         ippiAddC_8u_C1IRSfs(min_vr-min_vl,(Ipp8u*)gray_image_l.lock(),
-	        gray_image_l.Width(), dst_roi,1);
-         gray_image_l.unlock();
-       }
 #ifdef OPENCV_STEREO
-       cv::Mat img1(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
-       cv::Mat img2(MAX_STEREO_HEIGHT,MAX_STEREO_WIDTH,CV_8U);
+       cv::Mat img1(config.height,config.width,CV_8U);
+       cv::Mat img2(config.height,config.width,CV_8U);
        memcpy(img1.data,gray_image_l.data(),
 			gray_image_l.Width()*gray_image_l.Height());
        memcpy(img2.data,gray_image_r.data(),
@@ -169,14 +107,14 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   Stereo_3DPoint	*point_ptr=PointBuffer;
   XVMatrix		CorrMat=R_l.t()*K_ideal.i()*B*K_ideal[0][0];
 
-  num_points=MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT;
+  num_points=config.width*config.height;
   Points3D=PointBuffer;
 
-  memset(PointBuffer,0,MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT*sizeof(Stereo_3DPoint));
+  memset(PointBuffer,0,config.width*config.height*sizeof(Stereo_3DPoint));
   XVColVector vec(3);
 
-  for(int y=0;y<MAX_STEREO_HEIGHT;y++)
-    for(int x=0;x<MAX_STEREO_WIDTH;x++,r_ptr++,point_ptr++)
+  for(int y=0;y<config.width;y++)
+    for(int x=0;x<config.height;x++,r_ptr++,point_ptr++)
     {
 #ifndef OPENCV_STEREO
        if(*r_ptr>200 || *r_ptr==0)
@@ -249,8 +187,6 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    }
    R_r=R_l*ext.t();
    
-   cerr << R_l << endl;
-   cerr << R_r << endl;
    if(rot_flag) R_l=rot_90*R_l,R_r=rot_90*R_r;
    // rectification matrices H
    XVMatrix K(3,3),H;
@@ -270,12 +206,14 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    double quad[4][2];
    XVColVector coord(3);
    //project the four boundary corners
-   coord[0]=0,coord[1]=-400,coord[2]=1;
+   //coord[0]=0,coord[1]=-400,coord[2]=1;
+   coord[0]=0,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
    quad[0][0]=coord[0],quad[0][1]=coord[1];
-   coord[0]=_config.width,coord[1]=-400,coord[2]=1;
+   //coord[0]=_config.width,coord[1]=-400,coord[2]=1;
+   coord[0]=_config.width,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
@@ -297,12 +235,14 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    K[1][2]=_config.camera_params[1].C[1];
    H=R_r*K.i();
    //project the four boundary corners
-   coord[0]=0,coord[1]=-400,coord[2]=1;
+   //coord[0]=0,coord[1]=-400,coord[2]=1;
+   coord[0]=0,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
    quad[0][0]=coord[0],quad[0][1]=coord[1];
-   coord[0]=_config.width,coord[1]=-400,coord[2]=1;
+   //coord[0]=_config.width,coord[1]=-400,coord[2]=1;
+   coord[0]=_config.width,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
@@ -318,10 +258,6 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    coord=K_ideal*coord;
    quad[3][0]=coord[0],quad[3][1]=coord[1];
    ippiGetPerspectiveTransform(roi_rect,quad,coeffs_r);
-   K_ideal[0][0]*=(float)MAX_STEREO_WIDTH/width;
-   K_ideal[1][1]*=(float)MAX_STEREO_WIDTH/width;
-   K_ideal[0][2]*=(float)MAX_STEREO_WIDTH/width;
-   K_ideal[1][2]*=(float)MAX_STEREO_WIDTH/width;
 }
 
 void 
@@ -341,6 +277,7 @@ XVStereoRectify::calc_rectification(Config &_config)
    ext[2][2]=_config.extrinsics[10];
    T[0]=_config.extrinsics[3],T[1]=_config.extrinsics[7],
    T[2]=_config.extrinsics[11];
+   calc_rectification_matrix(ext,T,_config);
 }
 
 
@@ -366,22 +303,21 @@ XVStereoRectify::XVStereoRectify(Config & _config, bool rotate)
    sgbm.disp12MaxDiff = 3;
    sgbm.fullDP = true;
 #else
-   stereoInit(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   stereoInit(config.width,config.height);
 #endif
 
-   PointBuffer=new Stereo_3DPoint[MAX_STEREO_WIDTH*MAX_STEREO_HEIGHT];
+   PointBuffer=new Stereo_3DPoint[config.width*config.height];
    if(!PointBuffer) throw 1;
    R_l.resize(3,3), R_r.resize(3,3);
 
-   dispLeft.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   dispRight.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   gray_image_l.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
-   gray_image_r.resize(MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT);
+   dispLeft.resize(config.width,config.height);
+   dispRight.resize(config.width,config.height);
+   gray_image_l.resize(config.width,config.height);
+   gray_image_r.resize(config.width,config.height);
    temp_image1.resize(width,height);
-   temp_image2.resize(width,height);
    ippiUndistortGetSize(roi,&dist_buf_size);
    DistortBuffer=new Ipp8u[dist_buf_size];
-   IppiSize roi_gauss={MAX_STEREO_WIDTH,MAX_STEREO_HEIGHT};
+   IppiSize roi_gauss={config.height,config.height};
    int gauss_size; 
    calc_rectification(_config);
 }

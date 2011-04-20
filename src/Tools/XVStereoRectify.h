@@ -5,7 +5,7 @@
 #include "XVMatrix.h"
 #include "XVImageScalar.h"
 #include "XVStereoRectifyTypes.h"
-#include "Stereo.h"
+//#include "Stereo.h"
 #include "camera_config.h"
 
 
@@ -55,7 +55,10 @@ class XVStereoRectify
      void		   calc_rectification(Config &_config);
      void		   calc_rectification_matrix(XVMatrix &ext,
                                                      XVColVector &T,
-     				Config &config);
+    				                     Config &config);
+      XVMatrix              get_camera_rotation(bool which)
+                              {return which? R_r : R_l;};
+
      XVStereoRectify(Config & _config, bool rotate=false);
      ~XVStereoRectify();
 };

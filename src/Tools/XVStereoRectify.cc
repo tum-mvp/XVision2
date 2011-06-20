@@ -113,23 +113,23 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
   memset(PointBuffer,0,config.width*config.height*sizeof(Stereo_3DPoint));
   XVColVector vec(3);
 
-  for(int y=0;y<config.width;y++)
-    for(int x=0;x<config.height;x++,r_ptr++,point_ptr++)
+  for(int y=0;y<config.height;y++)
+    for(int x=0;x<config.width;x++,r_ptr++,point_ptr++)
     {
-#ifndef OPENCV_STEREO
-       if(*r_ptr>200 || *r_ptr==0)
+       if (*r_ptr<=config.offset*16)
        {
          point_ptr->coord[0]=0,
 	 point_ptr->coord[1]=0,
 	 point_ptr->coord[2]=0;
          continue; //invalid pixel?
        }
-#endif
        vec[0]=x,vec[1]=y,vec[2]=1.0;
 #ifndef OPENCV_STEREO
        vec=(CorrMat*vec)/(*r_ptr+config.offset);
 #else
        vec=(CorrMat*vec)/(*r_ptr/16);
+       //cerr << *r_ptr << endl;
+       //cerr << vec << endl<< endl;
 #endif
        point_ptr->coord[0]=vec[0],
        point_ptr->coord[1]=vec[1],
@@ -152,7 +152,7 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    rot_90[0][1]=-1;
    rot_90[1][0]=1;
    rot_90[2][2]=1;
-   T=ext.t()*T;
+   //T=ext.t()*T;
    
    XVColVector v1(3),v2(3),v3(3);
    B=sqrt(Sqr(T[0])+Sqr(T[1])+Sqr(T[2]));
@@ -296,8 +296,8 @@ XVStereoRectify::XVStereoRectify(Config & _config, bool rotate)
    sgbm.P1 = 8*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.P2 = 32*sgbm.SADWindowSize*sgbm.SADWindowSize;
    sgbm.minDisparity = _config.offset;
-   sgbm.numberOfDisparities = 128;
-   sgbm.uniquenessRatio = 20;
+   sgbm.numberOfDisparities = config.disparity_range;
+   sgbm.uniquenessRatio = 15;
    sgbm.speckleWindowSize = 100;
    sgbm.speckleRange = 32;
    sgbm.disp12MaxDiff = 3;

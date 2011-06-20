@@ -31,6 +31,7 @@ typedef struct{
   FirewireStream  camera[2];
   float		  extrinsics[12];
   int		  offset;
+  int		  disparity_range;
   int		  num_points;
   int		  num_cameras;
   float		  *point;

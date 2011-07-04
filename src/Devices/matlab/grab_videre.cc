@@ -13,7 +13,7 @@
 #include <mex.h>
 #include <matrix.h>
 
-static	StereoVidere<XVImageRGB<XV_TRGB24>,XVImageScalar<u_short> > 
+static	StereoVidere<XVImageRGB<XV_TRGB24>,XVImageScalar<short> > 
                        * grabber=NULL;
 
 static  bool warped_flag=false;
@@ -24,7 +24,8 @@ static int get_image(void) {
   if (!grabber) {
     grabber = 
 	new StereoVidere<XVImageRGB<XV_TRGB24>,
-                         XVImageScalar<u_short> >();
+                         XVImageScalar<short> >();
+    grabber->set_stoc(true); 
     grabber->wait_for_completion(0);
     grabber->wait_for_completion(0);
     grabber->wait_for_completion(0);
@@ -93,7 +94,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	 {
            mexErrMsgTxt("videre_getImage: images were already warped");
 	 }
-	 XVImageScalar<u_short>*stereo_image=grabber->calc_stereo();
+	 XVImageScalar<short>*stereo_image=grabber->calc_stereo();
 	 warped_flag=true;
 	 const int dims[2]={stereo_image->Width(),
 		            stereo_image->Height()};

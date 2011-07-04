@@ -2,12 +2,12 @@ XVISION  =../../../
 EXTENSION=mexglx
 MEX = $(MATLAB)/bin/mex 
 MYCFLAGS = -I$(XVISION)/include\
-	   -I/usr/src/linux-2.4/drivers/ieee1394\
+	   -I$(SVS_PATH)/src\
            -I$(MATLAB)/extern/include 
-LIBS = -L$(XVISION)/lib -lXVDevs -lXVImages @VIDERE_LIBS@
+LIBS = -L$(XVISION)/lib -lXVDevs -lXVImages @IPPLIBS@ @VIDERE_LIBS@
 
 # files to generate
-FILES=@VIDERE_MATL@ grab_analog.mexglx grab_digit.mexglx
+FILES=@VIDERE_MATL@ 
 SUFFIXES+=.mexglx
 
 all: 	print $(FILES)

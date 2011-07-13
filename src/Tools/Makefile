@@ -1,7 +1,6 @@
 CUR_DEPTH	= ../../
-CXXFLAGS	= -g -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
-CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include \
-		   -I/usr/local/include/opencv2
+CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H 
+CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include -I /usr/local/include/opencv
 
 OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
 		  XVLookupTable.o XVStereoRectify.o
@@ -23,5 +22,5 @@ install: $(SDBIN) all
 
 include .depend
 
-$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC)  -lXext -lX11 -lpng ;
+$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC)  -lXxf86vm -lXext -lX11 -lpng ;
 	  	install -c $(SDBIN) $(CUR_DEPTH)/bin

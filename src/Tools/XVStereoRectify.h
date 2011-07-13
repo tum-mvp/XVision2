@@ -46,6 +46,9 @@ class XVStereoRectify
 #endif
    public:
      XVImageScalar<u_char> gray_image_l,gray_image_r;
+     void                  align_cameras(XVImageScalar<u_char> &image_l,
+                                         XVImageScalar<u_char> &image_r,
+					 int offset=0,bool rectify=true);
      XVImageScalar<float>  calc_disparity(XVImageScalar<u_char> &image_l,
      					  XVImageScalar<u_char> &image_r,
 					  bool left_image=true,

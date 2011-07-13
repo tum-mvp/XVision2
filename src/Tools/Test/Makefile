@@ -3,7 +3,7 @@ CPPFLAGS	= -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD)
 OBJS		= tableConvert.o #test_tools.o crop.o 
 PROGS           = tableConvert #test_tools crop
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVImages \
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		   -lXxf86vm -lXext -lX11 -lpng  -lpthread 
 
 SD = $(shell $(CUR_DEPTH)/bin/screendepth)
 

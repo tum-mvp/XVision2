@@ -14,12 +14,12 @@ XVAVI<IMTYPE>::XVAVI(const char * fname,
   : XVVideo<IMTYPE>(fname) {
 
   int d;
-
+  opts=NULL;
+  pFormatCtx=avformat_alloc_context();
   rest_count=BUF_SIZE;bytesRemaining=0,fFirstTime=true;
-  avcodec_init();
   index=0;
   av_register_all();
-  if((d=av_open_input_file(&pFormatCtx, fname, NULL, 0, NULL))!=0)
+  if((d=avformat_open_input(&pFormatCtx, fname, NULL, &opts))!=0)
   {
     cerr << "Couldn't open file " << fname << " with error " << d <<endl;
     throw 10;
@@ -30,7 +30,7 @@ XVAVI<IMTYPE>::XVAVI(const char * fname,
      throw 11;
   }
   for(int i=0; i<pFormatCtx->nb_streams; i++)
-    if(pFormatCtx->streams[i]->codec->codec_type==CODEC_TYPE_VIDEO)
+    if(pFormatCtx->streams[i]->codec->codec_type==AVMEDIA_TYPE_VIDEO)
     {
         videoStream=i;
         break;
@@ -89,20 +89,22 @@ int XVAVI<IMTYPE>::wait_for_completion(int framenum) {
 
     int             bytesDecoded;
     int             frameFinished=0;
-
+    AVPacket	    pkt;
     if(fFirstTime)
     {
         fFirstTime=false;
         packet.data=NULL;
     }
-
+    av_init_packet(&pkt);
     while(!frameFinished)
     {
        if(bytesRemaining > 0)
         while(bytesRemaining > 0 && !frameFinished)
         {
-            bytesDecoded=avcodec_decode_video(av_context, av_frame,
-                &frameFinished, rawData, bytesRemaining);
+	    pkt.data=rawData;
+	    pkt.size=bytesRemaining;
+            bytesDecoded=avcodec_decode_video2(av_context, av_frame,
+                &frameFinished, &pkt);
             if(bytesDecoded < 0)
             {
                 cerr<< "Error while decoding frame"<< endl;

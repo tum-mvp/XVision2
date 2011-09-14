@@ -39,6 +39,7 @@ private:
   AVCodec	  *av_codec;
   AVFrame	  *av_frame;
   AVFormatContext *pFormatCtx;
+  AVDictionary    *opts;
   URLProtocol     file_protocol;
   AVPacket	  packet;
   int             bytesRemaining;

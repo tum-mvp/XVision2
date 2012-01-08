@@ -327,13 +327,15 @@ public:
   XVSSD() {}
   XVSSD(const STATE_TYPE & pos_in,
 	const IM_TYPE & tmpl_in) 
-    : XVFeature<IM_TYPE, XVImageScalar<float>, SP >(SP(pos_in, 0.0)), Stepper(tmpl_in) {};
+    : XVFeature<IM_TYPE, XVImageScalar<float>, SP >(SP(pos_in, 0.0)), Stepper(tmpl_in) {Stepper.offlineInit();};
 
   virtual XVImageScalar<float> warp(const IM_TYPE &);
   virtual const SP & step(const IM_TYPE &);
   virtual const SP & step(const IM_TYPE & im, const SP & st)
     { return XVFeature<IM_TYPE, XVImageScalar<float>, SP>::step( im, st ); }
+#ifndef NOVIS
   virtual void show(XVDrawable &,float scale=1.0);
+#endif
   virtual const SP & interactiveInit(XVInteractive &, const IM_TYPE &);
   virtual const SP & interactiveInit(XVInteractive &, XVSize &, const IM_TYPE &);
   virtual void setStepper( const STEPPER_TYPE& stepper_in );

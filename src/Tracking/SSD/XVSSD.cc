@@ -551,6 +551,7 @@ struct XVSSDHelper<XVTransState> {
     currentState.error = 0.0;
   }
   template<class STEPPER_TYPE>
+#ifndef NOVIS
   static void show
    ( XVStatePair<XVTransState,double>& currentState, STEPPER_TYPE& Stepper, 
      XVDrawable& x,float scale ) {
@@ -577,6 +578,7 @@ struct XVSSDHelper<XVTransState> {
     x.drawLine(corners[3], corners[0]);
   }
 };
+#endif
 
 template<>
 struct XVSSDHelper<XVSE2State> {
@@ -801,8 +803,10 @@ template class XVRotateStepper<_IM_TYPE_ >; \
 template class XVRTStepper<_IM_TYPE_ >; \
 template class XVSE2Stepper<_IM_TYPE_ >; 
 
-//template class XVPyramidStepper<XVTransStepper<_IM_TYPE_ > >; \
-/*template class XVPyramidStepper<XVSE2Stepper<_IM_TYPE_ > >;*/
+template class XVPyramidStepper<XVTransStepper<XVImageRGB<XV_RGB24> > >; 
+template class XVPyramidStepper<XVTransStepper<XVImageRGB<XV_RGBA32> > >; 
+template class XVPyramidStepper<XVSE2Stepper<XVImageRGB<XV_RGB24> > >;
+template class XVPyramidStepper<XVSE2Stepper<XVImageRGB<XV_RGBA32> > >;
 
 //_REGISTER_STEPPERS_(XVImageScalar<int>);
 //_REGISTER_STEPPERS_(XVImageScalar<float>);

@@ -141,7 +141,7 @@ class XVFeature : public XVNode {
     { prevState = currentState; currentState = s; }
 
   virtual const STATE & interactiveInit(XVInteractive &, const IMTYPE &) = 0;
-  virtual void show(XVDrawable &,float scale=1.0) = 0;
+  //virtual void show(XVDrawable &,float scale=1.0) = 0;
 
   IMTYPEINTERNAL warpedImage() { return warped; }
 };

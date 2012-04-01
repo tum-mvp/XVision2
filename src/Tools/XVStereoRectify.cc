@@ -156,8 +156,9 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
 
 void
 XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T, 
-                                          Config &_config)
+                                          Config &_config,bool rotate)
 {
+  rot_flag=rotate;
   int width=_config.width,height=_config.height;
   IppiSize roi={width,height};
   IppiRect roi_rect={0,0,width,height};

@@ -58,7 +58,8 @@ class XVStereoRectify
      void		   calc_rectification(Config &_config);
      void		   calc_rectification_matrix(XVMatrix &ext,
                                                      XVColVector &T,
-    				                     Config &config);
+    				                     Config &config,
+						     bool rotate=false);
       XVMatrix              get_camera_rotation(bool which)
                               {return which? R_r : R_l;};
 

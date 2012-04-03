@@ -470,7 +470,6 @@ public:
   void virtual setSubImage(int, int, int, int);
   void virtual setSubImage(const XVImageGeneric &);
 
-
   /**
    * Sets the image back to the entire pixmap
    */

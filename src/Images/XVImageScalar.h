@@ -65,6 +65,18 @@ public:
     return newScalar;
   }
 
+  void CopyFrom(const XVImageScalar<T> &src_img)
+       {
+	 const u_char *src_ptr=(const u_char*)src_img.data();
+         T *dst_ptr=this->lock();
+	 assert(dst_ptr);
+         for(int i=0;i<src_img.Height();i++)
+          memcpy(dst_ptr+i*this->SizeX(),src_ptr+i*src_img.SizeX(),
+	                                   this->SizeX());
+	 this->unlock();
+       };
+
+
   T mean() const;
   T avg() const;
   T sum() const;

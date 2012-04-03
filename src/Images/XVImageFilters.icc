@@ -258,7 +258,7 @@ inline XVImageScalar<T1> & XVBoxFilterY(const XVImageScalar<T> &image, int width
   else bias=0;
 
   for (i=0; i<targ.Width(); ++i, ++iterLead, ++targLead)
-    *targLead = *iterLead + bias/2;
+    *targLead = *iterLead + bias;
   for (i=1; i<width; ++i) {
     targLead.moveBy(0,-1); 
     for (j=0; j<targ.Width(); ++j, ++targLead, ++iterLead)

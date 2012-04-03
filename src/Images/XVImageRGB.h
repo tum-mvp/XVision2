@@ -5,6 +5,7 @@
 #define _XVIMAGERGB_H_
 
 #include <sys/types.h>
+#include <string.h>
 #include <iostream>
 #include <fstream>
 #include <XVMacros.h>
@@ -26,6 +27,18 @@ public:
    
    XVImageRGB(XVPixmap<T> * pixmap) : XVColorBase<T>(pixmap) {}
    XVImageRGB() : XVColorBase<T>() {}
+
+  void CopyFrom(const XVImageRGB<T> &src_img)
+       {
+	 const u_char *src_ptr=(const u_char*)src_img.data();
+         T *dst_ptr=this->lock();
+	 assert(dst_ptr);
+         for(int i=0;i<src_img.Height();i++)
+          memcpy(dst_ptr+i*this->SizeX(),src_ptr+i*src_img.SizeX(),
+	                                   this->SizeX());
+	 this->unlock();
+       };
+
 
 	 /* ~XVImageRGB();*/
 

@@ -35,7 +35,7 @@ public:
 	 assert(dst_ptr);
          for(int i=0;i<src_img.Height();i++)
           memcpy(dst_ptr+i*this->SizeX(),src_ptr+i*src_img.SizeX(),
-	                                   this->SizeX());
+	                                   src_img.Width());
 	 this->unlock();
        };
 

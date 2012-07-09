@@ -17,6 +17,7 @@
 #include <XVVideo.h>
 #include <list>
 #include <pthread.h>
+#include <stdint.h>
 
 #ifdef HAVE_VIDEO1394_NEW
 #define DC_DEVICE_NAME	"/dev/video1394/0"
@@ -79,10 +80,10 @@
 
 typedef std::list<int> Jobs;
 
-
-void BayerNearestNeighbor_RGB24(unsigned char *src,
-				XVImageRGB<XV_RGB24>& targ, int sx, int sy,
-				dc1394color_filter_t optical_filter);
+template<class PIXELTYPE>
+void BayerNearestNeighbor(unsigned char *src,
+				XVImageRGB<PIXELTYPE>& targ, int sx, int sy,
+				dc1394color_filter_t optical_filter, dc1394bayer_method_t method=DC1394_BAYER_METHOD_NEAREST);
 
 template <class IMTYPE>
 class XVFlea2G : public XVVideo<IMTYPE> {
@@ -135,13 +136,15 @@ class XVFlea2G : public XVVideo<IMTYPE> {
    dc1394video_mode_t get_camera_mode();
    Jobs			  requests;
    pthread_mutex_t job_mutex;
+   uint64_t *timestamps;
+
  public:
    using XVVideo<IMTYPE>::frame ;
    // camera_id can either be the 64-bit id of the camera, or one
    // of the DIG1394_*_CAMERA macro defined above
    XVFlea2G(const char *dev_name=DC_DEVICE_NAME,
 		      const char *parm_string=NULL, unsigned long long
-		      camera_id=0);
+		      camera_id=0, unsigned int n_cameras=1);
    virtual	~XVFlea2G();
    // Video_h compatibility functions
    int          open(const char *dev_name);
@@ -150,11 +153,18 @@ class XVFlea2G : public XVVideo<IMTYPE> {
 
    virtual int		set_params(char *param_string);
    virtual int		initiate_acquire(int frame);
+   // void initiate_acquire_notBlocking()
+   //	   {dc1394video_frame_t *cur_frame;dc1394_capture_dequeue(camera_node, DC1394_CAPTURE_POLICY_POLL, &cur_frame);}
    virtual int		wait_for_completion(int frame);
    int         get_buffer_index(){return buffer_index;}
+   uint64_t timestamp(int frame){return timestamps[frame];}
 
    //dc1394color_filter_t
    dc1394color_filter_t get_optical_filter(){return this->optical_filter;}
+   dc1394error_t set_register(uint64_t offset, uint32_t value)
+      	   {return dc1394_set_control_register(camera_node, offset, value);}
+   dc1394error_t get_register(uint64_t offset, uint32_t &value)
+      	   {return dc1394_get_control_register(camera_node, offset, &value);}
 
    // Wrappers for online control of camera parameters
    inline int  set_optical_filter(int f)

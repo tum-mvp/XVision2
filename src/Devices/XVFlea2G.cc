@@ -12,7 +12,6 @@
 #include <config.h>
 //#ifdef HAVE_DV  //removed to work with eclipse (elmar)
 
-#include <XVDig1394.h>
 #include <XVMacros.h>
 #include <XVFlea2G.h>
 
@@ -27,7 +26,7 @@ extern int debug;
 
 namespace {
 typedef enum {
-	YUV444, YUV411, YUV422, RGB8, RGB16, MONO8, MONO16
+	YUV444, YUV411, YUV422, RGB8, RGB16, MONO8, MONO16, RAW8
 } ModeDescr;
 
 static struct {
@@ -453,12 +452,12 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 		template<class PIXELTYPE>
 		void BayerNearestNeighbor(unsigned char *src,
 				XVImageRGB<PIXELTYPE> & targ, int sx, int sy,
-				dc1394color_filter_t optical_filter) {
+				dc1394color_filter_t optical_filter, dc1394bayer_method_t method) {
 			XVImageRGB<XV_RGB24> tmp_img(sx, sy);
 			dc1394_bayer_decoding_8bit((const uint8_t*) src,
 					(uint8_t*) tmp_img.lock(), tmp_img.Width(),
 					tmp_img.Height(), optical_filter,
-					DC1394_BAYER_METHOD_NEAREST);
+					method);
 			tmp_img.unlock();
 			PIXELTYPE *data = targ.lock();
 			const XV_RGB24 *src_ptr = tmp_img.data();
@@ -471,23 +470,24 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 			targ.unlock();
 		}
 
-		void BayerNearestNeighbor_RGB24(unsigned char *src,
-				XVImageRGB<XV_RGB24>& targ, int sx, int sy,
-				dc1394color_filter_t optical_filter) {
+		template<>
+		void BayerNearestNeighbor<XV_RGB24>(unsigned char *src,
+				XVImageRGB<XV_RGB24> & targ, int sx, int sy,
+				dc1394color_filter_t optical_filter, dc1394bayer_method_t method ) {
 
 			dc1394_bayer_decoding_8bit((const uint8_t*) src,
 					(uint8_t*) targ.lock(), targ.Width(), targ.Height(),
-					optical_filter, DC1394_BAYER_METHOD_NEAREST);
+					optical_filter, method);
 			targ.unlock();
 		}
 
 #ifdef HAVE_IPP
 		void BayerNearestNeighbor(unsigned char *src,
 				XVImageRGB<XV_RGBA32>& targ, int sx, int sy,dc1394color_filter_t
-				optical_filter)
+				optical_filter, dc1394bayer_method_t method)
 		{
 			XVImageRGB<XV_RGB24> tmpimg(targ.Width(),targ.Height());
-			BayerNearestNeighbor(src,tmpimg,sx,sy,optical_filter);
+			BayerNearestNeighbor(src,tmpimg,sx,sy,optical_filter, method);
 			IppiSize roi= {tmpimg.Width(),tmpimg.Height()};
 			int dstOrder[4]= {0,1,2,3};
 			ippiSwapChannels_8u_C3C4R((const Ipp8u*) tmpimg.data(),
@@ -499,7 +499,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 		template<class PIXELTYPE>
 		void BayerNearestNeighbor(unsigned char *src,
 				XVImageYUV<PIXELTYPE>& targ, int sx, int sy,
-				dc1394color_filter_t optical_filter) {
+				dc1394color_filter_t optical_filter, dc1394bayer_method_t method) {
 			cerr << "Bayer decoder does not support YUV" << endl;
 		}
 		;
@@ -661,6 +661,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 					pthread_mutex_lock(&(me->job_mutex));
 					me->requests.pop_back();
 					pthread_mutex_unlock(&(me->job_mutex));
+					me->timestamps[i_frame]=cur_frame->timestamp;
 					if (me->mode_type>=0/*me->format!=7*/) {
 						switch (me->mode_type) {
 						case RGB8:
@@ -687,6 +688,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 									me->frame(i_frame).Width() * me->frame(
 											i_frame).Height());
 							break;
+						case RAW8: //fall through
 						case MONO8:
 							memcpy(me->frame(i_frame).lock(), cur_frame->image,
 									(me->frame(i_frame).Width()) * (me->frame(
@@ -707,7 +709,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 							BayerNearestNeighbor(cur_frame->image, me->frame(
 									i_frame), me->frame(i_frame).Width(),
 									me->frame(i_frame).Height(),
-									me->optical_filter);
+									me->optical_filter,DC1394_BAYER_METHOD_NEAREST);
 
 						} else {
 							memcpy(me->frame(i_frame).lock(), cur_frame->image,
@@ -737,6 +739,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 					pthread_detach(grabber_thread);
 					for (int i = 0; i < n_buffers; i++)
 						pthread_mutex_destroy(&wait_grab[i]);
+					delete [] timestamps;
 					cerr << "(XVFlea2G::~XVFlea2G) Notice: closing interface.\n";
 				}
 				close();
@@ -968,7 +971,7 @@ void (*color_f(Color c))( const unsigned char *, T&, int ) {
 
 		template<class IMTYPE>
 		XVFlea2G<IMTYPE>::XVFlea2G(const char *dev_name,
-				const char *parm_string, unsigned long long camera_id) :
+				const char *parm_string, unsigned long long camera_id, unsigned int n_cameras) :
 			XVVideo<IMTYPE> (dev_name, parm_string) {
 
 			dc1394camera_list_t * list;
@@ -1187,6 +1190,7 @@ re_init:
 				if(verbose)
 					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
 				init_map(sized, 4);
+				timestamps=new uint64_t[4];
 
 				//set framerate
 				dc1394framerates_t rates;
@@ -1251,10 +1255,8 @@ re_init:
 						cerr << "Could not set color coding" << endl;
 					throw(9);
 				}
-				//dc1394_format7_set_roi
-
-//				if (dc1394_format7_set_color_coding(camera_node, mode,
-//						DC1394_COLOR_CODING_MONO8+color_coding) != DC1394_SUCCESS)
+				//following happens in dc1394_format7_set_roi
+//				if (dc1394_format7_set_color_coding(camera_node, mode, color_coding) != DC1394_SUCCESS)
 //				{
 //					if (verbose)
 //						cerr << "Couldn't switch Format 7 Bayer" << endl;
@@ -1338,14 +1340,17 @@ re_init:
 						mode_type=RGB16;
 //						fbytesPerPacket*=6;
 						break;
+					case 9:
+						mode_type=RAW8;
+						break;
 				}
 
 //				fbytesPerPacket*=roi_width*roi_height;
 				cerr << "ROI: " << roi_width << "x" << roi_height << endl;
 
-//				if(dc1394_format7_set_packet_size(camera_node, mode, 183.0))// bytesPerPacket))
+//				if(dc1394_format7_set_packet_size(camera_node, mode, 2000.0))// bytesPerPacket))
 //				{
-//					cerr << "Failed to set packet size (framerate)" << endl;
+//					cerr << "Failed to set packet size to 2000" << endl;
 //										throw(13);
 //				}
 
@@ -1378,29 +1383,23 @@ re_init:
 					//do{
 					for(int j=0;j<10;j++)
 					{
-					if(dc1394_feature_set_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, fbytesPerPacket)!=DC1394_SUCCESS)
-					    cerr << "Can't set absolute value!";
-					if (dc1394_feature_get_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, &value)!=DC1394_SUCCESS)
-					    cerr << "Can't get absolute value!";
-					cout << "Camera framerate set to " << value << endl;
+						if(dc1394_feature_set_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, fbytesPerPacket)!=DC1394_SUCCESS)
+							cerr << "Can't set absolute value!";
+						if (dc1394_feature_get_absolute_value(camera_node, DC1394_FEATURE_FRAME_RATE, &value)!=DC1394_SUCCESS)
+							cerr << "Can't get absolute value!";
+						cout << "Camera framerate set to " << value << endl;
 					}
 					//}while(value!=100.0);
 				}
 				else
 					cerr << "Could not toggle absolute setting control\n";
 
-//				unsigned int bytesPerPacket = static_cast<int>(ceil(fbytesPerPacket));
-//				uint32_t unit_bytes; uint32_t max_bytes;
-//				if(dc1394_format7_get_packet_parameters(camera_node, mode, &unit_bytes, &max_bytes))
-//					cerr << "error1" << endl;
-//				if(dc1394_format7_get_packet_size(camera_node, mode, &bytesPerPacket))
-//					cerr << "error2" << endl;
-//				cerr << unit_bytes << " " << max_bytes << " " << bytesPerPacket << endl;
 
 				XVSize sized(roi_width, roi_height);
 				if(verbose)
 					cout << "image size: " << sized.Width() << "x" << sized.Height() << endl;
 				init_map(sized, 4);
+				timestamps=new uint64_t[4];
 				if(dc1394_format7_set_roi(camera_node, mode,
 						color_coding,
 						//DC1394_QUERY_FROM_CAMERA, 0, 0, hmax, vmax);
@@ -1411,14 +1410,47 @@ re_init:
 				}
 
 
-				if(optical_flag)
-				if(dc1394_format7_get_color_filter(camera_node,DC1394_VIDEO_MODE_FORMAT7_0,
-									&optical_filter) !=DC1394_SUCCESS)
+//				int num_packets = (int) (1.0/(0.000125*7) + 0.5);
+//				int denominator = num_packets*8;
+//				int packet_size = (roi_width*roi_height*1 + denominator - 1)/denominator;
+//				cerr << "packet_size: " << packet_size << " " << num_packets << endl;
+//				if (dc1394_feature_set_mode(camera_node, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_MANUAL)!=DC1394_SUCCESS)
+//					cerr << "Could not set manual mode";
+//				if (dc1394_feature_set_value(camera_node,DC1394_FEATURE_FRAME_RATE,1706)!=DC1394_SUCCESS)
+//					cerr << "Could not set feature";
+//				if(dc1394_format7_set_packet_size(camera_node, mode, 800))
+//				{
+//					cerr << "Failed to set packet size to " << packet_size << endl;
+//										throw(13);
+//				}
+//				if(dc1394_format7_set_roi(camera_node, mode, color_coding,packet_size, roi_x, roi_y, roi_width, roi_height))
+//				{
+//					cerr << "Setting ROI failed" << endl;
+//					throw(13);
+//				}
+
+
+				unsigned int bytesPerPacket = static_cast<int>(ceil(fbytesPerPacket));
+				uint32_t unit_bytes; uint32_t max_bytes;
+				if(dc1394_format7_get_packet_parameters(camera_node, mode, &unit_bytes, &max_bytes))
+					cerr << "error1" << endl;
+				if(dc1394_format7_get_packet_size(camera_node, mode, &bytesPerPacket))
+					cerr << "error2" << endl;
+				cerr << unit_bytes << " " << max_bytes << " " << bytesPerPacket << endl;
+				if(dc1394_format7_set_packet_size(camera_node, mode, max_bytes/n_cameras))
+					cerr << "error3" << endl;
+
+
+				if(!optical_flag)
 				{
-				 if (verbose) cerr << "Unable to set optical Bayer filter selected " <<
-				       optical_filter<< endl;
-				 if (verbose) cerr<< "switching function off." << endl;
-					 optical_flag=false;
+					if(dc1394_format7_get_color_filter(camera_node,mode,
+										&optical_filter) !=DC1394_SUCCESS)
+					{
+					 if (verbose) cerr << "Unable to set optical Bayer filter selected " <<
+						   optical_filter<< endl;
+					 if (verbose) cerr<< "switching function off." << endl;
+						 optical_flag=false;
+					}
 				}
 				if (verbose)
 					cout << "Running Format 7" << endl;

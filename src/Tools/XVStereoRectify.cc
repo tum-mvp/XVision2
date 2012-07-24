@@ -168,7 +168,7 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    rot_90[0][1]=-1;
    rot_90[1][0]=1;
    rot_90[2][2]=1;
-   //T=ext.t()*T;
+   T=ext.t()*T;
    
    XVColVector v1(3),v2(3),v3(3);
    B=sqrt(Sqr(T[0])+Sqr(T[1])+Sqr(T[2]));

@@ -138,7 +138,7 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
 	 point_ptr->coord[2]=0;
          continue; //invalid pixel?
        }
-       vec[0]=x,vec[1]=y,vec[2]=1.0;
+       vec[0]=x-corr_offset_l,vec[1]=y,vec[2]=1.0;
 #ifndef OPENCV_STEREO
        vec=(CorrMat*vec)/(*r_ptr+config.offset);
 #else
@@ -220,6 +220,7 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    K_ideal[1][2]=height/2;
    H=R_l*K.i();
    double quad[4][2];
+   corr_offset_l=atan2(R_l[0][2],R_l[2][2])*_config.camera_params[0].f[0];
    XVColVector coord(3);
    //project the four boundary corners
    //coord[0]=0,coord[1]=-400,coord[2]=1;
@@ -227,52 +228,53 @@ XVStereoRectify::calc_rectification_matrix(XVMatrix &ext,XVColVector &T,
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[0][0]=coord[0],quad[0][1]=coord[1];
+   quad[0][0]=coord[0]+corr_offset_l,quad[0][1]=coord[1];
    //coord[0]=_config.width,coord[1]=-400,coord[2]=1;
    coord[0]=_config.width,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[1][0]=coord[0],quad[1][1]=coord[1];
+   quad[1][0]=coord[0]+corr_offset_l,quad[1][1]=coord[1];
    coord[0]=_config.width,coord[1]=_config.height,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[2][0]=coord[0],quad[2][1]=coord[1];
+   quad[2][0]=coord[0]+corr_offset_l,quad[2][1]=coord[1];
    coord[0]=0,coord[1]=_config.height,coord[2]=1;
    coord=H*coord;
    coord[0]/=coord[2],coord[1]/=coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[3][0]=coord[0],quad[3][1]=coord[1];
+   quad[3][0]=coord[0]+corr_offset_l,quad[3][1]=coord[1];
    ippiGetPerspectiveTransform(roi_rect,quad,coeffs_l);
    K[0][0]=_config.camera_params[1].f[0];
    K[1][1]=_config.camera_params[1].f[1];
    K[0][2]=_config.camera_params[1].C[0];
    K[1][2]=_config.camera_params[1].C[1];
    H=R_r*K.i();
+   corr_offset_r=atan2(R_r[0][2],R_r[2][2])*_config.camera_params[0].f[0];
    //project the four boundary corners
    //coord[0]=0,coord[1]=-400,coord[2]=1;
    coord[0]=0,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[0][0]=coord[0],quad[0][1]=coord[1];
+   quad[0][0]=coord[0]+corr_offset_r,quad[0][1]=coord[1];
    //coord[0]=_config.width,coord[1]=-400,coord[2]=1;
    coord[0]=_config.width,coord[1]=0,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[1][0]=coord[0],quad[1][1]=coord[1];
+   quad[1][0]=coord[0]+corr_offset_r,quad[1][1]=coord[1];
    coord[0]=_config.width,coord[1]=_config.height,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[2][0]=coord[0],quad[2][1]=coord[1];
+   quad[2][0]=coord[0]+corr_offset_r,quad[2][1]=coord[1];
    coord[0]=0,coord[1]=_config.height,coord[2]=1;
    coord=H*coord;
    coord[0]=coord[0]/coord[2],coord[1]=coord[1]/coord[2];coord[2]=1;
    coord=K_ideal*coord;
-   quad[3][0]=coord[0],quad[3][1]=coord[1];
+   quad[3][0]=coord[0]+corr_offset_r,quad[3][1]=coord[1];
    ippiGetPerspectiveTransform(roi_rect,quad,coeffs_r);
 }
 

@@ -30,6 +30,7 @@ class XVStereoRectify
      XVMatrix		   R_l,R_r; // rotation between ideal and real
      double 		   coeffs_l[3][3];
      double 		   coeffs_r[3][3];
+     int		   corr_offset_r,corr_offset_l;
      float       	   B;
      bool		   rot_flag;
 

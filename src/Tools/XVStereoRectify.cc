@@ -140,9 +140,9 @@ XVStereoRectify::calc_3Dpoints(int &num_points,Stereo_3DPoint* &Points3D)
        }
        vec[0]=x-corr_offset_l,vec[1]=y,vec[2]=1.0;
 #ifndef OPENCV_STEREO
-       vec=(CorrMat*vec)/(*r_ptr+config.offset);
+       vec=(CorrMat*vec)/(*r_ptr+config.offset-corr_offset_r+corr_offset_l);
 #else
-       vec=(CorrMat*vec)/(*r_ptr/16);
+       vec=(CorrMat*vec)/((*r_ptr+config.offset-corr_offset_r+corr_offset_l)/16);
        //cerr << *r_ptr << endl;
        //cerr << vec << endl<< endl;
 #endif

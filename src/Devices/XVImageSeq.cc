@@ -24,7 +24,7 @@ XVImageSeq<IMTYPE>::XVImageSeq(const char * file,
   sprintf(filename, format, imageIndex);
   IMTYPE tmpIM;
   goodBit = 1 == XVReadImage(tmpIM, filename);
-  init_map(tmpIM, nbufs);
+  this->init_map(tmpIM, nbufs);
   --imageIndex;
 };
 
@@ -43,7 +43,7 @@ XVImageSeq<IMTYPE>::XVImageSeq(char * fp, char * fs,
   sprintf(filename, format, imageIndex);
   IMTYPE tmpIM;
   goodBit = 1 == XVReadImage(tmpIM, filename);
-  init_map(tmpIM, nbufs);
+  this->init_map(tmpIM, nbufs);
   --imageIndex;
 };
 
@@ -65,7 +65,7 @@ XVImageSeq<IMTYPE>::XVImageSeq(const char * file, int w, int h,
   sprintf(filename, format, imageIndex);
   IMTYPE tmpIM(w,h);
   goodBit = 1 == XVReadImage(tmpIM, filename);
-  init_map(tmpIM, nbufs);
+  this->init_map(tmpIM, nbufs);
   --imageIndex;
 };
 

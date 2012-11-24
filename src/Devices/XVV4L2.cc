@@ -268,9 +268,9 @@ int XVV4L2<T>::open(const char *dev_name,const char *parm_string)
   }
   if(figure_out_type(*frame(0).data())==XVImage_YCbCr)
   				size.resize(size.Width()/2,size.Height());
-  init_map(size,n_buffers);
+  this->init_map(size,n_buffers);
   if(figure_out_type(*frame(0).data())==XVImage_YCbCr)
-  			remap(mm_buf,n_buffers);
+  			this->remap(mm_buf,n_buffers);
   int type=V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl( fd, VIDIOC_STREAMON, &type );
   return 1;

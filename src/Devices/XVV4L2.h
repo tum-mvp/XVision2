@@ -21,7 +21,7 @@
 #include <linux/kernel.h>
 //#include <linux/videodev.h>
 //#define __user
-#include <linux/videodev.h>
+#include <linux/videodev2.h>
 #include <XVVideo.h>
 
 #define DEVICE_NAME	"/dev/video0"

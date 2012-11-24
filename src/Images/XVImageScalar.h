@@ -4,6 +4,7 @@
 #ifndef _XVIMAGESCALAR_H_
 #define _XVIMAGESCALAR_H_
 
+#include <string.h>
 #include <sys/types.h>
 #include <iostream>
 #include <fstream>

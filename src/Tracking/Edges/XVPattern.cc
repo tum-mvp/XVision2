@@ -68,7 +68,7 @@ XVEdge<T>::find(XVImageScalar<T> & im){
   sumcor (possum, poscor, cwidth, mwidth, lineType());
   sumcor (negsum, negcor, cwidth, mwidth, lineType());    
 
-  int thresh = int(lower_threshold(im.Height())*_sensitivity);
+  int thresh = int(this->lower_threshold(im.Height())*_sensitivity);
 		     // compute delta from correlations
 
   XVPeak midpeak,pospeak,negpeak;
@@ -107,7 +107,7 @@ XVEdge<T>::find(XVImageScalar<T> & im){
       delta.x = -ratio * negpeak.x + (1+ratio) * midpeak.x;
   }
 
-  if (delta.val < lower_threshold(im.Height()) )
+  if (delta.val < this->lower_threshold(im.Height()) )
     delta.val = 0;
 
   delta.val /= (im.Height() * mwidth);
@@ -139,7 +139,7 @@ XVOffset XVMaxEdge<T>::find (XVImageScalar<T> & im) {
 
   sumcor (sums, cors, cwidth, mwidth, lineType());  
 
-  int thresh = int(lower_threshold(im.Height())*_sensitivity);
+  int thresh = int(this->lower_threshold(im.Height())*_sensitivity);
 		     // compute delta from correlations
 
   XVPeak midpeak;
@@ -147,7 +147,7 @@ XVOffset XVMaxEdge<T>::find (XVImageScalar<T> & im) {
   delta.angle = 0;
 
   midpeak = findpeak (cors, cwidth, 0, lineType());
-  if (midpeak.val > lower_threshold(im.Height())) {
+  if (midpeak.val > this->lower_threshold(im.Height())) {
     delta.val = midpeak.val;
     delta.x = midpeak.x;
   }
@@ -304,9 +304,9 @@ XVOffset XVGeneralEdge<T>::find (XVImageScalar<T> & im)
   }
 
   XVPeak midpeak = findpeak (midcor, cwidth, 
-			     lower_threshold(im.Height()), trans_type),
-    pospeak = findpeak (poscor, cwidth, lower_threshold(im.Height()),trans_type),
-    negpeak = findpeak (negcor, cwidth, lower_threshold(im.Height()),trans_type);
+			     this->lower_threshold(im.Height()), trans_type),
+    pospeak = findpeak (poscor, cwidth, this->lower_threshold(im.Height()),trans_type),
+    negpeak = findpeak (negcor, cwidth, this->lower_threshold(im.Height()),trans_type);
 
   XVOffset delta = {0,0};
 
@@ -344,7 +344,7 @@ XVOffset XVGeneralEdge<T>::find (XVImageScalar<T> & im)
 
   // Edge was not found
 
-  if (maxval < lower_threshold(im.Height())) {
+  if (maxval < this->lower_threshold(im.Height())) {
     return delta;
   }
 
@@ -407,7 +407,7 @@ XVOffset XVShortEdge<T>::find (XVImageScalar<T> & im) {
   int * cors = new int[cwidth];
   sumcor (sums, cors, cwidth, mwidth);  
 
-  int thresh = int(lower_threshold(im.Height())*_sensitivity);
+  int thresh = int(this->lower_threshold(im.Height())*_sensitivity);
 
   // find maximum peak.
   XVPeak res = findpeak (cors, cwidth, thresh);

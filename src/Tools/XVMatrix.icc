@@ -337,7 +337,7 @@ operator <<(XVColVector &t,const XVImageScalar<T> &x)
 
 template <class T>
 XVRowVector&
-operator << (const XVRowVector &t,XVImageScalar<T> &x)
+operator << (XVRowVector &t,XVImageScalar<T> &x)
 {
   int i;
   const T *ptr = x.data();

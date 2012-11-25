@@ -20,11 +20,12 @@ XVEdgeFeature<PIX_TYPE, EDGETYPE>::step(const XVImageScalar<PIX_TYPE> & image) {
 
   XVOffset delta = edge.find(warped);  
 
-  XVAffineMatrix rotMat(currentState.state.angle);
-  XV2Vec<double> dirVec = rotMat * XV2Vec<double>(0, -1);
+  double angle=currentState.state.angle;
+  XVAffineMatrix rotMat(angle);
+  XV2Vec<double> dirVec = XV2Vec<double>(sin(angle),-cos(angle));
   XV2Vec<double> perpVec(-dirVec.y(), dirVec.x());
   currentState.state.center += (perpVec * (delta.x));
-  currentState.state.angle -= delta.angle;
+  currentState.state.angle += delta.angle;
   currentState.error = delta.val;
 
   warpUpdated = false;
@@ -43,15 +44,8 @@ interactiveInit(XVInteractive & window,
   XVPosition ends[2];
   window.selectLine(ends[0], ends[1]);
   XV2Vec<double> diffVec = ends[1] - ends[0];
-  XV2Vec<double> halfVec = diffVec / ((double)2);
-  currentState.state.center = (XV2Vec<double>)(ends[0] + halfVec);
-  if(diffVec.x() < 0){
-    currentState.state.angle = -acos((XV2Vec<double>(0, -1) * diffVec) 
-				    / diffVec.length());
-  }else{
-    currentState.state.angle = acos((XV2Vec<double>(0, -1) * diffVec) 
-				      / diffVec.length());
-  }
+  currentState.state.center=(ends[1]+ends[0])/2;
+  currentState.state.angle=atan2(diffVec.x(),diffVec.y());
   currentState.error = 0;
   currentState.state.length = diffVec.length();
   prevState = currentState;
@@ -62,8 +56,11 @@ template <class PIX_TYPE, class EDGETYPE>
 void XVEdgeFeature<PIX_TYPE, EDGETYPE>::show(XVDrawable & window,float
 scale) {
 
-  XV2Vec<double> ends[2];
-  currentState.state.endpoints(ends);
+  XV2Vec<double> ends[2],diff;
+  diff.setX(currentState.state.length/2.0*sin(currentState.state.angle));
+  diff.setY(currentState.state.length/2.0*cos(currentState.state.angle));
+  ends[0]=currentState.state.center+diff;
+  ends[1]=currentState.state.center-diff;
   window.drawLine(ends[0], ends[1]);
 };
 

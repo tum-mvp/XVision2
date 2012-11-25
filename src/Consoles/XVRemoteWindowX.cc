@@ -415,7 +415,7 @@ void * XVRemoteWindowX<T>::supervising( void * obj ) {
     }
     // check events
     data->lock_last();
-    while( event.type = data->worker->check_events( event.args ) ) {
+    while( (event.type = data->worker->check_events( event.args )) ) {
       data->events.push( event );
     }
     // copy current to last ;

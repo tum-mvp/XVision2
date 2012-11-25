@@ -1,7 +1,7 @@
 
 CUR_DEPTH	= ../../
-CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0  -I$(IPPROOT)/include
-CPPFLAGS	= -I$(CUR_DEPTH)/include  -I$(IPPROOT)/include
+CXXFLAGS	= -O3 -pipe -DDEBUG_LEVEL=0  
+CPPFLAGS	= -I$(CUR_DEPTH)/include   -I/opt/local/include
 OBJS		= XVWindowX.o XVRemoteWindowX.o
 
 all: .depend $(OBJS)

@@ -3,10 +3,6 @@
 #include <XVTracker.h>
 #include <XVWindowX.h>
 #include <XVMpeg.h>
-#ifdef HAVE_BTTV
-#include <XVBt8x8.h>
-#endif
-#include <XVDig1394.h>
 #include <iostream>
 
 static u_short preferredHue = 0;
@@ -24,7 +20,6 @@ int main(int argc, char * argv[]){
   typedef XVVideo<XVImageRGB<XV_RGB> > VID;
   typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
 //  typedef XVBt8x8<XVImageRGB<XV_RGB> > DIG;
-  typedef XVDig1394<XVImageRGB<XV_RGB> > DIG;
   typedef XVInteractWindowX<XV_RGB >    WIN;
 //   typedef XVRemoteWindowX<XV_RGB >    WIN;
 
@@ -35,7 +30,7 @@ int main(int argc, char * argv[]){
 
   // pick your opponent
   // VID * vid = new MPG(argv[1]); 
-  VID * vid = new DIG( DC_DEVICE_NAME, "i1V1" );
+  VID * vid = new MPG(argv[1]);
 
   // flush first image
   vid->next_frame_continuous();

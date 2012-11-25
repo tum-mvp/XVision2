@@ -1,6 +1,7 @@
 #include <config.h>
 #include <XVMpeg.h>
-#include <XVDig1394.h>
+#include <XVImageSeq.h>
+#include <XVMpeg.h>
 #include <XVVideo.h>
 #include <XVColorSeg.h>
 #include <XVBlobFeature.h>
@@ -13,13 +14,13 @@ static u_short range = 2;
 int main(int argc, char * argv[]){
 
   typedef XVVideo<XVImageRGB<XV_RGB> > VID;
+  //typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
   typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
-  typedef XVDig1394<XVImageRGB<XV_RGB> >  FIREWIRE;
   typedef XVInteractWindowX<XV_RGB>    WIN;
 
   typedef XVBlobFeature<XVImageRGB<XV_RGB>, XVImageScalar<u_short> > BLOB;
 
-  VID * vid = new FIREWIRE(DC_DEVICE_NAME,"i1V1");
+  VID * vid = new MPG(argv[1]);
 
   for(int i=0;i<15;i++)
     vid->next_frame_continuous();

@@ -1,6 +1,8 @@
 #include <config.h>
 #include <XVMpeg.h>
+#include <XVImageSeq.h>
 #include <XVVideo.h>
+#include <XVMpeg.h>
 //#include <XVDig1394.h>
 #include <XVEdgeFeature.h>
 #include <XVTracker.h>
@@ -12,6 +14,7 @@ static u_short range = 2;
 int main(int argc, char * argv[]){
 
   typedef XVVideo<XVImageRGB<XV_RGB> > VID;
+  //typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
   typedef XVMpeg<XVImageRGB<XV_RGB> >  MPG;
   typedef XVInteractWindowX<XV_RGB>    WIN;
 
@@ -24,7 +27,7 @@ int main(int argc, char * argv[]){
 
   XVEdge<int> edge;
 
-  EDGE feat(edge, 50); 
+  EDGE feat(edge, 40); 
 
   XVDisplayTracker<VID, WIN, EDGE > tracker(*vid, win, feat);
 
@@ -37,18 +40,7 @@ int main(int argc, char * argv[]){
     try {
       tracker.nextState();
       XV2Vec<double> ends[2];
-      feat.getCurrentState().state.endpoints(ends);
       bs = feat.diffState();
-      XV2Vec<double> diffTop = ends[1] - ends[0];   
-      double val = (bs.state.center * diffTop) / diffTop.length();
-      cout << val << endl;
-
-
-//        cout << bs.state.center.PosX() << " : " 
-//  	   << bs.state.center.PosY() << " : " 
-//  	   << bs.state.angle << " : " 
-//  	   << bs.error << endl;
-
       
       win2.CopySubImage((XVImageRGB<XV_RGB>)(feat.warpedImage()));
       win2.swap_buffers();

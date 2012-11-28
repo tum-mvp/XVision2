@@ -4814,7 +4814,7 @@ CXXFLAGS="-O3 -pipe -DDEBUG_LEVEL=0"
 
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-#include <$IPPROOT/include/ippversion.h>
+#include <$IPPROOT/include/ippvi.h>
 _ACEOF
 if ac_fn_c_try_cpp "$LINENO"; then :
   IPPINC='-I$(IPPROOT)/include'

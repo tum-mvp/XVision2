@@ -9,7 +9,16 @@
 #ifdef HAVE_LIBPNG
 extern "C" {
 #include <png.h>
+#include <zlib.h>
 }
+#endif
+
+#ifndef png_infopp_NULL
+#define png_infopp_NULL (png_infopp)NULL
+#endif
+
+#ifndef png_voidpp_NULL
+#define png_voidp_NULL (png_voidp)NULL
 #endif
 
 #include <sys/types.h>

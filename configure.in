@@ -77,7 +77,7 @@ AC_CHECK_FILE("/usr/include/dc1394/control.h",AC_DEFINE(HAVE_VIDEO1394_NEW) DVFI
 CXXFLAGS="-O3 -pipe -DDEBUG_LEVEL=0"
 
 dnl Check for IPP
-AC_TRY_CPP([#include <$IPPROOT/include/ippvi.h>],
+AC_TRY_CPP([#include <$IPPROOT/include/ippi.h>],
    IPPINC='-I$(IPPROOT)/include'
    IPPLIBS='-L$(IPPROOT)/sharedlib -lippi -lippcc'
    IPPOBJS='XVAVI.o'

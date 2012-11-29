@@ -1,6 +1,6 @@
 CUR_DEPTH	= ../../..
 CXXFLAGS        = -O3 -pipe -DDEBUG_LEVEL=0 -DHAVE_CONFIG_H
-CPPFLAGS	= -I$(CUR_DEPTH)/include
+CPPFLAGS	= -I$(CUR_DEPTH)/include `pkg-config --cflags x11`
 OBJS		= XVPattern.o
 
 all: .depend $(OBJS)

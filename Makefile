@@ -28,8 +28,6 @@ config: ;	./configure
 		(cd include; $(MAKE) install)
 		(cd src/Tools; $(MAKE) screendepth)
 		mkdir -p bin lib
-		@for i in $(MODULES);\
-		do (cd src/$$i; $(MAKE) .depend); done
 		@echo --- If there was no error, use \'make\' to compile. ---
 
 doc: ;

@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in by configure.
 #
 # Makefile.in for the MPEG Library -- this has to be processed by
 # `configure' to be meaningful!
@@ -74,8 +73,7 @@ install:	$(LIBRARY)
 		$(INSTALL) -m 0644 $(LIBRARY) $(INSTALL_LIBRARY)/$(LIBRARY)
 		@if test -f $(SHLIB) ; then echo "warning: $(SHLIB) *not* installed (installing shared libraries is too system-specific)" ; fi
 
-clean:
-		rm -f $(LIBRARY) $(EXTRAS) $(LIBOBJ) core .depend
+clean: ;	rm -f $(LIBRARY) $(EXTRAS) $(LIBOBJ) core .depend
 #		cd extras && $(MAKE) clean
 
 distclean:	clean

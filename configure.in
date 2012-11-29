@@ -58,8 +58,8 @@ AC_TRY_CPP([#include <dc1394/control.h>],
 	   AC_DEFINE(HAVE_DV),)
 
 dnl bttv section
-  AC_DEFINE(HAVE_BTTV)
-  FRAMEGR_OBJS=" XVV4L2.o Meteor.o"
+  AC_TRY_CPP([#include <linux/videodev2.h>],
+  FRAMEGR_OBJS=" XVV4L2.o",)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

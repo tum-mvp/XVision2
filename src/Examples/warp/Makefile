@@ -6,7 +6,7 @@ CPPFLAGS	= -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVImages\
 		  -ldv -ldc1394_control -lraw1394  -lglib\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 
 # if you want to set the screen depth explicitly,
 # do it here.  Otherwise, the depth of the screen 

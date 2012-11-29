@@ -3,7 +3,7 @@ CUR_DEPTH	= ../../../
 CPPFLAGS	= -g -I$(CUR_DEPTH)/include 
 OBJS		= itest.o 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVCons \
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 
 all: .depend $(OBJS)
 	$(CXX) -g -o $(PROG) $(OBJS) $(LIBS) -lm

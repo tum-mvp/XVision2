@@ -24,7 +24,7 @@ dist: veryclean
 	rm -f config.status config.log config.cache include/config.h
 	(cd include; $(MAKE) clean)
 
-config: ;	./configure $(HOST)
+config: ;	./configure 
 		(cd include; $(MAKE) install)
 		(cd src/Tools; $(MAKE) screendepth)
 		mkdir -p bin lib

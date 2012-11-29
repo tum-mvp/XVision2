@@ -2,12 +2,12 @@
 PROG		= stream_stereo
 CUR_DEPTH	= ../../..
 CPPFLAGS	= -I$(CUR_DEPTH)/include -O6 -DSCREEN_DEPTH=$(SD) \
-                    -I$(SVS_PATH)/src -I$(IPPROOT)/include\
+                     \
 		  -I/usr/lib/glib/include -DLINUX -D_REENTRANT -DUNIX
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools\
 		  -lXVImages -lXVSeg -lXVTrack\
-		  -L$(SVS_PATH)/bin -lsvs -lsvscalc -lsvscap -L$(IPPROOT)/sharedlib -lippi -lippcc\
+		   \
 		  -L/usr/X11R6/lib -lXxf86vm -lXxf86dga -lXext -lX11  -lpthread 
 
 # if you want to set the screen depth explicitly,

@@ -4,7 +4,7 @@ CPPFLAGS	=  \
                   -I$(CUR_DEPTH)/include  -DSCREEN_DEPTH=$(SD)
 OBJS		= PongWindow.o PongSelector.o main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVSeg -lXVImages\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 
 SD = $(shell $(CUR_DEPTH)/bin/screendepth)
 

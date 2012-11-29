@@ -1,13 +1,13 @@
 PROG		= showdig
 CUR_DEPTH	= ../../../
-CPPFLAGS	= -I$(IPPROOT)/include -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
+CPPFLAGS	=  -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) \
                   \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394
 
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVImages\
-		  -lraw1394 -ldc1394 -L$(IPPROOT)/sharedlib -lippi -lippcc\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		   \
+		    -lpthread 
 
 # if you want to set the screen depth explicitly,
 # do it here.  Otherwise, the depth of the screen 

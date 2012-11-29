@@ -1,4 +1,4 @@
-/* config.h.  Generated automatically by configure.  */
+/* config.h.  Generated from config.h.in by configure.  */
 #define ENABLE_DITHER 1
 #define STDC_HEADERS 1
 #define HAVE_SYS_TIME_H 1

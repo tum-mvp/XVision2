@@ -4,7 +4,7 @@ CPPFLAGS	= \
                   -I$(CUR_DEPTH)/include 
 OBJS		= main.o 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVColSelector\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 
 all: .depend $(OBJS)
 	$(CXX) -o $(PROG) $(OBJS) $(LIBS) -lm

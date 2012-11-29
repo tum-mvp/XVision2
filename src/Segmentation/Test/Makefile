@@ -5,7 +5,7 @@ OBJS      = rangeTest.o hueTest.o
 CPPFLAGS	= -I/usr/local/share/research/src/bttv\
                   -I$(CUR_DEPTH)/include -DSCREEN_DEPTH=$(SD) -g
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVSeg -lmpeg -ljpeg -ltiff -lXVImages \
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 SD 		= $(shell $(CUR_DEPTH)/bin/screendepth)
 
 all: .depend $(PROG1) $(PROG2)

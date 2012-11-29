@@ -1,10 +1,10 @@
 PROG		= showlive
 CUR_DEPTH	= ../../../
-CPPFLAGS	=   -I$(IPPROOT)/include\
+CPPFLAGS	=   \
                   -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) 
 OBJS		=  main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVImages -lXVTools -lmpeg\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread -L$(IPPROOT)/sharedlib -lippi -lippcc 
+		    -lpthread  
 
 # if you want to set the screen depth explicitly,
 # do it here.  Otherwise, the depth of the screen 

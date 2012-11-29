@@ -4,7 +4,7 @@ CUR_DEPTH	= ../../../
 CPPFLAGS	= -I$(CUR_DEPTH)/include -g
 OBJS		= interTest.o #test_consoles.o 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools -lXVImages -lmpeg \
-		   -lXext -lX11  -lpthread 
+		    -lpthread 
 
 all: .depend $(OBJS)
 #	$(CXX) -pg -o $(PROG1) $(OBJS) $(LIBS) -lm

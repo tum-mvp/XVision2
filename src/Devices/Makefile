@@ -4,7 +4,8 @@ CPPFLAGS	=     \
                   -I$(CUR_DEPTH)/include \
 		  -I/lib/modules/`uname -r`/build/drivers/ieee1394\
 		  -I/lib/modules/`uname -r`/build/drivers/media/video
-OBJS		=  XVV4L2.o XVImageSeq.o XVVideo.o 
+OBJS		=   \
+                   XVImageSeq.o XVVideo.o XVMpeg.o 
 #XVAVI.o is element of IPPOBJS if HAVE_IPP is set
 
 all: .depend $(OBJS)

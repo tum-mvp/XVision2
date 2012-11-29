@@ -3,7 +3,7 @@ CUR_DEPTH	= ../../../
 CPPFLAGS	= -I$(CUR_DEPTH)/include -g
 OBJS		= filter.o 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVTools\
-		   -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		    -lpthread 
 
 all: .depend $(OBJS)
 	$(CXX) -gp -o $(PROG) $(OBJS) $(LIBS) -lm

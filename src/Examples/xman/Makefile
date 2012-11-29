@@ -5,7 +5,7 @@ CPPFLAGS	=  \
                   -I$(CUR_DEPTH)/include 
 OBJS		=  Gesture.o HCIWindow.o main.o
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVCons -lXVSeg -lXVImages\
-		  -lXVTools  -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		  -lXVTools   -lpthread 
 
 all: .depend $(OBJS)
 	$(CXX) -o $(PROG) $(OBJS) $(LIBS) -lm

@@ -1,13 +1,12 @@
 CUR_DEPTH	= ../../../
-CPPFLAGS	=  -g -I/opt/local/include\
+CPPFLAGS	=   \
                   -I/lib/modules/`uname -r`/source/drivers/ieee1394\
-                  -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=32
+                  -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD) 
 OBJS		=  colorTracker.o ssdTracker.o edgeTracker.o
 PROGS           =  colorTracker ssdTracker edgeTracker
 LIBS		= -L$(CUR_DEPTH)/lib -lXVTrack -lXVDevs -lXVCons \
-		    -L/opt/local/lib\
-                   -lXVSeg -lXVTools -lXVImages -lmpeg  \
-		   -lXext -lX11  -lpthread   
+                   -lXVSeg -lXVTools -lXVImages -lmpeg -ljpeg -ltiff \
+		    -lpthread   
 
 # if you want to set the screen depth explicitly,
 # do it here.  Otherwise, the depth of the screen 
@@ -16,7 +15,7 @@ LIBS		= -L$(CUR_DEPTH)/lib -lXVTrack -lXVDevs -lXVCons \
 SD = $(shell $(CUR_DEPTH)/bin/screendepth)
 
 all: .depend $(OBJS)
-	@for i in $(PROGS); do ($(CXX)  -o $$i $$i.o $(LIBS) -lm); done
+	@for i in $(PROGS); do ($(CXX) -gp -o $$i $$i.o $(LIBS) -lm); done
 
 clean: ;	rm -f *.o
 		rm -f $(PROGS) .depend

@@ -4,7 +4,7 @@ CUR_DEPTH	= ../../../
 CPPFLAGS	= -I$(CUR_DEPTH)/include -g -DSCREEN_DEPTH=$(SD)
 OBJS		= imageIOTest.o 
 LIBS		= -L$(CUR_DEPTH)/lib -lXVCons -lXVImages -ljpeg -ltiff \
-		    -lXxf86vm -lXxf86dga -lXext -lX11 -lpng  -lpthread 
+		     -lpthread 
 
 
 # if you want to set the screen depth explicitly,

@@ -1,5 +1,5 @@
 PROGS           =  showlive play_avi show_v4l\
-		showdig showdisp
+		 
 
 install: ; @for i in $(PROGS); do (cd $$i; $(MAKE) install); done
 clean: ; @for i in $(PROGS); do (cd $$i; $(MAKE) clean); done

@@ -2,7 +2,7 @@ CUR_DEPTH = ../../../
 CPPFLAGS	= -I/usr/local/share/research/src/bttv\
                   -I$(CUR_DEPTH)/include -DSCREEN_DEPTH=$(SD) -g
 LIBS		= -L$(CUR_DEPTH)/lib -lXVDevs -lXVImages -lXVCons -lXVTools -lXVSeg -lmpeg -ljpeg -ltiff \
-		   -lXext -lX11  -lpthread 
+		    -lpthread 
 
 OBJS            = copyTest.o rowTest.o convertTest.o maskedTest.o gaussTest.o pngTest.o
 PROGS           = copyTest rowTest convertTest maskedTest gaussTest pngTest

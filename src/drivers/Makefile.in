@@ -16,8 +16,6 @@ clean: ;	rm -f *.o
 	(cd mpeg_lib-1.3.1; make clean)
 
 install: all
-	install -c libjpeg.a $(CUR_DEPTH)/lib
-	install -c libtiff.a $(CUR_DEPTH)/lib
 	(cd mpeg_lib-1.3.1; make install)
 
 mpeg: ;

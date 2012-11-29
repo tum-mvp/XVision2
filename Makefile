@@ -25,7 +25,6 @@ dist: veryclean
 	(cd include; $(MAKE) clean)
 
 config: ;	./configure $(HOST)
-		(cd src/drivers/mpeg_lib-1.3.1;./configure $(HOST))
 		(cd include; $(MAKE) install)
 		(cd src/Tools; $(MAKE) screendepth)
 		mkdir -p bin lib

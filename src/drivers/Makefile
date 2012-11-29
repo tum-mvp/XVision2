@@ -11,7 +11,7 @@ MPEGDEF         = mpeg
 
 ifdef JPEGDEF
 ifdef TIFFDEF
-all: jpeg tiff $(MPEGDEF)
+all:  $(MPEGDEF)
 	ar rv libjpeg.a $(JPEGLIB) $(OBJS)
 	ar rv libtiff.a $(TIFFLIB) $(OBJS)
 else

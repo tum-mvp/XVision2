@@ -21,7 +21,6 @@
 
 
 #include <config.h>
-#include <malloc.h>
 #include <memory.h>
 #include "mpeg.h"
 #include "dither.h"

@@ -24,7 +24,6 @@
 
 #include <config.h>
 #include <memory.h>
-#include <malloc.h>
 #include "video.h"
 #include "proto.h"
 #include "dither.h"

@@ -30,7 +30,6 @@
 #include "dither.h"
 #include "proto.h"
 #include <time.h>
-#include <malloc.h>
 #include "my_dmalloc.h"
 
 /*

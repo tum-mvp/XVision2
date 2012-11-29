@@ -21,7 +21,6 @@
 /* This file contains C code to implement an ordered dither. */
 
 #include <config.h>
-#include <malloc.h>
 #include <memory.h>
 #include "video.h"
 #include "proto.h"

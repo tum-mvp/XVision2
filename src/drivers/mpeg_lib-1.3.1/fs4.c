@@ -21,7 +21,6 @@
 /* This file contains C code to do YCrCb -> colormap space. */
 
 #include <config.h>
-#include <malloc.h>
 #include <memory.h>
 #include "fs4.h"
 #include "video.h"

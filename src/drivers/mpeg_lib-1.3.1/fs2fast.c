@@ -19,7 +19,6 @@
  * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
  */
 #include <config.h>
-#include <malloc.h>
 #include <memory.h>
 #include "video.h"
 #include "proto.h"

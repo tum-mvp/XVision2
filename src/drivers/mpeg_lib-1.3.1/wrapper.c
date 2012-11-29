@@ -44,7 +44,6 @@
 ---------------------------------------------------------------------------- */
 
 #include <config.h>
-#include <malloc.h>
 #include <memory.h>
 #include <stdio.h>
 #include <errno.h>

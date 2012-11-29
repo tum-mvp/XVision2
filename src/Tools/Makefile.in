@@ -1,6 +1,6 @@
 CUR_DEPTH	= ../../
 CXXFLAGS	= @CXXFLAGS@ @DEFS@ 
-CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ -I$(IPPROOT)/include
+CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ -I$(IPPROOT)/include `pkg-config --cflags x11`
 
 OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
 		  XVLookupTable.o @IPPTOOLS@
@@ -22,5 +22,5 @@ install: $(SDBIN) all
 
 include .depend
 
-$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC) @X_LIBS@ @LIBS@;
+$(SDBIN): ;	$(CXX) -o $(SDBIN) $(CPPFLAGS) $(SDSRC) @X_LIBS@ @LIBS@ `pkg-config --libs x11`;
 	  	install -c $(SDBIN) $(CUR_DEPTH)/bin

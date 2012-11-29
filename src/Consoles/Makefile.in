@@ -1,7 +1,7 @@
 
 CUR_DEPTH	= ../../
 CXXFLAGS	= @CXXFLAGS@  @IPPINC@ `pkg-config --cflags x11`
-CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ @IPPINC@
+CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ @IPPINC@ `pkg-config --cflags x11`
 OBJS		= XVWindowX.o XVRemoteWindowX.o
 
 all: .depend $(OBJS)

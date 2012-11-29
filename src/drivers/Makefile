@@ -15,12 +15,12 @@ all:  $(MPEGDEF)
 	ar rv libjpeg.a $(JPEGLIB) $(OBJS)
 	ar rv libtiff.a $(TIFFLIB) $(OBJS)
 else
-all: jpeg $(MPEGDEF)
+all: $(MPEGDEF)
 	ar rv libjpeg.a $(JPEGLIB)
 endif
 else
 ifdef TIFFDEF
-all: tiff $(MPEGDEF)
+all: $(MPEGDEF)
 	ar rv libtiff.a $(TIFFLIB)
 endif
 endif

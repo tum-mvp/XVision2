@@ -54,7 +54,7 @@ class XVEdgeFeature : public XVFeature<XVImageScalar<PIX_TYPE>, XVImageScalar<PI
     : XVFeature<XVImageScalar<PIX_TYPE>, XVImageScalar<PIX_TYPE>, XVLineState>(), 
       edge(e), searchWidth(sw), searchAngle(sa), 
 
-    lineWidth(lw), halfWidth(sw/2) {}
+    lineWidth(lw), halfWidth(sw/2) {currentState=st;}
   
   XVEdgeFeature(EDGETYPE e,
 		int sw = DEFAULT_SEARCH_WIDTH,

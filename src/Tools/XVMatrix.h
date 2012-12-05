@@ -201,8 +201,8 @@ public:
     /// copies of newly constructed matrices. The operators which take 
     /// This operator= sets all of the elements to x
   XVMatrix& operator=(FrReal x);
-  XVMatrix& operator=(const XVMatrix &m);
-  XVMatrix& operator<<(const XVMatrix &m);
+  XVMatrix& operator=(XVMatrix m);
+  XVMatrix& operator<<(XVMatrix m);
     /// This assigns the matrix elements, row-dominant, from an array
   XVMatrix& operator<<(FrReal*);
   XVMatrix& operator+=(FrReal x);

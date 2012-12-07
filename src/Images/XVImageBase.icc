@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #ifdef HAVE_IPP
 #include <ippi.h>
+#include <ipps.h>
 #endif
 
 using namespace std ;
@@ -63,25 +64,75 @@ XVImageBase<T> & resample (float factorX, float factorY,
 		  (round(src.Height() * factorY)));
   target.resize(targSize);
 #ifdef HAVE_IPP
+#ifdef ippiResize_8u_C3R
   IppiRect srcRoi={0,0,src.Width()-1,src.Height()-1};
   IppiSize srcSize={src.Width(),src.Height()};
   IppiSize dstRoi={targSize.Width(),targSize.Height()};
   if(target.ImageType()==XVImage_RGB24)
   {
-     ippiResize_8u_C3R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
+    ippiResize_8u_C3R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
         srcRoi,(Ipp8u *) target.lock(),target.SizeX()*sizeof(T),dstRoi,
-	(double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
+        (double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
      target.unlock();
   }
   else if(target.ImageType()==XVImage_RGB32)
   {
-     ippiResize_8u_C4R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
+    ippiResize_8u_C4R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
         srcRoi,(Ipp8u *) target.lock(),target.SizeX()*sizeof(T),dstRoi,
-	(double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
+        (double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
      target.unlock();
   }
   else
-#else
+#else // ifdef ippiResize_8u_C3R  // Changes made for IPP 7.1
+  IppiSize srcSize = {src.Width(),src.Height()};
+  IppiSize targetSize = {target.Width(),target.Height()};
+  IppiPoint targetOffset = {0,0};
+
+  int specSize = 0;
+  int initSize = 0;
+  int bufSize = 0;
+
+  // Get working buffer sizes
+  ippiResizeGetSize_8u(srcSize,targetSize,ippLinear,0,&specSize,&initSize);
+
+  // Create and configure the resize specification
+  Ipp8u *pInitBuf = ippsMalloc_8u(initSize);
+  IppiResizeSpec_32f *pSpec = (IppiResizeSpec_32f*)ippsMalloc_8u(specSize);
+  ippiResizeLinearInit_8u(srcSize, targetSize, pSpec);
+
+  if(target.ImageType()==XVImage_RGB24)
+  {
+    // Allocate the working buffer
+    ippiResizeGetBufferSize_8u(pSpec,targetSize,3,&bufSize);
+    Ipp8u* pBuffer = ippsMalloc_8u(bufSize); 
+
+    // Perform the resize
+    ippiResizeLinear_8u_C3R(
+        (const Ipp8u *)src.data(),src.SizeX()*sizeof(T),
+        (Ipp8u *)target.lock(),target.SizeX()*sizeof(T),
+        targetOffset, targetSize,
+        ippBorderRepl, 0, 
+        pSpec, pBuffer);
+    target.unlock();
+  }
+  else if(target.ImageType()==XVImage_RGB32)
+  {
+    // Allocate the working buffer
+    ippiResizeGetBufferSize_8u(pSpec,targetSize,4,&bufSize);
+    Ipp8u* pBuffer = ippsMalloc_8u(bufSize); 
+
+    // Perform the resize
+    ippiResizeLinear_8u_C4R(
+        (const Ipp8u *)src.data(),src.SizeX()*sizeof(T),
+        (Ipp8u *)target.lock(),target.SizeX()*sizeof(T),
+        targetOffset, targetSize,
+        ippBorderRepl, NULL, 
+        pSpec, pBuffer);
+    target.unlock();
+  }
+  else
+#endif // ifdef ippiResize_8u_C3R
+#else // ifdef HAVE_IPP
   {
   XVRowIterator<T>  srcIter (src);
   XVRowWIterator<T> targIter (target);

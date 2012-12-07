@@ -2,12 +2,16 @@ Install
    IPP and set IPPROOT shell environment to the root
 
 install
-   libX11-devel
-   libXau-devel
-   ffmpeg-devel
-   libXpm
-   libXi
-   libXmu-devel
+  Fedora Linux:
+    libX11-devel
+    libXau-devel
+    ffmpeg-devel
+    libXpm
+    libXi
+    libXmu-devel
+  Ubuntu Linux:
+    sudo apt-get install libv4l-dev libX11-dev libXau-dev libXpm libXi libXmu-dev 
+       
 
 call 
   make config

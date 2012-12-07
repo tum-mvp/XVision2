@@ -1,6 +1,6 @@
 CUR_DEPTH	= ../../
 CXXFLAGS	= @CXXFLAGS@ @DEFS@ 
-CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ -I$(IPPROOT)/include `pkg-config --cflags x11`
+CPPFLAGS	= -I$(CUR_DEPTH)/include @X_CFLAGS@ -I$(IPPROOT)/include `pkg-config --cflags x11` `pkg-config --cflags opencv`
 
 OBJS		= XVMatrix.o XVAffineWarp.o XVOmniWarper.o XVGeometry.o \
 		  XVLookupTable.o @IPPTOOLS@

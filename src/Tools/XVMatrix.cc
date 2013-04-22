@@ -43,6 +43,7 @@ XVMatrix::resize(int nrows, int ncols)
   if ( (nrows*ncols > csize) || (csize == 0) ) {
     dsize = nrows*ncols; csize = dsize;
     if ( data ) delete[] data;
+    if (refPtr) delete refPtr;
     data = new FrReal[csize];
   }
   // Check column room
@@ -56,38 +57,51 @@ XVMatrix::resize(int nrows, int ncols)
   for (int i=0, j=0; j<trsize; i+=ncols, ++j) {
     rowPtrs[j] = data + i;
   }
+  refPtr=NULL;
   return 1;
 }
 
 
 XVMatrix&
-XVMatrix::operator=(const XVMatrix &m)
+XVMatrix::operator=(XVMatrix m)
 {
   //CHECKSIZE(m,"Incompatible size in =");
+
+  if(dataShared()) unref();
   resize(m.rowNum, m.colNum); // now it's same with <<
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
       rowPtrs[i][j] = m.rowPtrs[i][j];
     }
   }
+  refPtr = m.ref();
+  data = m.data;
   return *this;
 }
 
 XVMatrix&
-XVMatrix::operator<<(const XVMatrix &m)
+XVMatrix::operator<<(XVMatrix m)
 {
+  if(dataShared()) unref();
   resize(m.rowNum, m.colNum);
-
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
       rowPtrs[i][j] = m.rowPtrs[i][j];
     }
   }
+  refPtr = m.ref();
+  data = m.data;
   return *this;
 }
 
+#ifdef NEVER
 XVMatrix& XVMatrix::operator<<( FrReal *x )
 {
+  if (!dataShared()) {
+    if(data )delete[] data;
+  }
+  else
+    if(refPtr)  unref();
   for (int i=0; i<rowNum; i++) {
     for (int j=0; j<colNum; j++) {
       rowPtrs[i][j] = *x++;
@@ -95,7 +109,7 @@ XVMatrix& XVMatrix::operator<<( FrReal *x )
   }
   return *this;
 }
-
+#endif
 
 XVMatrix&
 XVMatrix::operator=(FrReal x)
@@ -493,10 +507,10 @@ XVMatrix::init(XVMatrix &m,int startr, int startc, int nrows, int ncols)
 
 XVMatrix::~XVMatrix()
 {
-  delete[] rowPtrs;
+  if(rowPtrs)delete[] rowPtrs;
   if (!dataShared()) {
     if (refPtr != NULL) delete refPtr;
-    delete[] data;
+    if(data) delete[] data;
   }
   else
     unref();

@@ -26,9 +26,6 @@ endif()
 find_package(X11)
 set(HAVE_LIBX11 ${X11_FOUND})
 
-find_library(LIBXEXT Xext)
-set(HAVE_LIBXEXT ${LIBXEXT_FOUND})
-
 # SVS
 if(ENV{SVS_PATH})
   set(SVS_PATH $ENV{SVS_PATH})
@@ -51,8 +48,23 @@ check_include_files(dc1394/control.h HAVE_DC1394)
 if(HAVE_DC1394)
   set(DVFILES "v2")
   set(DVFIRE_LIBS raw1394 dc1394)
+  set(HAVE_DV 1)
+  set(HAVE_VIDEO1394_NEW 1)
+
+  find_path(VIDE01394_DIR "/dev/video1394/0")
+  set(HAVE_VIDEO1394_DIR ${VIDE01394_DIR_FOUND})
 endif()
 
+# Pthreads
+check_library_exists(pthread pthread_create "" HAVE_LIBPTHREAD)
+
+# X Libs
+check_library_exists(X11 XOpenDisplay "" HAVE_LIBX11)
+check_library_exists(Xext XShmAttach "" HAVE_LIBXEXT)
+check_library_exists(Xxf86dga XF86DGAQueryExtension "" HAVE_LIBXXF86DGA)
+check_library_exists(Xxf86vm XF86VidModeQueryExtension "" HAVE_LIBXXF86VM)
+
+check_library_exists(png png_get_copyright "" HAVE_LIBPNG)
 
 # Video4Linux2
 check_include_files(linux/videodev2.h HAVE_V4L2)
@@ -61,7 +73,13 @@ check_include_files(linux/videodev2.h HAVE_V4L2)
 check_include_files(linux/shm.h HAVE_REMAP)
 
 # System headers
-check_include_files(fcntl.h sys/ioctl.h sys/time.h unistd.h)
+check_include_files(fcntl.h HAVE_FCNTL_H)
+check_include_files(sys/ioctl.h HAVE_SYS_IOCTL_H)
+check_include_files(sys/time.h HAVE_SYS_TIME_H)
+check_include_files(unistd.h HAVE_UNISTD_H)
+check_function_exists(mmap HAVE_MMAP)
+check_function_exists(gettimeofday HAVE_GETTIMEOFDAY)
+check_function_exists(getpagesize HAVE_GETPAGESIZE)
 
 # Generate config header
 configure_file(

@@ -1,0 +1,6 @@
+include/*.h
+include/*.icc
+*.o
+.depend
+*.a
+*.so

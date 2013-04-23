@@ -5,6 +5,10 @@ find_package(PkgConfig)
 
 # Library files
 set(HEADERS
+  XVColorSeg.h
+  XVMotionSeg.h
+  XVScalarSeg.h
+  XVSegmentation.h
   )
 
 set(SOURCES
@@ -23,5 +27,8 @@ include_directories(
 add_library(XVSeg
   ${SOURCES}
   )
+
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
 
 # Install

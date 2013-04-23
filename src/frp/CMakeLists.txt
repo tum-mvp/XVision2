@@ -5,6 +5,17 @@ find_package(PkgConfig)
 
 # Library files
 set(HEADERS
+  Behavior.h
+  Collectable.h
+  Event.h
+  Functoid.h
+  Image.h
+  Lambda.h
+  Nclient.h
+  NoCollectable.h
+  Scout.h
+  Task.h
+  Track.h
   )
 
 set(SOURCES
@@ -18,8 +29,11 @@ set(SOURCES
   Nclient.c
   )
 
+execute_process(
+  COMMAND "${EXECUTABLE_OUTPUT_PATH}/screendepth"
+  OUTPUT_VARIALBE SCREEN_DEPTH)
 
-add_definitions(-DSCREEN_DEPTH=32)
+add_definitions(-DSCREEN_DEPTH=${SCREEN_DEPTH})
 
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 if(GLIB_FOUND)
@@ -34,5 +48,10 @@ include_directories(
 add_library(frp
   ${SOURCES}
   )
+
+add_dependencies(frp screendepth)
+
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
 
 # Install

@@ -1,10 +1,19 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-find_package(PkgConfig)
-
 # Library files
 set(HEADERS
+  XVFeature.h
+  XVGroupTracker.h
+  XVGroupTracker.icc
+  XVTracker.h
+  XVTracker.icc
+  Blobs/XVBlobFeature.h  
+  Blobs/XVBlobs.h
+  SSD/XVSSD.h
+  Edges/XVPattern.h
+  Edges/XVEdgeFeature.h
+  Edges/XVPattern.icc
   )
 
 set(SOURCES
@@ -35,5 +44,7 @@ add_library(XVTrack
 #add_subdirectory(Blobs)
 #add_subdirectory(SSD)
 
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
 
 # Install

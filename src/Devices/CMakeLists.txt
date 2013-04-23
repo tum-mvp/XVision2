@@ -3,6 +3,32 @@ cmake_minimum_required(VERSION 2.8)
 
 # Library files
 set(HEADERS
+  bt819.h
+  ieee1394-ioctl.h
+  Mrt.h
+  video1394.h
+  Videre.icc
+  XVDig1394.h
+  XVDig.h
+  XVMpeg.h
+  XVV4L2.h
+  DV1394.h
+  Meteor.h
+  pwc-ioctl.h
+  VideoManager.h
+  XVAVI.h
+  XVDig1394_v1.h
+  XVFlea2G.h
+  XVPv.h
+  XVVideo.h
+  DVFrame.h
+  mrt_cs.h
+  StereoVidere.h
+  Videre.h
+  XVBt8x8.h
+  XVDig1394_v2.h
+  XVImageSeq.h
+  XVPwc.h
   )
 
 set(SOURCES
@@ -53,4 +79,5 @@ add_library(XVDevs
   ${SOURCES}
   )
 
-# Install
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})

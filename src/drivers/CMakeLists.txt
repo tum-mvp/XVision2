@@ -9,9 +9,9 @@ ExternalProject_Add(
   mpeg_lib-1-3-1
   SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mpeg_lib-1.3.1"
   BUILD_IN_SOURCE 1
-  CONFIGURE_COMMAND "./configure"
+  CONFIGURE_COMMAND "./configure" "--prefix=${PROJECT_SOURCE_DIR}"
   BUILD_COMMAND make
-  INSTALL_COMMAND ""
+  INSTALL_COMMAND make install
   )
 
 ExternalProject_Add(
@@ -31,6 +31,16 @@ ExternalProject_Add(
   BUILD_COMMAND make
   INSTALL_COMMAND ""
   )
+
+# Note this is broken / out-of-date
+#ExternalProject_Add(
+  #meteor-1-5-4
+  #SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/meteor-1.5.4"
+  #BUILD_IN_SOURCE 1
+  #CONFIGURE_COMMAND ""
+  #BUILD_COMMAND make
+  #INSTALL_COMMAND ""
+  #)
 
 # Note this is broken
 #ExternalProject_Add(

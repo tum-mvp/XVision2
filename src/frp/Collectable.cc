@@ -1,6 +1,7 @@
 # include "Collectable.h"
 
 # include <set>
+# include <cstdlib>
 
 namespace frp {
 	

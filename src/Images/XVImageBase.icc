@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #ifdef HAVE_IPP
 #include <ippi.h>
+#include <ipps.h>
 #endif
 
 using namespace std ;
@@ -65,19 +66,25 @@ XVImageBase<T> & resample (float factorX, float factorY,
 #ifdef HAVE_IPP
   IppiRect srcRoi={0,0,src.Width()-1,src.Height()-1};
   IppiSize srcSize={src.Width(),src.Height()};
-  IppiSize dstRoi={targSize.Width(),targSize.Height()};
+  IppiRect dstRoi={0,0,targSize.Width(),targSize.Height()};
+  int BufferSize;
+
   if(target.ImageType()==XVImage_RGB24)
   {
-     ippiResize_8u_C3R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
+     ippiResizeGetBufSize(srcRoi, dstRoi, 3, IPPI_INTER_LINEAR, &BufferSize); 
+     Ipp8u* pBuffer = ippsMalloc_8u(BufferSize); 
+     ippiResizeSqrPixel_8u_C3R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
         srcRoi,(Ipp8u *) target.lock(),target.SizeX()*sizeof(T),dstRoi,
-	(double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
+	(double)(1/factorX),(double)(1/factorY),0,0,IPPI_INTER_LINEAR,pBuffer);
      target.unlock();
   }
   else if(target.ImageType()==XVImage_RGB32)
   {
-     ippiResize_8u_C4R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
+     ippiResizeGetBufSize(srcRoi, dstRoi, 4, IPPI_INTER_LINEAR, &BufferSize); 
+     Ipp8u* pBuffer = ippsMalloc_8u(BufferSize); 
+     ippiResizeSqrPixel_8u_C4R((const Ipp8u *)src.data(),srcSize,src.SizeX()*sizeof(T),
         srcRoi,(Ipp8u *) target.lock(),target.SizeX()*sizeof(T),dstRoi,
-	(double)(1/factorX),(double)(1/factorY),IPPI_INTER_LINEAR);
+	(double)(1/factorX),(double)(1/factorY),0,0,IPPI_INTER_LINEAR,pBuffer);
      target.unlock();
   }
   else

@@ -9,7 +9,7 @@ ExternalProject_Add(
   mpeg_lib-1-3-1
   SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mpeg_lib-1.3.1"
   BUILD_IN_SOURCE 1
-  CONFIGURE_COMMAND "./configure" "--prefix=${PROJECT_SOURCE_DIR}"
+  CONFIGURE_COMMAND "./configure" "--prefix=${EXTERNAL_PROJECT_INSTALL_PATH}"
   BUILD_COMMAND make
   INSTALL_COMMAND make install
   )

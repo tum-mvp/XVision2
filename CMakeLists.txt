@@ -1,5 +1,5 @@
 
-project(XVision2)
+project(xvision2)
 cmake_minimum_required(VERSION 2.8)
 
 # Include custom cmake modules
@@ -82,17 +82,35 @@ check_function_exists(mmap HAVE_MMAP)
 check_function_exists(gettimeofday HAVE_GETTIMEOFDAY)
 check_function_exists(getpagesize HAVE_GETPAGESIZE)
 
+# Catkin support
+option(USE_CATKIN "Use the Catkin meta-buildsystem" ON)
+if(USE_CATKIN)
+
+  set(XVISION2_LIBS XVTools XVImages XVSeg XVTrack XVDevs XVCons)
+
+  # Get the information about this package's buildtime dependencies
+  find_package(catkin REQUIRED)
+  # Declare this catkin package's runtime dependencies 
+  catkin_package(
+    INCLUDE_DIRS include
+    LIBRARIES ${XVISION2_LIBS}
+    )
+
+  set(EXTERNAL_PROJECT_INSTALL_PATH ${CATKIN_DEVEL_PREFIX})
+else()
+  # Set the lib and bin output dirs
+  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+  set(EXTERNAL_PROJECT_INSTALL_PATH ${PROJECT_SOURCE_DIR})
+endif()
+
 # Generate config header
 configure_file(
   ${PROJECT_SOURCE_DIR}/include/config.h.cmake.in 
   ${PROJECT_SOURCE_DIR}/include/config.h)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
-
-# Set the lib and bin output dirs
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 set(HEADER_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/include)
+include_directories(${HEADER_OUTPUT_PATH})
 
 # Add source (and modules)
 add_subdirectory(src/drivers)
@@ -103,3 +121,4 @@ add_subdirectory(src/Devices)
 add_subdirectory(src/Tracking)
 add_subdirectory(src/Segmentation)
 # Broken add_subdirectory(src/frp)
+

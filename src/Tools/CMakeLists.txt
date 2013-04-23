@@ -29,7 +29,7 @@ set(SOURCES
   XVLookupTable.cc
   )
 
-if(IPP_FOUND)
+if(HAVE_IPP)
   set(SOURCES ${SOURCES} XVStereoRectify.cc)
 endif()
 

@@ -11,8 +11,9 @@ find_package(PkgConfig)
 # Find optional libraries
 
 # Intel Performance Primitives
+option(USE_IPP "Use Intel Performance Primitives" ON)
 find_package(IPP)
-if(IPP_FOUND)
+if(IPP_FOUND AND USE_IPP)
   set(HAVE_IPP 1)
   include_directories(${IPP_INCLUDE_DIRS})
 endif()

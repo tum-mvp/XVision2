@@ -88,6 +88,11 @@ configure_file(
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+# Set the lib and bin output dirs
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+set(HEADER_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/include)
+
 # Add source (and modules)
 add_subdirectory(src/drivers)
 add_subdirectory(src/Tools)

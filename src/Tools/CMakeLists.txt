@@ -48,4 +48,7 @@ add_executable(screendepth sd.cc)
 target_link_libraries(screendepth  
   ${X11_LIBRARIES})
 
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
+
 # Install

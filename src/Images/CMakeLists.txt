@@ -46,4 +46,8 @@ add_library(XVImages
   ${SOURCES}
   )
 
+# Install locally
+file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
+
+
 # Install

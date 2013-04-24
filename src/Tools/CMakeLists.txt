@@ -37,9 +37,13 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${PROJECT_SOURCE_DIR}/src/Images
   )
-add_library(XVTools
-  ${SOURCES}
-  )
+
+add_library(XVTools ${SOURCES})
+target_link_libraries(XVTools XVImages)
+
+if(HAVE_IPP)
+  target_link_libraries(XVTools ${IPP_LIBRARIES})
+endif()
 
 # Screendepth program
 find_package(X11 REQUIRED)

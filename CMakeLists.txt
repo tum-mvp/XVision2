@@ -2,13 +2,43 @@
 project(xvision2)
 cmake_minimum_required(VERSION 2.8)
 
+###############################################################################
+# Dependencies
+
 # Include custom cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 include(CheckIncludeFiles)
 include(CheckLibraryExists)
 find_package(PkgConfig)
 
-# Find optional libraries
+# Catkin support
+option(USE_CATKIN "Use the Catkin meta-buildsystem" ON)
+if(USE_CATKIN)
+  # Get the information about this package's buildtime dependencies
+  find_package(catkin REQUIRED)
+
+  # Declare this catkin package's runtime dependencies 
+  catkin_package(
+    INCLUDE_DIRS include
+    LIBRARIES XVTools XVImages XVSeg XVTrack XVDevs XVCons
+    DEPENDS IPP OpenCV
+    )
+  
+  # This is used for external projects included in this source
+  set(EXTERNAL_PROJECT_INSTALL_PATH ${CATKIN_DEVEL_PREFIX})
+else()
+  # Set the lib and bin output dirs
+  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+  set(EXTERNAL_PROJECT_INSTALL_PATH ${PROJECT_SOURCE_DIR})
+endif()
+
+# OpenCV
+find_package(OpenCV REQUIRED)
+if(OpenCV_FOUND)
+  include_directories(${OpenCV_INCLUDE_DIRS})
+  link_directories(${OpenCV_LIBRARY_DIRS})
+endif()
 
 # Intel Performance Primitives
 option(USE_IPP "Use Intel Performance Primitives" ON)
@@ -16,14 +46,10 @@ find_package(IPP)
 if(IPP_FOUND AND USE_IPP)
   set(HAVE_IPP 1)
   include_directories(${IPP_INCLUDE_DIRS})
+  link_directories(${IPP_LIBRARY_DIRS})
 endif()
 
-# OpenCV
-pkg_check_modules(OPENCV REQUIRED opencv)
-if(OPENCV_FOUND)
-  include_directories(${OPENCV_INCLUDE_DIRS})
-endif()
-
+# X11
 find_package(X11)
 set(HAVE_LIBX11 ${X11_FOUND})
 
@@ -82,28 +108,6 @@ check_function_exists(mmap HAVE_MMAP)
 check_function_exists(gettimeofday HAVE_GETTIMEOFDAY)
 check_function_exists(getpagesize HAVE_GETPAGESIZE)
 
-# Catkin support
-option(USE_CATKIN "Use the Catkin meta-buildsystem" ON)
-if(USE_CATKIN)
-
-  set(XVISION2_LIBS XVTools XVImages XVSeg XVTrack XVDevs XVCons)
-
-  # Get the information about this package's buildtime dependencies
-  find_package(catkin REQUIRED)
-  # Declare this catkin package's runtime dependencies 
-  catkin_package(
-    INCLUDE_DIRS include
-    LIBRARIES ${XVISION2_LIBS}
-    )
-
-  set(EXTERNAL_PROJECT_INSTALL_PATH ${CATKIN_DEVEL_PREFIX})
-else()
-  # Set the lib and bin output dirs
-  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-  set(EXTERNAL_PROJECT_INSTALL_PATH ${PROJECT_SOURCE_DIR})
-endif()
-
 # Generate config header
 configure_file(
   ${PROJECT_SOURCE_DIR}/include/config.h.cmake.in 
@@ -111,6 +115,9 @@ configure_file(
 
 set(HEADER_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/include)
 include_directories(${HEADER_OUTPUT_PATH})
+
+###############################################################################
+# Products
 
 # Add source (and modules)
 add_subdirectory(src/drivers)
@@ -121,4 +128,3 @@ add_subdirectory(src/Devices)
 add_subdirectory(src/Tracking)
 add_subdirectory(src/Segmentation)
 # Broken add_subdirectory(src/frp)
-
